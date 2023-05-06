@@ -291,7 +291,7 @@ jobs:
     needs: [build, test, lint, typedoc]
     strategy:
       matrix:
-        artifact: ['autotool', 'autotool-plugin', 'autotool-default-plugin']
+        artifact: [] # ['autotool', 'autotool-plugin', 'autotool-default-plugin']
     steps:
       - name: checkout
         uses: actions/checkout@v3

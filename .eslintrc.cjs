@@ -4,7 +4,4 @@
 module.exports = {
 	root: true,
 	extends: ['@alexaegis/eslint-config-core'],
-	rules: {
-		'unicorn/expiring-todo-comments': 'off', // TODO: Remove me https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2076
-	},
 };
