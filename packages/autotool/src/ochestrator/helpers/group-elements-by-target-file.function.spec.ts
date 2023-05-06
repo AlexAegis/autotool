@@ -1,7 +1,6 @@
 import type { SetupPlugin, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import type { ExecutorMap } from '../executor-map.type.js';
-import type { WorkspacePackageWithElements } from '../types.interface.js';
+import type { ExecutorMap, WorkspacePackageWithElements } from '../types.js';
 import { groupAndConsolidateElementsByTargetFile } from './group-elements-by-target-file.function.js';
 
 vi.mock('globby');

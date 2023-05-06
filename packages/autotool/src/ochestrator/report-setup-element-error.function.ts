@@ -1,5 +1,5 @@
 import type { NormalizedLoggerOption } from '@alexaegis/logging';
-import type { PackageSetupElementErrorWithSourceData } from './setup-errors.js';
+import type { PackageSetupElementErrorWithSourceData } from './types.js';
 
 export const reportSetupElementError = (
 	error: PackageSetupElementErrorWithSourceData,

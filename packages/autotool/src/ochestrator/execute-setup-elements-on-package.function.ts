@@ -1,5 +1,5 @@
 import type { NormalizedSetupOptions, WorkspacePackageElementsByTarget } from 'autotool-plugin';
-import type { ExecutorMap } from './executor-map.type.js';
+import type { ExecutorMap } from './types.js';
 
 /**
  * Targeted files are executed concurrently but elements targeting the same

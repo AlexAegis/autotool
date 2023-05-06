@@ -1,5 +1,5 @@
 import type { InternalSetupElement } from 'autotool-plugin';
-import type { ExecutorMap } from '../executor-map.type.js';
+import type { ExecutorMap } from '../types.js';
 
 /**
  * Returns a smaller list of elements if their executor can consolidate them

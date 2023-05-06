@@ -1,6 +1,6 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type { InternalSetupElement, SetupPlugin } from 'autotool-plugin';
-import type { WorkspacePackageWithElements } from '../types.interface.js';
+import type { WorkspacePackageWithElements } from '../types.js';
 import { elementAndPluginFilter } from './element-and-plugin-filter.function.js';
 
 /**

@@ -1,5 +1,20 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
-import type { InternalSetupElement, SetupElement, SetupPlugin } from 'autotool-plugin';
+import type {
+	InternalSetupElement,
+	SetupElement,
+	SetupElementError,
+	SetupElementExecutor,
+	SetupPlugin,
+} from 'autotool-plugin';
+
+export type ExecutorMap = Map<string, SetupElementExecutor<SetupElement<string>>>;
+
+export interface PackageSetupElementErrorWithSourceData extends SetupElementError {
+	target: string;
+	workspacePackage: WorkspacePackage;
+	sourcePlugins: SetupPlugin[];
+	sourceElements: InternalSetupElement[];
+}
 
 export type SetupElementWithSourcePlugin = SetupElement<string> & { sourcePlugin: SetupPlugin };
 export interface WorkspacePackageWithElements {

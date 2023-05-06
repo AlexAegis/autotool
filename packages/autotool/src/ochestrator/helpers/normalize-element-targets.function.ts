@@ -4,7 +4,7 @@ import type {
 	InternalSetupElementsWithResolvedTargets,
 	WorkspacePackageWithElements,
 	WorkspacePackageWithTargetedElements,
-} from '../types.interface.js';
+} from '../types.js';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
 
 export const normalizeElementTargets = async (

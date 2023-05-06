@@ -1,6 +1,5 @@
 import type { InternalSetupElement, WorkspacePackageElementsByTarget } from 'autotool-plugin';
-import type { ExecutorMap } from '../executor-map.type.js';
-import type { WorkspacePackageWithElements } from '../types.interface.js';
+import type { ExecutorMap, WorkspacePackageWithElements } from '../types.js';
 import { consolidateSetupElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';

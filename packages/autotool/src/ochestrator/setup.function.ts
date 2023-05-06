@@ -13,7 +13,7 @@ import { executeSetupElementsOnPackage } from './execute-setup-elements-on-packa
 import { filterElementsForPackage } from './helpers/filter-elements-for-package.function.js';
 import { groupAndConsolidateElementsByTargetFile } from './helpers/group-elements-by-target-file.function.js';
 import { reportSetupElementError } from './report-setup-element-error.function.js';
-import type { PackageSetupElementErrorWithSourceData } from './setup-errors.js';
+import type { PackageSetupElementErrorWithSourceData } from './types.js';
 
 export const setup = async (rawOptions: SetupOptions): Promise<void> => {
 	const options = normalizeSetupOptions(rawOptions);

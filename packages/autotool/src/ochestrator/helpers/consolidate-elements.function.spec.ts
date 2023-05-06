@@ -1,6 +1,6 @@
 import type { InternalSetupElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import type { ExecutorMap } from '../executor-map.type.js';
+import type { ExecutorMap } from '../types.js';
 import { consolidateSetupElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
 
 describe('consolidateSetupElements', () => {
