@@ -53,8 +53,8 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autotool-postinstall": "./shims/postinstall.js",
-		"setup-everything": "./shims/setup-everything.js"
+		"autotool": "./shims/autotool.js",
+		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
 		"@alexaegis/cli-tools": "^0.1.6",
