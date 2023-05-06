@@ -17,19 +17,19 @@ export const normalizeElementTargets = async (
 		isElementUntargeted(element)
 	);
 
-	const elements = await asyncFilterMap(elementsWithTargeting, async (element) => {
+	const elements = await asyncFilterMap(elementsWithTargeting, async (packageElement) => {
 		const targetFiles: string[] = [];
 
-		if (element.targetFile) {
-			if (typeof element.targetFile === 'string') {
-				targetFiles.push(element.targetFile);
+		if (packageElement.element.targetFile) {
+			if (typeof packageElement.element.targetFile === 'string') {
+				targetFiles.push(packageElement.element.targetFile);
 			} else {
-				targetFiles.push(...element.targetFile);
+				targetFiles.push(...packageElement.element.targetFile);
 			}
 		}
 
-		if (element.targetFilePatterns) {
-			const matchedFiles = await globby(element.targetFilePatterns, {
+		if (packageElement.element.targetFilePatterns) {
+			const matchedFiles = await globby(packageElement.element.targetFilePatterns, {
 				cwd: workspacePackageWithElements.workspacePackage.packagePath,
 				dot: true,
 				globstar: true,
@@ -40,7 +40,7 @@ export const normalizeElementTargets = async (
 		}
 
 		return {
-			element,
+			element: packageElement,
 			resolvedTargetFiles: [...new Set(targetFiles)],
 		} as InternalElementsWithResolvedTargets;
 	});

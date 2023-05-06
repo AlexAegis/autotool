@@ -26,6 +26,7 @@ export interface AutotoolElement<Executor extends string> {
 	 * You can also use `targetFilePatterns` if you want to use globs
 	 * to target multiple existing files, for example if you want to remove
 	 * multiple at once.
+	 *
 	 */
 	targetFile?: string[] | string | undefined;
 
@@ -81,21 +82,6 @@ export interface AutotoolElement<Executor extends string> {
 	 * @default false
 	 */
 	deprecated?: boolean | undefined;
-
-	/**
-	 * Do not use, will be overwritten
-	 */
-	workspacePackage?: never | undefined;
-
-	/**
-	 * Do not use, will be overwritten
-	 */
-	sourcePlugin?: never | undefined;
-}
-
-export interface ElementAdditionalMetadata {
-	workspacePackage: WorkspacePackage;
-	sourcePlugin: AutotoolPlugin;
 }
 
 export interface TargetedElementAdditionalMetadata {
@@ -103,8 +89,18 @@ export interface TargetedElementAdditionalMetadata {
 	workspacePackage: WorkspacePackage;
 }
 
-export type InternalElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =
-	Omit<Element, 'workspacePackage' | 'sourcePlugin'> & ElementAdditionalMetadata;
+export type ElementForPackage<Element extends AutotoolElement<string>> = Omit<
+	Element,
+	'packageKind' | 'packageJsonFilter'
+>;
 
-export type TargetedElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =
-	Omit<InternalElement<Element>, 'targetFile'> & TargetedElementAdditionalMetadata;
+export interface PackageResolvedElement<
+	Element extends AutotoolElement<string> = AutotoolElement<string>
+> {
+	element: ElementForPackage<Element>;
+	workspacePackage: WorkspacePackage;
+	sourcePlugin: AutotoolPlugin;
+}
+
+export type AppliedElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =
+	Omit<ElementForPackage<Element>, 'targetFile' | 'targetFilePatterns' | 'type'>;

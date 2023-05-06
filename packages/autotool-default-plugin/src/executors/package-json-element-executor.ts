@@ -3,11 +3,11 @@ import type { AutotoolElementExecutor, AutotoolElementPackageJson } from 'autoto
 
 export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElementPackageJson> = {
 	type: 'package-json',
-	apply: async (element, options): Promise<void> => {
+	apply: async (element, target, options): Promise<void> => {
 		// TODO: implement writing data to PackageJson, it's already consolidated at this point
 
 		await sleep(0);
 
-		options.logger.info(`Copy ${element.executor}`);
+		options.logger.info(`Copy ${element.executor} ${target}`);
 	},
 };

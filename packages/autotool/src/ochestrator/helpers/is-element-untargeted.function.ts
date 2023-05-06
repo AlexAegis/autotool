@@ -1,6 +1,9 @@
 import { isNullish } from '@alexaegis/common';
-import { type InternalElement } from 'autotool-plugin';
+import { type PackageResolvedElement } from 'autotool-plugin';
 
-export const isElementUntargeted = (element: InternalElement): boolean => {
-	return isNullish(element.targetFile) && isNullish(element.targetFilePatterns);
+export const isElementUntargeted = (packageElement: PackageResolvedElement): boolean => {
+	return (
+		isNullish(packageElement.element.targetFile) &&
+		isNullish(packageElement.element.targetFilePatterns)
+	);
 };

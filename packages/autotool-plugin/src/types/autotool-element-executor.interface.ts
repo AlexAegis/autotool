@@ -1,9 +1,5 @@
-import type { NormalizedAutotoolOptions } from '../plugin/index.js';
-import type {
-	AutotoolElement,
-	InternalElement,
-	TargetedElement,
-} from './autotool-element.interface.js';
+import type { AutotoolElementApplyOptions } from '../plugin/index.js';
+import type { AppliedElement, AutotoolElement } from './autotool-element.interface.js';
 
 /**
  * Executors are not executed at all in `dry` mode, but for better debuggability
@@ -33,7 +29,11 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 */
 	conflictsOnTargetLevel?: string[];
 
-	apply: (element: TargetedElement<Element>, options: NormalizedAutotoolOptions) => Promise<void>;
+	apply: (
+		element: Omit<Element, 'targetFile' | 'targetFilePatterns'>,
+		targetFile: string,
+		options: AutotoolElementApplyOptions
+	) => Promise<void>;
 
 	/**
 	 * When defined, these elements can be un-applied. For elements that are
@@ -45,7 +45,10 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 *
 	 * TODO: maybe instead of undo, call it 'clean' that can always be called, there are not many scenarios where undo is truly possible, or is it better to have dedicated cleaning elements in a plugin?
 	 */
-	undo?: (element: TargetedElement<Element>, options: NormalizedAutotoolOptions) => Promise<void>;
+	undo?: (
+		element: AppliedElement<Element>,
+		options: AutotoolElementApplyOptions
+	) => Promise<void>;
 
 	/**
 	 * When defined, elements of this type are consolidated to a single element per target
@@ -63,5 +66,5 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 * @example If multiple elements try to add something to 'package.json' first they are
 	 * consolidated into one element, and only then written
 	 */
-	consolidate?: (elements: InternalElement<Element>[]) => InternalElement<Element>[];
+	consolidate?: (elements: AppliedElement<Element>[]) => AppliedElement<Element>[];
 }

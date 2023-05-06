@@ -11,7 +11,11 @@ export const reportElementError = (
 	const affectedElements = `Affected element${
 		error.sourceElements.length > 1 ? 's' : ''
 	}: ${error.sourceElements
-		.map((e) => e.executor + (e.description ? ' "' + e.description + '"' : ''))
+		.map(
+			(e) =>
+				e.element.executor +
+				(e.element.description ? ' "' + e.element.description + '"' : '')
+		)
 		.join(', ')}`;
 
 	options.logger.error(`Error:

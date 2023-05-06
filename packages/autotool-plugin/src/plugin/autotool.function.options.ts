@@ -16,6 +16,14 @@ export type NormalizedAutotoolOptions = Required<BaseAutotoolOptions> &
 	NormalizedLoggerOption &
 	NormalizedDryOption;
 
+/**
+ * Same as NormalizedAutotoolOptions but without 'dryish'
+ */
+export type AutotoolElementApplyOptions = Omit<Required<BaseAutotoolOptions>, 'dryish'> &
+	NormalizedCwdOption &
+	NormalizedLoggerOption &
+	NormalizedDryOption;
+
 export const normalizeAutotoolOptions = (options?: AutotoolOptions): NormalizedAutotoolOptions => {
 	return {
 		...normalizeCwdOption(options),

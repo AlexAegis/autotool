@@ -6,8 +6,8 @@ import { join } from 'node:path';
 export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<AutotoolElementFileSymlink> =
 	{
 		type: 'file-symlink',
-		apply: async (element, options): Promise<void> => {
-			const filePath = join(options.cwd, element.targetFile);
+		apply: async (element, target, options): Promise<void> => {
+			const filePath = join(options.cwd, target);
 			const drySymlink = dry(options.dry, symlink);
 			await drySymlink(element.sourceFile, filePath);
 			options.logger.info(`Symlink ${filePath}`);

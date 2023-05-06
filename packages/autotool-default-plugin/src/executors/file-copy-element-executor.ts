@@ -5,8 +5,8 @@ import { join } from 'node:path';
 
 export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolElementFileCopy> = {
 	type: 'file-copy',
-	apply: async (element, options): Promise<void> => {
-		const filePath = join(options.cwd, element.targetFile);
+	apply: async (element, target, options): Promise<void> => {
+		const filePath = join(options.cwd, target);
 		const dryCp = dry(options.dry, cp);
 		await dryCp(element.sourceFile, filePath);
 		options.logger.info(`Copy ${filePath}`);

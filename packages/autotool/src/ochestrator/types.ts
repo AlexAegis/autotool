@@ -4,7 +4,7 @@ import type {
 	AutotoolElementExecutor,
 	AutotoolPlugin,
 	ElementError,
-	InternalElement,
+	PackageResolvedElement,
 } from 'autotool-plugin';
 
 export type ExecutorMap = Map<string, AutotoolElementExecutor<AutotoolElement<string>>>;
@@ -13,7 +13,7 @@ export interface PackageElementErrorWithSourceData extends ElementError {
 	target: string;
 	workspacePackage: WorkspacePackage;
 	sourcePlugins: AutotoolPlugin[];
-	sourceElements: InternalElement[];
+	sourceElements: PackageResolvedElement[];
 }
 
 export type SetupElementWithSourcePlugin = AutotoolElement<string> & {
@@ -21,18 +21,18 @@ export type SetupElementWithSourcePlugin = AutotoolElement<string> & {
 };
 export interface WorkspacePackageWithElements {
 	workspacePackage: WorkspacePackage;
-	elements: InternalElement[];
+	elements: PackageResolvedElement[];
 }
 
 export interface InternalElementsWithResolvedTargets {
-	element: InternalElement;
+	element: PackageResolvedElement;
 	resolvedTargetFiles: string[];
 }
 
 export interface WorkspacePackageWithTargetedElements {
 	workspacePackage: WorkspacePackage;
 	targetedElements: InternalElementsWithResolvedTargets[];
-	untargetedElements: InternalElement[];
+	untargetedElements: PackageResolvedElement[];
 }
 
 /**

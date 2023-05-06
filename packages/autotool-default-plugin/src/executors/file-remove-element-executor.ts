@@ -1,5 +1,9 @@
 import { dry } from '@alexaegis/common';
-import type { AutotoolElementExecutor, AutotoolElementFileRemove } from 'autotool-plugin';
+import {
+	keepOnlyFirst,
+	type AutotoolElementExecutor,
+	type AutotoolElementFileRemove,
+} from 'autotool-plugin';
 import { rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
@@ -9,10 +13,23 @@ export const autotoolElementFileRemoveExecutor: AutotoolElementExecutor<Autotool
 	{
 		type: 'file-remove',
 		conflictsOnTargetLevel: [autotoolElementFileCopyExecutor.type],
-		apply: async (element, options): Promise<void> => {
-			const filePath = join(options.cwd, element.targetFile);
-			const dryRm = dry(options.dry, rm);
-			await dryRm(filePath);
+		apply: async (_element, target, options): Promise<void> => {
+			const filePath = join(options.cwd, target);
+
 			options.logger.info(`Removing ${filePath}`);
+			try {
+				const dryRm = dry(options.dry, rm);
+				await dryRm(filePath);
+			} catch (error) {
+				if ((error as { code: string }).code === 'ENOENT') {
+					options.logger.warn('Failed does not exist');
+				} else {
+					options.logger.error('Failed to remove file!', error);
+				}
+			}
 		},
+		/**
+		 * If multiple elements try to remove the same element, just delete it once
+		 */
+		consolidate: keepOnlyFirst,
 	};

@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@alexaegis/common": "^0.1.6",
+		"@alexaegis/logging": "^0.1.6",
 		"autotool-plugin": "workspace:^",
 		"minimatch": "^9.0.0"
 	},

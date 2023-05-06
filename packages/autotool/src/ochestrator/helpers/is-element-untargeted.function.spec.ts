@@ -18,7 +18,9 @@ describe('isElementUntargeted', () => {
 	it('should return true for elements that have no targeting information', () => {
 		expect(
 			isElementUntargeted({
-				executor: 'test',
+				element: {
+					executor: 'test',
+				},
 				sourcePlugin: fakeSourcePlugin,
 				workspacePackage: fakeWorkspacePackage,
 			})
@@ -28,10 +30,12 @@ describe('isElementUntargeted', () => {
 	it('should return false if it has direct targeting information', () => {
 		expect(
 			isElementUntargeted({
-				executor: 'test',
+				element: {
+					executor: 'test',
+					targetFile: 'foo',
+				},
 				sourcePlugin: fakeSourcePlugin,
 				workspacePackage: fakeWorkspacePackage,
-				targetFile: 'foo',
 			})
 		).toBeFalsy();
 	});
@@ -39,19 +43,23 @@ describe('isElementUntargeted', () => {
 	it('should return false if it has glob targeting information', () => {
 		expect(
 			isElementUntargeted({
-				executor: 'test',
+				element: {
+					executor: 'test',
+					targetFilePatterns: 'foo/**',
+				},
 				sourcePlugin: fakeSourcePlugin,
 				workspacePackage: fakeWorkspacePackage,
-				targetFilePatterns: 'foo/**',
 			})
 		).toBeFalsy();
 
 		expect(
 			isElementUntargeted({
-				executor: 'test',
+				element: {
+					executor: 'test',
+					targetFilePatterns: ['foo/**', 'bar/**'],
+				},
 				sourcePlugin: fakeSourcePlugin,
 				workspacePackage: fakeWorkspacePackage,
-				targetFilePatterns: ['foo/**', 'bar/**'],
 			})
 		).toBeFalsy();
 	});

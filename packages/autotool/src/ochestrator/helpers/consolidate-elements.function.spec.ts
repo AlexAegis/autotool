@@ -1,4 +1,4 @@
-import type { InternalElement, WorkspacePackage } from 'autotool-plugin';
+import type { PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { ExecutorMap } from '../types.js';
 import { consolidateElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
@@ -31,19 +31,23 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 	};
 
 	it('should be able to replace elements that can be consolodited', () => {
-		const element: InternalElement = {
-			executor: testElementTypeConsolidable,
+		const element: PackageResolvedElement = {
+			element: {
+				executor: testElementTypeConsolidable,
+			},
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
 		const consolidated = consolidateElementsAndFilterOutNonExecutable([element], executorMap);
 		expect(consolidated).toHaveLength(1);
-		expect(consolidated[0]).toBe(element);
+		expect(consolidated[0]).toEqual(element);
 	});
 
 	it('should not touch elements that are do not have a consolidator', () => {
-		const element: InternalElement = {
-			executor: testElementTypeNonConsolidable,
+		const element: PackageResolvedElement = {
+			element: {
+				executor: testElementTypeNonConsolidable,
+			},
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
@@ -57,13 +61,17 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 	});
 
 	it('should work with mixed elements, order does not matter', () => {
-		const elementNonConsolidable: InternalElement = {
-			executor: testElementTypeNonConsolidable,
+		const elementNonConsolidable: PackageResolvedElement = {
+			element: {
+				executor: testElementTypeNonConsolidable,
+			},
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const elementConsolidable: InternalElement = {
-			executor: testElementTypeConsolidable,
+		const elementConsolidable: PackageResolvedElement = {
+			element: {
+				executor: testElementTypeConsolidable,
+			},
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
@@ -78,13 +86,15 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 		);
 
 		expect(consolidated).toHaveLength(3);
-		expect(consolidated).toContain(elementNonConsolidable);
-		expect(consolidated).toContain(elementConsolidable);
+		expect(consolidated).toContainEqual(elementNonConsolidable);
+		expect(consolidated).toContainEqual(elementConsolidable);
 	});
 
 	it('can drop off elements without an executor, they are not valid anyway', () => {
-		const elementWithoutExecutor: InternalElement = {
-			executor: 'nonexistent',
+		const elementWithoutExecutor: PackageResolvedElement = {
+			element: {
+				executor: 'nonexistent',
+			},
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};

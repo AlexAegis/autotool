@@ -32,16 +32,20 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 			workspacePackage,
 			elements: [
 				{
-					executor: testExecutorName,
+					element: {
+						executor: testExecutorName,
+						targetFile: fooTarget,
+					},
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage,
-					targetFile: fooTarget,
 				},
 				{
-					executor: testExecutorName,
+					element: {
+						executor: testExecutorName,
+						targetFile: fooTarget,
+					},
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage,
-					targetFile: fooTarget,
 				},
 			],
 		};
@@ -57,16 +61,20 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 			workspacePackage,
 			elements: [
 				{
-					executor: testExecutorName,
+					element: {
+						executor: testExecutorName,
+						targetFilePatterns: 'foo*',
+					},
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage,
-					targetFilePatterns: 'foo*',
 				},
 				{
-					executor: testExecutorName,
+					element: {
+						executor: testExecutorName,
+						targetFilePatterns: 'foo*',
+					},
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage,
-					targetFilePatterns: 'foo*',
 				},
 			],
 		};

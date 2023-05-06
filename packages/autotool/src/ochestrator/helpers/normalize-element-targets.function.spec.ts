@@ -1,4 +1,4 @@
-import type { AutotoolPlugin, InternalElement, WorkspacePackage } from 'autotool-plugin';
+import type { AutotoolPlugin, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { InternalElementsWithResolvedTargets } from '../types.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
@@ -18,36 +18,46 @@ describe('normalizeElementTargets', () => {
 		packagePath: '',
 	};
 
-	const fooTargetingElement: InternalElement = {
-		executor: 'test',
+	const fooTargetingElement: PackageResolvedElement = {
+		element: {
+			executor: 'test',
+			targetFile: 'foo',
+		},
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
-		targetFile: 'foo',
 	};
 
-	const fooAndBarTargetingElement: InternalElement = {
-		executor: 'test',
+	const fooAndBarTargetingElement: PackageResolvedElement = {
+		element: {
+			executor: 'test',
+			targetFile: ['foo', 'bar'],
+		},
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
-		targetFile: ['foo', 'bar'],
 	};
 
-	const fooGlobTargetingElement: InternalElement = {
-		executor: 'test',
+	const fooGlobTargetingElement: PackageResolvedElement = {
+		element: {
+			executor: 'test',
+			targetFilePatterns: 'foo*',
+		},
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
-		targetFilePatterns: 'foo*',
 	};
 
-	const fooAndBarGlobTargetingElement: InternalElement = {
-		executor: 'test',
+	const fooAndBarGlobTargetingElement: PackageResolvedElement = {
+		element: {
+			executor: 'test',
+			targetFilePatterns: ['foo.js', 'foo*', 'bar*'],
+		},
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
-		targetFilePatterns: ['foo.js', 'foo*', 'bar*'],
 	};
 
-	const nonTargetingElement: InternalElement = {
-		executor: 'test',
+	const nonTargetingElement: PackageResolvedElement = {
+		element: {
+			executor: 'test',
+		},
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
 	};

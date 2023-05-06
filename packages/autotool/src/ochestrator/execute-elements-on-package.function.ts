@@ -1,4 +1,8 @@
-import type { NormalizedAutotoolOptions, WorkspacePackageElementsByTarget } from 'autotool-plugin';
+import type {
+	AutotoolElementApplyOptions,
+	NormalizedAutotoolOptions,
+	WorkspacePackageElementsByTarget,
+} from 'autotool-plugin';
 import type { ExecutorMap } from './types.js';
 
 /**
@@ -17,20 +21,39 @@ export const executeElementsOnPackage = async (
 		`processing elements targeting ${workspacePackageElementsByTarget.workspacePackage.packagePath}`
 	);
 
+	const elementOptions: AutotoolElementApplyOptions = {
+		logger: options.logger,
+		cwd: options.cwd,
+		dry: options.dryish,
+	};
+
 	await Promise.allSettled(
 		Object.entries(workspacePackageElementsByTarget.targetedElementsByFile).map(
 			async ([targetFile, elements]) => {
-				for (const element of elements) {
-					const executor = executorMap.get(element.executor);
+				for (const resolvedElement of elements) {
+					const executor = executorMap.get(resolvedElement.element.executor);
 
 					if (executor) {
-						options.logger.info(
-							`Executing element${
-								element.description ? ' "' + element.description : '" '
-							} using ${executor.type} on ${targetFile}`
-						);
-						// TODO: handle dryness
-						await executor.apply({ ...element, targetFile }, options);
+						const logMessage = `element${
+							resolvedElement.element.description
+								? ' "' + resolvedElement.element.description
+								: '" '
+						} using ${executor.type} on ${targetFile}`;
+
+						if (options.dry) {
+							options.logger.info('Dry execution, skipping ' + logMessage);
+						} else {
+							if (options.dryish) {
+								options.logger.info('Dryish execution, running ' + logMessage);
+							} else {
+								options.logger.info('Executing ' + logMessage);
+							}
+							await executor.apply(
+								resolvedElement.element,
+								targetFile,
+								elementOptions
+							);
+						}
 					} else {
 						throw new Error('Executor not found');
 					}
