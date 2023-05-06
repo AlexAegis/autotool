@@ -3,6 +3,9 @@ import type { ExecutorMap } from '../executor-map.type.js';
 
 /**
  * Returns a smaller list of elements if their executor can consolidate them
+ *
+ * Original ordering of the elements is not respected! It's not important and
+ * easier to implement like this.
  */
 export const consolidateSetupElements = (
 	elements: InternalSetupElement[],

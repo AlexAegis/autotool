@@ -1,1 +1,1 @@
-export * from './setup-everything.js';
+export * from './autotool.js';
