@@ -70,7 +70,6 @@ describe('filterElementsForPackage', () => {
 		};
 
 		const filtered = filterElementsForPackage(fakeWorkspacePackageBar, plugins);
-		console.log('filter', filtered);
 		expect(filtered.elements).toHaveLength(2);
 	});
 });

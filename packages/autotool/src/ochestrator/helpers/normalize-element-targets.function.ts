@@ -1,24 +1,20 @@
-import { asyncFilterMap, isNotNullish } from '@alexaegis/common';
-import { type InternalSetupElement } from 'autotool-plugin';
+import { asyncFilterMap } from '@alexaegis/common';
 import { globby } from 'globby';
 import type {
 	InternalSetupElementsWithResolvedTargets,
 	WorkspacePackageWithElements,
 	WorkspacePackageWithTargetedElements,
-} from './types.interface.js';
+} from '../types.interface.js';
+import { isElementUntargeted } from './is-element-untargeted.function.js';
 
-const isElementTargeting = (element: InternalSetupElement): boolean => {
-	return isNotNullish(element.targetFile) || isNotNullish(element.targetFilePatterns);
-};
-
-export const normalizeSetupElementTargets = async (
+export const normalizeElementTargets = async (
 	workspacePackageWithElements: WorkspacePackageWithElements
 ): Promise<WorkspacePackageWithTargetedElements> => {
-	const elementsWithTargeting = workspacePackageWithElements.elements.filter((element) =>
-		isElementTargeting(element)
+	const elementsWithTargeting = workspacePackageWithElements.elements.filter(
+		(element) => !isElementUntargeted(element)
 	);
-	const elementsWithoutTargeting = workspacePackageWithElements.elements.filter(
-		(element) => !isElementTargeting(element)
+	const elementsWithoutTargeting = workspacePackageWithElements.elements.filter((element) =>
+		isElementUntargeted(element)
 	);
 
 	const elements = await asyncFilterMap(elementsWithTargeting, async (element) => {

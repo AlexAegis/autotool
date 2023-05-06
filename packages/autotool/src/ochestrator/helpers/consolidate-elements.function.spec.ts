@@ -1,7 +1,7 @@
 import type { InternalSetupElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { ExecutorMap } from '../executor-map.type.js';
-import { consolidateSetupElements } from './consolidate-elements.function.js';
+import { consolidateSetupElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
 
 describe('consolidateSetupElements', () => {
 	const testElementTypeConsolidable = 'testConsolidable';
@@ -36,7 +36,10 @@ describe('consolidateSetupElements', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateSetupElements([element], executorMap);
+		const consolidated = consolidateSetupElementsAndFilterOutNonExecutable(
+			[element],
+			executorMap
+		);
 		expect(consolidated).toHaveLength(1);
 		expect(consolidated[0]).toBe(element);
 	});
@@ -47,7 +50,10 @@ describe('consolidateSetupElements', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateSetupElements([element, element], executorMap);
+		const consolidated = consolidateSetupElementsAndFilterOutNonExecutable(
+			[element, element],
+			executorMap
+		);
 		expect(consolidated).toHaveLength(2);
 		expect(consolidated[0]).toBe(element);
 		expect(consolidated[1]).toBe(element);
@@ -64,7 +70,7 @@ describe('consolidateSetupElements', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateSetupElements(
+		const consolidated = consolidateSetupElementsAndFilterOutNonExecutable(
 			[
 				elementNonConsolidable,
 				elementConsolidable,
@@ -73,9 +79,24 @@ describe('consolidateSetupElements', () => {
 			],
 			executorMap
 		);
-		console.log(consolidated);
+
 		expect(consolidated).toHaveLength(3);
 		expect(consolidated).toContain(elementNonConsolidable);
 		expect(consolidated).toContain(elementConsolidable);
+	});
+
+	it('can drop off elements without an executor, they are not valid anyway', () => {
+		const elementWithoutExecutor: InternalSetupElement = {
+			executor: 'nonexistent',
+			workspacePackage: fakeWorkspacePackage,
+			sourcePlugin: { name: 'test', elements: [] },
+		};
+
+		const consolidated = consolidateSetupElementsAndFilterOutNonExecutable(
+			[elementWithoutExecutor],
+			executorMap
+		);
+
+		expect(consolidated).toHaveLength(0);
 	});
 });

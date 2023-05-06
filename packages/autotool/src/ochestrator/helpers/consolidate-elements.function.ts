@@ -7,7 +7,7 @@ import type { ExecutorMap } from '../executor-map.type.js';
  * Original ordering of the elements is not respected! It's not important and
  * easier to implement like this.
  */
-export const consolidateSetupElements = (
+export const consolidateSetupElementsAndFilterOutNonExecutable = (
 	elements: InternalSetupElement[],
 	executorMap: ExecutorMap
 ): InternalSetupElement[] => {

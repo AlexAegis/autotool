@@ -1,15 +1,15 @@
 import type { InternalSetupElement, WorkspacePackageElementsByTarget } from 'autotool-plugin';
 import type { ExecutorMap } from '../executor-map.type.js';
-import { normalizeSetupElementTargets } from '../normalize-setup-element-target.function.js';
 import type { WorkspacePackageWithElements } from '../types.interface.js';
-import { consolidateSetupElements } from './consolidate-elements.function.js';
+import { consolidateSetupElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
+import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
 export const groupAndConsolidateElementsByTargetFile = async (
 	workspacePackage: WorkspacePackageWithElements,
 	executorMap: ExecutorMap
 ): Promise<WorkspacePackageElementsByTarget> => {
-	const resolved = await normalizeSetupElementTargets(workspacePackage);
+	const resolved = await normalizeElementTargets(workspacePackage);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
 		Record<string, InternalSetupElement[]>
 	>((groups, next) => {
@@ -28,7 +28,7 @@ export const groupAndConsolidateElementsByTargetFile = async (
 		workspacePackage: resolved.workspacePackage,
 		untargetedElements: resolved.untargetedElements,
 		targetedElementsByFile: mapRecord(targetedElementsByFile, (elements) =>
-			consolidateSetupElements(elements, executorMap)
+			consolidateSetupElementsAndFilterOutNonExecutable(elements, executorMap)
 		),
 	};
 };
