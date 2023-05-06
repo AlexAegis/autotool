@@ -1,9 +1,9 @@
-import type { SetupPlugin, WorkspacePackage } from 'autotool-plugin';
+import type { AutotoolPlugin, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it } from 'vitest';
 import { filterElementsForPackage } from './filter-elements-for-package.function.js';
 
 describe('filterElementsForPackage', () => {
-	const pluginA: SetupPlugin = {
+	const pluginA: AutotoolPlugin = {
 		name: 'a',
 		elements: [
 			{
@@ -16,7 +16,7 @@ describe('filterElementsForPackage', () => {
 		],
 	};
 
-	const pluginB: SetupPlugin = {
+	const pluginB: AutotoolPlugin = {
 		name: 'b',
 		elements: [
 			{

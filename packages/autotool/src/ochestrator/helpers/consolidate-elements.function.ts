@@ -1,4 +1,4 @@
-import type { InternalSetupElement } from 'autotool-plugin';
+import type { InternalElement } from 'autotool-plugin';
 import type { ExecutorMap } from '../types.js';
 
 /**
@@ -7,10 +7,10 @@ import type { ExecutorMap } from '../types.js';
  * Original ordering of the elements is not respected! It's not important and
  * easier to implement like this.
  */
-export const consolidateSetupElementsAndFilterOutNonExecutable = (
-	elements: InternalSetupElement[],
+export const consolidateElementsAndFilterOutNonExecutable = (
+	elements: InternalElement[],
 	executorMap: ExecutorMap
-): InternalSetupElement[] => {
+): InternalElement[] => {
 	return [...executorMap.values()].flatMap((executor) => {
 		const elementsOfExecutor = elements.filter((element) => element.executor === executor.type);
 		return executor.consolidate ? executor.consolidate(elementsOfExecutor) : elementsOfExecutor;

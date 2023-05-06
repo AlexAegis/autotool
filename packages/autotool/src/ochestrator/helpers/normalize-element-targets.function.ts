@@ -1,7 +1,7 @@
 import { asyncFilterMap } from '@alexaegis/common';
 import { globby } from 'globby';
 import type {
-	InternalSetupElementsWithResolvedTargets,
+	InternalElementsWithResolvedTargets,
 	WorkspacePackageWithElements,
 	WorkspacePackageWithTargetedElements,
 } from '../types.js';
@@ -42,7 +42,7 @@ export const normalizeElementTargets = async (
 		return {
 			element,
 			resolvedTargetFiles: [...new Set(targetFiles)],
-		} as InternalSetupElementsWithResolvedTargets;
+		} as InternalElementsWithResolvedTargets;
 	});
 
 	return {

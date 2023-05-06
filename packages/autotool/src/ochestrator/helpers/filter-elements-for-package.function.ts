@@ -1,5 +1,5 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
-import type { InternalSetupElement, SetupPlugin } from 'autotool-plugin';
+import type { AutotoolPlugin, InternalElement } from 'autotool-plugin';
 import type { WorkspacePackageWithElements } from '../types.js';
 import { elementAndPluginFilter } from './element-and-plugin-filter.function.js';
 
@@ -8,7 +8,7 @@ import { elementAndPluginFilter } from './element-and-plugin-filter.function.js'
  */
 export const filterElementsForPackage = (
 	workspacePackage: WorkspacePackage,
-	setupPlugins: SetupPlugin[]
+	setupPlugins: AutotoolPlugin[]
 ): WorkspacePackageWithElements => {
 	return {
 		workspacePackage,
@@ -17,7 +17,7 @@ export const filterElementsForPackage = (
 			.flatMap((sourcePlugin) =>
 				sourcePlugin.elements
 					.filter((element) => elementAndPluginFilter(workspacePackage, element))
-					.map<InternalSetupElement>((element) => ({
+					.map<InternalElement>((element) => ({
 						...element,
 						sourcePlugin,
 						workspacePackage,

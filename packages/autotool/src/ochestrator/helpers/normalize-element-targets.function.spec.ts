@@ -1,12 +1,12 @@
-import type { InternalSetupElement, SetupPlugin, WorkspacePackage } from 'autotool-plugin';
+import type { AutotoolPlugin, InternalElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import type { InternalSetupElementsWithResolvedTargets } from '../types.js';
+import type { InternalElementsWithResolvedTargets } from '../types.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
 vi.mock('globby');
 
 describe('normalizeElementTargets', () => {
-	const fakeSourcePlugin: SetupPlugin = {
+	const fakeSourcePlugin: AutotoolPlugin = {
 		elements: [],
 		name: 'foo',
 	};
@@ -18,35 +18,35 @@ describe('normalizeElementTargets', () => {
 		packagePath: '',
 	};
 
-	const fooTargetingElement: InternalSetupElement = {
+	const fooTargetingElement: InternalElement = {
 		executor: 'test',
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
 		targetFile: 'foo',
 	};
 
-	const fooAndBarTargetingElement: InternalSetupElement = {
+	const fooAndBarTargetingElement: InternalElement = {
 		executor: 'test',
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
 		targetFile: ['foo', 'bar'],
 	};
 
-	const fooGlobTargetingElement: InternalSetupElement = {
+	const fooGlobTargetingElement: InternalElement = {
 		executor: 'test',
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
 		targetFilePatterns: 'foo*',
 	};
 
-	const fooAndBarGlobTargetingElement: InternalSetupElement = {
+	const fooAndBarGlobTargetingElement: InternalElement = {
 		executor: 'test',
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
 		targetFilePatterns: ['foo.js', 'foo*', 'bar*'],
 	};
 
-	const nonTargetingElement: InternalSetupElement = {
+	const nonTargetingElement: InternalElement = {
 		executor: 'test',
 		sourcePlugin: fakeSourcePlugin,
 		workspacePackage: fakeWorkspacePackage,
@@ -57,7 +57,7 @@ describe('normalizeElementTargets', () => {
 			elements: [fooTargetingElement, fooTargetingElement],
 			workspacePackage: fakeWorkspacePackage,
 		});
-		expect(normalized.targetedElements).toEqual<InternalSetupElementsWithResolvedTargets[]>([
+		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
 				resolvedTargetFiles: ['foo'],
 				element: fooTargetingElement,
@@ -76,7 +76,7 @@ describe('normalizeElementTargets', () => {
 			elements: [fooAndBarTargetingElement],
 			workspacePackage: fakeWorkspacePackage,
 		});
-		expect(normalized.targetedElements).toEqual<InternalSetupElementsWithResolvedTargets[]>([
+		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
 				resolvedTargetFiles: ['foo', 'bar'],
 				element: fooAndBarTargetingElement,
@@ -92,7 +92,7 @@ describe('normalizeElementTargets', () => {
 			workspacePackage: fakeWorkspacePackage,
 		});
 
-		expect(normalized.targetedElements).toEqual<InternalSetupElementsWithResolvedTargets[]>([
+		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
 				resolvedTargetFiles: ['foo.js', 'foo.ts'],
 				element: fooGlobTargetingElement,

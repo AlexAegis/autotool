@@ -1,5 +1,5 @@
 import { PACKAGE_JSON_NAME, type WorkspacePackage } from '@alexaegis/workspace-tools';
-import type { SetupPluginFilter } from 'autotool-plugin';
+import type { AutotoolPluginFilter } from 'autotool-plugin';
 import { describe, expect, it } from 'vitest';
 import { elementAndPluginFilter } from './element-and-plugin-filter.function.js';
 
@@ -36,7 +36,7 @@ describe('elementAndPluginFilter', () => {
 
 	describe('packageKind filtering', () => {
 		it('should be able filter out only regular packages', () => {
-			const filter: SetupPluginFilter = {
+			const filter: AutotoolPluginFilter = {
 				packageKind: 'regular',
 			};
 			expect(elementAndPluginFilter(rootPackage, filter)).toBeFalsy();
@@ -45,7 +45,7 @@ describe('elementAndPluginFilter', () => {
 		});
 
 		it('should be able filter out only root packages', () => {
-			const filter: SetupPluginFilter = {
+			const filter: AutotoolPluginFilter = {
 				packageKind: 'root',
 			};
 			expect(elementAndPluginFilter(rootPackage, filter)).toBeTruthy();
@@ -54,14 +54,14 @@ describe('elementAndPluginFilter', () => {
 		});
 
 		it('should be able keep both kinds when not defined', () => {
-			const filter: SetupPluginFilter = {};
+			const filter: AutotoolPluginFilter = {};
 			expect(elementAndPluginFilter(rootPackage, filter)).toBeTruthy();
 			expect(elementAndPluginFilter(regularPackageZed, filter)).toBeTruthy();
 			expect(elementAndPluginFilter(regularPackageZod, filter)).toBeTruthy();
 		});
 
 		it('should be able keep both kinds when explicitly defined to keep both', () => {
-			const filter: SetupPluginFilter = {
+			const filter: AutotoolPluginFilter = {
 				packageKind: 'all',
 			};
 			expect(elementAndPluginFilter(rootPackage, filter)).toBeTruthy();
@@ -72,7 +72,7 @@ describe('elementAndPluginFilter', () => {
 
 	describe('packageJson filtering', () => {
 		it('should be able filter out only regular packages', () => {
-			const filter: SetupPluginFilter = {
+			const filter: AutotoolPluginFilter = {
 				packageJsonFilter: {
 					name: (name) => name.startsWith('z'),
 				},
@@ -85,7 +85,7 @@ describe('elementAndPluginFilter', () => {
 
 	describe('mixed filtering', () => {
 		it('should be able filter using both', () => {
-			const filter: SetupPluginFilter = {
+			const filter: AutotoolPluginFilter = {
 				packageKind: 'regular',
 				packageJsonFilter: {
 					private: true,

@@ -191,18 +191,6 @@ importers:
       '@alexaegis/common':
         specifier: ^0.1.6
         version: 0.1.6
-      '@alexaegis/fs':
-        specifier: ^0.1.6
-        version: 0.1.6
-      '@alexaegis/logging':
-        specifier: ^0.1.6
-        version: 0.1.6
-      '@alexaegis/match':
-        specifier: ^0.1.6
-        version: 0.1.6
-      '@alexaegis/workspace-tools':
-        specifier: ^0.1.6
-        version: 0.1.6
       autotool-plugin:
         specifier: workspace:^
         version: link:../autotool-plugin

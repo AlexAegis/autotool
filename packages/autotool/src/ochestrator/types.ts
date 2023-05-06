@@ -1,36 +1,38 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
-	InternalSetupElement,
-	SetupElement,
-	SetupElementError,
-	SetupElementExecutor,
-	SetupPlugin,
+	AutotoolElement,
+	AutotoolElementExecutor,
+	AutotoolPlugin,
+	ElementError,
+	InternalElement,
 } from 'autotool-plugin';
 
-export type ExecutorMap = Map<string, SetupElementExecutor<SetupElement<string>>>;
+export type ExecutorMap = Map<string, AutotoolElementExecutor<AutotoolElement<string>>>;
 
-export interface PackageSetupElementErrorWithSourceData extends SetupElementError {
+export interface PackageElementErrorWithSourceData extends ElementError {
 	target: string;
 	workspacePackage: WorkspacePackage;
-	sourcePlugins: SetupPlugin[];
-	sourceElements: InternalSetupElement[];
+	sourcePlugins: AutotoolPlugin[];
+	sourceElements: InternalElement[];
 }
 
-export type SetupElementWithSourcePlugin = SetupElement<string> & { sourcePlugin: SetupPlugin };
+export type SetupElementWithSourcePlugin = AutotoolElement<string> & {
+	sourcePlugin: AutotoolPlugin;
+};
 export interface WorkspacePackageWithElements {
 	workspacePackage: WorkspacePackage;
-	elements: InternalSetupElement[];
+	elements: InternalElement[];
 }
 
-export interface InternalSetupElementsWithResolvedTargets {
-	element: InternalSetupElement;
+export interface InternalElementsWithResolvedTargets {
+	element: InternalElement;
 	resolvedTargetFiles: string[];
 }
 
 export interface WorkspacePackageWithTargetedElements {
 	workspacePackage: WorkspacePackage;
-	targetedElements: InternalSetupElementsWithResolvedTargets[];
-	untargetedElements: InternalSetupElement[];
+	targetedElements: InternalElementsWithResolvedTargets[];
+	untargetedElements: InternalElement[];
 }
 
 /**

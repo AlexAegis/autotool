@@ -1,6 +1,6 @@
 {
 	"name": "autotool",
-	"description": "Setup orchestrator",
+	"description": "Workspace transformation orchestrator",
 	"version": "0.0.1",
 	"license": "MIT",
 	"private": false,

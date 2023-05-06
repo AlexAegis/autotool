@@ -1,15 +1,14 @@
 import {
 	getAssumedFinalInstallLocationOfPackage,
-	normalizeSetupPluginOptions,
-	type SetupElementFileCopy,
-	type SetupPlugin,
-	type SetupPluginOptions,
+	normalizeAutotoolPluginOptions,
+	type AutotoolElementFileCopy,
+	type AutotoolPluginFactory,
 } from 'autotool-plugin';
 import { join } from 'node:path';
 import packageJson from '../package.json';
 
-export const tsSetupPlugin = (rawOptions: SetupPluginOptions): SetupPlugin | undefined => {
-	const options = normalizeSetupPluginOptions(rawOptions);
+export const tsPlugin: AutotoolPluginFactory = (rawOptions) => {
+	const options = normalizeAutotoolPluginOptions(rawOptions);
 	const logger = options.logger.getSubLogger({ name: 'ts' });
 	const packageDirectory = getAssumedFinalInstallLocationOfPackage(options, packageJson);
 
@@ -83,7 +82,7 @@ export const tsSetupPlugin = (rawOptions: SetupPluginOptions): SetupPlugin | und
 					},
 				},
 			},
-			...['base', 'web', 'svelte', 'node'].map<SetupElementFileCopy>((flavour) => ({
+			...['base', 'web', 'svelte', 'node'].map<AutotoolElementFileCopy>((flavour) => ({
 				name: `copy tsconfig for ${flavour} packages`,
 				executor: 'file-copy',
 				packageKind: 'regular',
@@ -99,3 +98,5 @@ export const tsSetupPlugin = (rawOptions: SetupPluginOptions): SetupPlugin | und
 		],
 	};
 };
+
+export default tsPlugin;

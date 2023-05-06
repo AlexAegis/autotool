@@ -1,9 +1,9 @@
-import type { SetupPlugin, WorkspacePackage } from 'autotool-plugin';
+import type { AutotoolPlugin, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it } from 'vitest';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
 
 describe('isElementUntargeted', () => {
-	const fakeSourcePlugin: SetupPlugin = {
+	const fakeSourcePlugin: AutotoolPlugin = {
 		elements: [],
 		name: 'foo',
 	};

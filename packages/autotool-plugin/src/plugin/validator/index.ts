@@ -1,2 +1,2 @@
-export * from './setup-element-error.interface.js';
-export * from './setup-validator.interface.js';
+export * from './element-error.interface.js';
+export * from './element-validator.interface.js';
