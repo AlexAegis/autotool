@@ -1,4 +1,4 @@
-import { sleep } from '@alexaegis/common';
+import { deepMerge, sleep } from '@alexaegis/common';
 import type { AutotoolElementExecutor, AutotoolElementPackageJson } from 'autotool-plugin';
 
 export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElementPackageJson> = {
@@ -8,6 +8,15 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 		await sleep(0);
 
-		options.logger.info(`Copy ${element.executor} ${target}`);
+		options.logger.info(`Copy ${element.executor} ${target.targetFilePackageRelative}`);
+	},
+	consolidate: (elements) => {
+		const first = elements[0];
+		return first
+			? elements.reduce((acc, element) => {
+					acc.data = deepMerge(acc.data, element.data);
+					return acc;
+			  }, first)
+			: undefined;
 	},
 };

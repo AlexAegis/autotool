@@ -1,5 +1,6 @@
 import type {
 	AutotoolElementApplyOptions,
+	ElementTarget,
 	NormalizedAutotoolOptions,
 	WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
@@ -30,6 +31,15 @@ export const executeElementsOnPackage = async (
 	await Promise.allSettled(
 		Object.entries(workspacePackageElementsByTarget.targetedElementsByFile).map(
 			async ([targetFile, elements]) => {
+				console.log('executeElementsOnPackage targetFile', targetFile);
+
+				const target: ElementTarget = {
+					targetFilePackageRelative: targetFile,
+					targetFilePath: targetFile,
+					targetFilePathAbsolute: targetFile,
+					workspacePackage: workspacePackageElementsByTarget.workspacePackage,
+				};
+
 				for (const resolvedElement of elements) {
 					const executor = executorMap.get(resolvedElement.element.executor);
 
@@ -48,11 +58,7 @@ export const executeElementsOnPackage = async (
 							} else {
 								options.logger.info('Executing ' + logMessage);
 							}
-							await executor.apply(
-								resolvedElement.element,
-								targetFile,
-								elementOptions
-							);
+							await executor.apply(resolvedElement.element, target, elementOptions);
 						}
 					} else {
 						throw new Error('Executor not found');

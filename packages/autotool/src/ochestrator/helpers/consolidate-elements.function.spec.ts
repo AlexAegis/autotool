@@ -1,7 +1,7 @@
 import type { PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { ExecutorMap } from '../types.js';
-import { consolidateElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
+import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 
 describe('consolidateElementsAndFilterOutNonExecutable', () => {
 	const testElementTypeConsolidable = 'testConsolidable';
@@ -38,7 +38,11 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateElementsAndFilterOutNonExecutable([element], executorMap);
+		const consolidated = consolidateElementsAndFilterOutNonExecutables(
+			[element],
+			fakeWorkspacePackage,
+			executorMap
+		);
 		expect(consolidated).toHaveLength(1);
 		expect(consolidated[0]).toEqual(element);
 	});
@@ -51,8 +55,9 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateElementsAndFilterOutNonExecutable(
+		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[element, element],
+			fakeWorkspacePackage,
 			executorMap
 		);
 		expect(consolidated).toHaveLength(2);
@@ -75,13 +80,14 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			workspacePackage: fakeWorkspacePackage,
 			sourcePlugin: { name: 'test', elements: [] },
 		};
-		const consolidated = consolidateElementsAndFilterOutNonExecutable(
+		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[
 				elementNonConsolidable,
 				elementConsolidable,
 				elementNonConsolidable,
 				elementConsolidable,
 			],
+			fakeWorkspacePackage,
 			executorMap
 		);
 
@@ -99,8 +105,9 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			sourcePlugin: { name: 'test', elements: [] },
 		};
 
-		const consolidated = consolidateElementsAndFilterOutNonExecutable(
+		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[elementWithoutExecutor],
+			fakeWorkspacePackage,
 			executorMap
 		);
 

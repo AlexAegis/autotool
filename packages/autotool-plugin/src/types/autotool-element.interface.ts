@@ -99,7 +99,7 @@ export interface PackageResolvedElement<
 > {
 	element: ElementForPackage<Element>;
 	workspacePackage: WorkspacePackage;
-	sourcePlugin: AutotoolPlugin;
+	sourcePlugin: AutotoolPlugin | AutotoolPlugin[];
 }
 
 export type AppliedElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =

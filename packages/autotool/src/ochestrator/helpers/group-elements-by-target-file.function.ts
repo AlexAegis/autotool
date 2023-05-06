@@ -1,6 +1,6 @@
 import type { PackageResolvedElement, WorkspacePackageElementsByTarget } from 'autotool-plugin';
 import type { ExecutorMap, WorkspacePackageWithElements } from '../types.js';
-import { consolidateElementsAndFilterOutNonExecutable } from './consolidate-elements.function.js';
+import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
@@ -27,7 +27,11 @@ export const groupAndConsolidateElementsByTargetFile = async (
 		workspacePackage: resolved.workspacePackage,
 		untargetedElements: resolved.untargetedElements,
 		targetedElementsByFile: mapRecord(targetedElementsByFile, (elements) =>
-			consolidateElementsAndFilterOutNonExecutable(elements, executorMap)
+			consolidateElementsAndFilterOutNonExecutables(
+				elements,
+				resolved.workspacePackage,
+				executorMap
+			)
 		),
 	};
 };

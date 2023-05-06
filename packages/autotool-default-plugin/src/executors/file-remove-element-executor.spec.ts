@@ -1,6 +1,6 @@
 import type { Logger } from '@alexaegis/logging';
 import { MockLogger } from '@alexaegis/logging/mocks';
-import type { AppliedElement, AutotoolElementFileRemove } from 'autotool-plugin';
+import type { AppliedElement, AutotoolElementFileRemove, ElementTarget } from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementFileRemoveExecutor } from './file-remove-element-executor.js';
 
@@ -20,12 +20,24 @@ describe('autotoolElementFileRemoveExecutor', () => {
 	const mockLogger = new MockLogger();
 	const logger = mockLogger as unknown as Logger<unknown>;
 
+	const fakeTarget: ElementTarget = {
+		targetFilePackageRelative: 'foo.txt',
+		targetFilePath: 'projects/foo/foo.txt',
+		targetFilePathAbsolute: '/project/projects/foo/foo.txt',
+		workspacePackage: {
+			packageJson: {},
+			packageJsonPath: '/project/projects/foo/package.json',
+			packageKind: 'regular',
+			packagePath: '/project/projects/foo',
+		},
+	};
+
 	afterEach(() => {
 		vi.clearAllMocks();
 	});
 
 	it('should remove the target file', async () => {
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, 'foo', {
+		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,
@@ -38,7 +50,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 	});
 
 	it("should not remove the target file if it's a dry run", async () => {
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, 'foo', {
+		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: true,
 			logger,
@@ -56,7 +68,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			throw { code: 'ENOENT' };
 		});
 
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, 'nonexistent', {
+		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,
@@ -74,7 +86,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			throw { code: 'SOMETHINGELSE' };
 		});
 
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, 'somethingreallywrong', {
+		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,

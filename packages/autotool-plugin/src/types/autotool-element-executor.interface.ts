@@ -1,5 +1,22 @@
+import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type { AutotoolElementApplyOptions } from '../plugin/index.js';
 import type { AppliedElement, AutotoolElement } from './autotool-element.interface.js';
+
+export interface ElementTarget {
+	workspacePackage: WorkspacePackage;
+	/**
+	 * The path to the target file from `cwd`
+	 */
+	targetFilePath: string;
+	/**
+	 * The absolute path to the target file
+	 */
+	targetFilePathAbsolute: string;
+	/**
+	 * The path to the file from the directory of the packageFile
+	 */
+	targetFilePackageRelative: string;
+}
 
 /**
  * Executors are not executed at all in `dry` mode, but for better debuggability
@@ -31,7 +48,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 
 	apply: (
 		element: Omit<Element, 'targetFile' | 'targetFilePatterns'>,
-		targetFile: string,
+		target: ElementTarget,
 		options: AutotoolElementApplyOptions
 	) => Promise<void>;
 
@@ -66,5 +83,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 * @example If multiple elements try to add something to 'package.json' first they are
 	 * consolidated into one element, and only then written
 	 */
-	consolidate?: (elements: AppliedElement<Element>[]) => AppliedElement<Element>[];
+	consolidate?: (
+		elements: AppliedElement<Element>[]
+	) => AppliedElement<Element>[] | AppliedElement<Element> | undefined;
 }
