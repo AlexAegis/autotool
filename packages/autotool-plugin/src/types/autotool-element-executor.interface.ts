@@ -1,9 +1,9 @@
+import type { NormalizedAutotoolOptions } from '../plugin/index.js';
 import type {
 	AutotoolElement,
 	InternalElement,
 	TargetedElement,
 } from './autotool-element.interface.js';
-import type { NormalizedAutotoolOptions } from './autotool.function.options.js';
 
 /**
  * Executors are not executed at all in `dry` mode, but for better debuggability

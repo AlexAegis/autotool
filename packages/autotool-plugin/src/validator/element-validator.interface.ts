@@ -1,5 +1,4 @@
-import type { AutotoolElement } from '../autotool-element.interface.js';
-import type { WorkspacePackageElementsByTarget } from '../workspace-package-elements-by-target.interface.js';
+import type { AutotoolElement, WorkspacePackageElementsByTarget } from '../types/index.js';
 import type { ElementError } from './element-error.interface.js';
 
 /**

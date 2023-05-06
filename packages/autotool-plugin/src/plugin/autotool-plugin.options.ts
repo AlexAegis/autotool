@@ -10,13 +10,13 @@ export interface BaseAutotoolPluginOptions {
 }
 
 export type AutotoolPluginOptions = CwdOption & LoggerOption & BaseAutotoolPluginOptions;
-export type NormalizedSetupPluginOptions = NormalizedCwdOption &
+export type NormalizedAutotoolPluginOptions = NormalizedCwdOption &
 	NormalizedLoggerOption &
 	Required<BaseAutotoolPluginOptions>;
 
 export const normalizeAutotoolPluginOptions = (
 	options: AutotoolPluginOptions
-): NormalizedSetupPluginOptions => {
+): NormalizedAutotoolPluginOptions => {
 	return {
 		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),

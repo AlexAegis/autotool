@@ -1,8 +1,10 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
-import type { AutotoolElement, AutotoolPluginOptions, DefaultAutotoolElements } from '../index.js';
+import type { DefaultAutotoolElements } from '../default/index.js';
+import type { AutotoolPluginOptions } from '../plugin/index.js';
+import type { AutotoolElementValidator } from '../validator/element-validator.interface.js';
 import type { AutotoolElementExecutor } from './autotool-element-executor.interface.js';
+import type { AutotoolElement } from './autotool-element.interface.js';
 import type { PackageJsonFilter } from './package-json-filter.interface.js';
-import type { AutotoolElementValidator } from './validator/element-validator.interface.js';
 
 export type AutotoolPluginElementPackageTargetKind = WorkspacePackage['packageKind'] | 'all';
 

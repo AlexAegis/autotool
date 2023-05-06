@@ -1,6 +1,6 @@
 {
 	"name": "autotool-plugin",
-	"description": "Base package for autotool plugins",
+	"description": "Base package for autotool plugin development",
 	"version": "0.0.1",
 	"license": "MIT",
 	"private": false,
