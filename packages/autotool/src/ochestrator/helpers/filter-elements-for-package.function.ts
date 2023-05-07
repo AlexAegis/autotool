@@ -14,14 +14,15 @@ export const filterElementsForPackage = (
 		workspacePackage,
 		elements: setupPlugins
 			.filter((plugin) => elementAndPluginFilter(workspacePackage, plugin))
-			.flatMap((sourcePlugin) =>
-				sourcePlugin.elements
-					.filter((element) => elementAndPluginFilter(workspacePackage, element))
-					.map<PackageResolvedElement>((element) => ({
-						element,
-						sourcePlugin,
-						workspacePackage,
-					}))
+			.flatMap(
+				(sourcePlugin) =>
+					sourcePlugin.elements
+						?.filter((element) => elementAndPluginFilter(workspacePackage, element))
+						.map<PackageResolvedElement>((element) => ({
+							element,
+							sourcePlugin,
+							workspacePackage,
+						})) ?? []
 			),
 	};
 };

@@ -4,7 +4,7 @@ import { symlink } from 'node:fs/promises';
 
 export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<AutotoolElementFileSymlink> =
 	{
-		type: 'file-symlink',
+		type: 'fileSymlink',
 		apply: async (element, target, options): Promise<void> => {
 			const drySymlink = dry(options.dry, symlink);
 			await drySymlink(element.sourceFile, target.targetFilePath);

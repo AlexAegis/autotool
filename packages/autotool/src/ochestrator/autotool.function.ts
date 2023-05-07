@@ -21,7 +21,13 @@ export const createExecutorMap = (
 ): ExecutorMap => {
 	return plugins.reduce((executorMap, plugin) => {
 		if (plugin.executors) {
-			for (const executor of plugin.executors) {
+			plugin.executors;
+			for (const [key, executor] of Object.entries(plugin.executors)) {
+				if (key !== executor.type) {
+					options.logger.warn(
+						`Executor ${executor.type} was declared with the wrong key (${key}) in ${plugin.name}!`
+					);
+				}
 				if (executorMap.has(executor.type)) {
 					options.logger.warn(
 						`Executor ${executor.type} already loaded! Plugin: ${plugin.name} trying to load it again!`
@@ -32,7 +38,7 @@ export const createExecutorMap = (
 			}
 		}
 		return executorMap;
-	}, new Map<string, AutotoolElementExecutor<AutotoolElement<string>>>());
+	}, new Map<string, AutotoolElementExecutor<AutotoolElement>>());
 };
 
 export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {

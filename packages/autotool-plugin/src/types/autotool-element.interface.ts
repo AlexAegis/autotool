@@ -5,7 +5,7 @@ import type {
 } from './autotool-plugin.interface.js';
 import type { PackageJsonFilter } from './package-json-filter.interface.js';
 
-export interface AutotoolElement<Executor extends string> {
+export interface AutotoolElement<Executor extends string = string> {
 	/**
 	 * Type of the element, used identify the executor for it.
 	 */
@@ -89,18 +89,18 @@ export interface TargetedElementAdditionalMetadata {
 	workspacePackage: WorkspacePackage;
 }
 
-export type ElementForPackage<Element extends AutotoolElement<string>> = Omit<
+export type ElementForPackage<Element extends AutotoolElement | unknown> = Omit<
 	Element,
 	'packageKind' | 'packageJsonFilter'
 >;
 
-export interface PackageResolvedElement<
-	Element extends AutotoolElement<string> = AutotoolElement<string>
-> {
+export interface PackageResolvedElement<Element extends AutotoolElement = AutotoolElement> {
 	element: ElementForPackage<Element>;
 	workspacePackage: WorkspacePackage;
-	sourcePlugin: AutotoolPluginObject | AutotoolPluginObject[];
+	sourcePlugin: AutotoolPluginObject<Element> | AutotoolPluginObject<Element>[];
 }
 
-export type AppliedElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =
-	Omit<ElementForPackage<Element>, 'targetFile' | 'targetFilePatterns' | 'type'>;
+export type AppliedElement<Element extends AutotoolElement | unknown = AutotoolElement> = Omit<
+	ElementForPackage<Element>,
+	'targetFile' | 'targetFilePatterns' | 'type'
+>;

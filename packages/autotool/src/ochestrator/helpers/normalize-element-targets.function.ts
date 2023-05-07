@@ -1,4 +1,5 @@
 import { asyncFilterMap } from '@alexaegis/common';
+import type { AutotoolElement } from 'autotool-plugin';
 import { globby } from 'globby';
 import type {
 	InternalElementsWithResolvedTargets,
@@ -7,9 +8,9 @@ import type {
 } from '../types.js';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
 
-export const normalizeElementTargets = async (
-	workspacePackageWithElements: WorkspacePackageWithElements
-): Promise<WorkspacePackageWithTargetedElements> => {
+export const normalizeElementTargets = async <Elements extends AutotoolElement = AutotoolElement>(
+	workspacePackageWithElements: WorkspacePackageWithElements<Elements>
+): Promise<WorkspacePackageWithTargetedElements<Elements>> => {
 	const elementsWithTargeting = workspacePackageWithElements.elements.filter(
 		(element) => !isElementUntargeted(element)
 	);
@@ -42,7 +43,7 @@ export const normalizeElementTargets = async (
 		return {
 			element: packageElement,
 			resolvedTargetFiles: [...new Set(targetFiles)],
-		} as InternalElementsWithResolvedTargets;
+		} as InternalElementsWithResolvedTargets<Elements>;
 	});
 
 	return {

@@ -14,7 +14,7 @@ vi.mock('fs/promises', () => {
 
 describe('autotoolElementFileRemoveExecutor', () => {
 	const fakeResolvedElement: AppliedElement<AutotoolElementFileRemove> = {
-		executor: 'file-remove',
+		executor: 'fileRemove',
 	};
 
 	const mockLogger = new MockLogger();

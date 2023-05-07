@@ -7,7 +7,10 @@ import type {
 	PackageResolvedElement,
 } from 'autotool-plugin';
 
-export type ExecutorMap = Map<string, AutotoolElementExecutor<AutotoolElement<string>>>;
+export type ExecutorMap<Elements extends AutotoolElement = AutotoolElement> = Map<
+	string,
+	AutotoolElementExecutor<Elements>
+>;
 
 export interface PackageElementErrorWithSourceData extends ElementError {
 	target: string;
@@ -16,20 +19,24 @@ export interface PackageElementErrorWithSourceData extends ElementError {
 	sourceElements: PackageResolvedElement[];
 }
 
-export interface WorkspacePackageWithElements {
+export interface WorkspacePackageWithElements<Elements extends AutotoolElement = AutotoolElement> {
 	workspacePackage: WorkspacePackage;
-	elements: PackageResolvedElement[];
+	elements: PackageResolvedElement<Elements>[];
 }
 
-export interface InternalElementsWithResolvedTargets {
-	element: PackageResolvedElement;
+export interface InternalElementsWithResolvedTargets<
+	Elements extends AutotoolElement = AutotoolElement
+> {
+	element: PackageResolvedElement<Elements>;
 	resolvedTargetFiles: string[];
 }
 
-export interface WorkspacePackageWithTargetedElements {
+export interface WorkspacePackageWithTargetedElements<
+	Elements extends AutotoolElement = AutotoolElement
+> {
 	workspacePackage: WorkspacePackage;
-	targetedElements: InternalElementsWithResolvedTargets[];
-	untargetedElements: PackageResolvedElement[];
+	targetedElements: InternalElementsWithResolvedTargets<Elements>[];
+	untargetedElements: PackageResolvedElement<Elements>[];
 }
 
 /**

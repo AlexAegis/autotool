@@ -31,9 +31,12 @@ export interface AutotoolPluginFilter {
 	packageKind?: AutotoolPluginElementPackageTargetKind | undefined;
 }
 
-export interface AutotoolPluginObject<
-	Elements extends AutotoolElement<string> = DefaultAutotoolElements
-> extends AutotoolPluginFilter {
+type ExecutorsOf<Elements extends AutotoolElement> = Elements extends AutotoolElement<infer U>
+	? Record<U, AutotoolElementExecutor<Elements>>
+	: never;
+
+export interface AutotoolPluginObject<Elements extends AutotoolElement = AutotoolElement>
+	extends AutotoolPluginFilter {
 	/**
 	 * Used to scope logging, it's best to use the name of the package
 	 *
@@ -50,8 +53,8 @@ export interface AutotoolPluginObject<
 	 */
 	templateVariables?: Record<string | number, string> | undefined;
 
-	elements: Elements[];
-	executors?: AutotoolElementExecutor<AutotoolElement<string>>[] | undefined;
+	elements?: (Elements | DefaultAutotoolElements)[] | undefined;
+	executors?: ExecutorsOf<Elements>;
 
 	/**
 	 * The plugin can provide validators. Validators are called after elements
@@ -67,13 +70,11 @@ export interface SourcePluginInformation {
 	sourcePlugin: AutotoolPluginObject;
 }
 
-export type AutotoolPluginFactory<
-	Elements extends AutotoolElement<string> = DefaultAutotoolElements
-> = (
+export type AutotoolPluginFactory<Elements extends AutotoolElement = DefaultAutotoolElements> = (
 	options: NormalizedAutotoolPluginOptions
 ) => Awaitable<AutotoolPluginObject<Elements>> | Awaitable<AutotoolPluginObject<Elements>[]>;
 
-export type AutotoolPlugin<Elements extends AutotoolElement<string> = DefaultAutotoolElements> =
+export type AutotoolPlugin<Elements extends AutotoolElement = DefaultAutotoolElements> =
 	| Awaitable<AutotoolPluginObject<Elements>>
 	| Awaitable<AutotoolPluginObject<Elements>[]>
 	| Awaitable<AutotoolPluginFactory<Elements>>

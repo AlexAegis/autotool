@@ -7,7 +7,7 @@ describe('filterElementsForPackage', () => {
 		name: 'a',
 		elements: [
 			{
-				executor: 'package-json',
+				executor: 'packageJson',
 				data: {},
 				packageJsonFilter: {
 					private: false,
@@ -20,7 +20,7 @@ describe('filterElementsForPackage', () => {
 		name: 'b',
 		elements: [
 			{
-				executor: 'package-json',
+				executor: 'packageJson',
 				data: {},
 				packageJsonFilter: {
 					name: /bar.*/,

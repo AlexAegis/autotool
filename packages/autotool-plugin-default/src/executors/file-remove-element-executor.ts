@@ -5,7 +5,7 @@ import { autotoolElementFileCopyExecutor } from './file-copy-element-executor.js
 
 export const autotoolElementFileRemoveExecutor: AutotoolElementExecutor<AutotoolElementFileRemove> =
 	{
-		type: 'file-remove',
+		type: 'fileRemove',
 		conflictsOnTargetLevel: [autotoolElementFileCopyExecutor.type],
 		apply: async (_element, target, options): Promise<void> => {
 			try {

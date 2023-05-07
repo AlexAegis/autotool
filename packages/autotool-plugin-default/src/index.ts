@@ -1,5 +1,4 @@
-import type { AutotoolPlugin } from 'autotool-plugin';
-
+import type { AutotoolPluginObject, DefaultAutotoolElements } from 'autotool-plugin';
 import {
 	autotoolElementFileCopyExecutor,
 	autotoolElementFileRemoveExecutor,
@@ -8,13 +7,20 @@ import {
 } from './executors/index.js';
 import { validateRootElementNotModifyingPackages } from './validators/index.js';
 
-export default {
+export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
 	name: 'default',
-	executors: [
-		autotoolElementFileCopyExecutor,
-		autotoolElementFileRemoveExecutor,
-		autotoolElementFileSymlinkExecutor,
-		autotoolElementJsonExecutor,
-	],
+	executors: {
+		fileCopy: autotoolElementFileCopyExecutor,
+		fileRemove: autotoolElementFileRemoveExecutor,
+		fileSymlink: autotoolElementFileSymlinkExecutor,
+		packageJson: autotoolElementJsonExecutor,
+	},
 	validators: [validateRootElementNotModifyingPackages],
-} as AutotoolPlugin;
+};
+
+export const customPlugin: AutotoolPluginObject<{ executor: 'asd' }> = {
+	name: 'default',
+	validators: [validateRootElementNotModifyingPackages],
+};
+
+export default defaultPlugin;

@@ -3,7 +3,7 @@ import type { AutotoolElementExecutor, AutotoolElementFileCopy } from 'autotool-
 import { cp } from 'node:fs/promises';
 
 export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolElementFileCopy> = {
-	type: 'file-copy',
+	type: 'fileCopy',
 	apply: async (element, target, options): Promise<void> => {
 		const dryCp = dry(options.dry, cp);
 		await dryCp(element.sourceFile, target.targetFilePathAbsolute);

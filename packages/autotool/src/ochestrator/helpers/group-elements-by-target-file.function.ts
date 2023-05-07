@@ -1,16 +1,22 @@
-import type { PackageResolvedElement, WorkspacePackageElementsByTarget } from 'autotool-plugin';
+import type {
+	AutotoolElement,
+	PackageResolvedElement,
+	WorkspacePackageElementsByTarget,
+} from 'autotool-plugin';
 import type { ExecutorMap, WorkspacePackageWithElements } from '../types.js';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
-export const groupAndConsolidateElementsByTargetFile = async (
-	workspacePackage: WorkspacePackageWithElements,
-	executorMap: ExecutorMap
-): Promise<WorkspacePackageElementsByTarget> => {
+export const groupAndConsolidateElementsByTargetFile = async <
+	Elements extends AutotoolElement = AutotoolElement
+>(
+	workspacePackage: WorkspacePackageWithElements<Elements>,
+	executorMap: ExecutorMap<Elements>
+): Promise<WorkspacePackageElementsByTarget<Elements>> => {
 	const resolved = await normalizeElementTargets(workspacePackage);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
-		Record<string, PackageResolvedElement[]>
+		Record<string, PackageResolvedElement<Elements>[]>
 	>((groups, next) => {
 		for (const targetFile of next.resolvedTargetFiles) {
 			groups[targetFile]?.push(next.element);

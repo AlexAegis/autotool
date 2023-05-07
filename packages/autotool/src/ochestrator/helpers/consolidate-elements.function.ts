@@ -1,5 +1,5 @@
 import { isNullish } from '@alexaegis/common';
-import type { PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
+import type { AutotoolElement, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
 import type { ExecutorMap } from '../types.js';
 
 /**
@@ -11,12 +11,14 @@ import type { ExecutorMap } from '../types.js';
  * I also drops all elements that do not have an executor. This is checkd for
  * in an earlier step anyway, which would result in an error.
  */
-export const consolidateElementsAndFilterOutNonExecutables = (
-	elements: PackageResolvedElement[],
+export const consolidateElementsAndFilterOutNonExecutables = <
+	Elements extends AutotoolElement = AutotoolElement
+>(
+	elements: PackageResolvedElement<Elements>[],
 	workspacePackage: WorkspacePackage,
-	executorMap: ExecutorMap
-): PackageResolvedElement[] => {
-	return [...executorMap.values()].flatMap((executor) => {
+	executorMap: ExecutorMap<Elements>
+): PackageResolvedElement<Elements>[] => {
+	const a = [...executorMap.values()].flatMap((executor) => {
 		const elementsOfExecutor = elements.filter(
 			(packageElement) => packageElement.element.executor === executor.type
 		);
@@ -32,16 +34,22 @@ export const consolidateElementsAndFilterOutNonExecutables = (
 			if (isNullish(consolidated)) {
 				return [];
 			} else if (Array.isArray(consolidated)) {
-				return consolidated.map((element) => ({
-					element,
+				return consolidated.map<PackageResolvedElement<Elements>>((element) => ({
+					element: element as Elements,
 					sourcePlugin,
 					workspacePackage,
 				}));
 			} else {
-				return { element: consolidated, sourcePlugin, workspacePackage };
+				return {
+					element: consolidated,
+					sourcePlugin,
+					workspacePackage,
+				} as PackageResolvedElement<Elements>;
 			}
 		} else {
 			return elementsOfExecutor;
 		}
 	});
+
+	return a;
 };

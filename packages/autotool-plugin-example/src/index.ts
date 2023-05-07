@@ -8,11 +8,7 @@ import { join } from 'node:path';
 import packageJson from '../package.json';
 
 export const plugin: AutotoolPlugin = async (options) => {
-	console.log('TSPLUGIN!!!');
-	const logger = options.logger.getSubLogger({ name: 'ts' });
 	const packageDirectory = getAssumedFinalInstallLocationOfPackage(options, packageJson);
-
-	logger.info('loading...');
 
 	await sleep(2);
 
@@ -21,7 +17,7 @@ export const plugin: AutotoolPlugin = async (options) => {
 		elements: [
 			{
 				description: 'copy workspace root ts config',
-				executor: 'file-copy',
+				executor: 'fileCopy',
 				packageKind: 'root',
 				targetFile: 'tsconfig.json',
 
@@ -29,7 +25,7 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			{
 				description: 'add workspace root ts scripts',
-				executor: 'package-json',
+				executor: 'packageJson',
 				packageKind: 'root',
 				targetFile: 'package.json',
 				packageJsonFilter: {
@@ -48,9 +44,8 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			{
 				description: 'add package ts scripts',
-				executor: 'package-json',
+				executor: 'packageJson',
 				packageKind: 'regular',
-				targetFile: 'package.json',
 				packageJsonFilter: {
 					keywords: (keywords) => keywords.includes(packageJson.name),
 				},
@@ -72,9 +67,8 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			{
 				description: 'add @types/node as a devDependency',
-				executor: 'package-json',
+				executor: 'packageJson',
 				packageKind: 'regular',
-				targetFile: 'package.json',
 				packageJsonFilter: {
 					keywords: (keywords) => keywords.includes(`${packageJson.name}-node`),
 				},
@@ -86,7 +80,7 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			...['base', 'web', 'svelte', 'node'].map<AutotoolElementFileCopy>((flavour) => ({
 				name: `copy tsconfig for ${flavour} packages`,
-				executor: 'file-copy',
+				executor: 'fileCopy',
 				packageKind: 'regular',
 				targetFile: 'tsconfig.json',
 				packageJsonFilter: {

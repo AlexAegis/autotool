@@ -11,7 +11,7 @@ Example:
 ```ts
 // Add a build script to the package json, and remove another if exists
 {
-  type: 'package-json',
+  type: 'packageJson',
   data: {
     scripts: {
       build: 'vite',

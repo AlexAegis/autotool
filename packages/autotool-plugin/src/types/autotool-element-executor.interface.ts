@@ -24,17 +24,17 @@ export interface ElementTarget {
  * actions behing a check. The CLI has an option called `dryish` which will
  * let executors to be executed, but their `dry` option will be on.
  */
-export interface AutotoolElementExecutor<Element extends AutotoolElement<string>> {
+export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 	/**
 	 * The name of the executor, it should be unique. Elements will be
 	 * applied based on this field.
 	 */
-	type: Element['executor'];
+	type: Element extends AutotoolElement<infer U> ? U : string;
 
 	/**
 	 * Halts execution if these elements are also present on the package
 	 */
-	conflictsOnPackageLevel?: string[];
+	conflictsOnPackageLevel?: string[] | unknown;
 
 	/**
 	 * Halts execution if these elements are also present on a specific file
@@ -44,26 +44,11 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 * SetupElementFileRemove meaning it will refuse to remove an element
 	 * that's scheduled to be overwritten anyway.
 	 */
-	conflictsOnTargetLevel?: string[];
+	conflictsOnTargetLevel?: string[] | undefined;
 
 	apply: (
-		element: Omit<Element, 'targetFile' | 'targetFilePatterns'>,
+		element: Element,
 		target: ElementTarget,
-		options: AutotoolElementApplyOptions
-	) => Promise<void>;
-
-	/**
-	 * When defined, these elements can be un-applied. For elements that are
-	 * meant to delete files there's no point in having an undo step. But
-	 * elements that copy/create files, and undo step could remove them.
-	 *
-	 * One scenario where elements are undone is when one is marked as
-	 * deprecated becuase you replaced it with a newer/different element.
-	 *
-	 * TODO: maybe instead of undo, call it 'clean' that can always be called, there are not many scenarios where undo is truly possible, or is it better to have dedicated cleaning elements in a plugin?
-	 */
-	undo?: (
-		element: AppliedElement<Element>,
 		options: AutotoolElementApplyOptions
 	) => Promise<void>;
 
@@ -83,7 +68,9 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement<string>
 	 * @example If multiple elements try to add something to 'package.json' first they are
 	 * consolidated into one element, and only then written
 	 */
-	consolidate?: (
-		elements: AppliedElement<Element>[]
-	) => AppliedElement<Element>[] | AppliedElement<Element> | undefined;
+	consolidate?:
+		| ((
+				elements: AppliedElement<Element>[]
+		  ) => AppliedElement<Element>[] | AppliedElement<Element> | undefined)
+		| undefined;
 }

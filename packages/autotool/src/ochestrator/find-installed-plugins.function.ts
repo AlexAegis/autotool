@@ -27,7 +27,9 @@ export const findInstalledPlugins = async (rawOptions: CwdOption): Promise<strin
 	return results.map((path) => path.replace('node_modules/', ''));
 };
 
-type AssumedPluginModule = { default?: AutotoolPlugin | undefined } & AutotoolPlugin;
+type AssumedPluginModule = {
+	default?: AutotoolPlugin<AutotoolElement> | undefined;
+} & AutotoolPlugin<AutotoolElement>;
 
 export const isAutotoolPluginObject = (plugin: unknown): plugin is AutotoolPluginObject => {
 	const assumed = plugin as AutotoolPluginObject;
@@ -39,7 +41,7 @@ export const isAutotoolPluginObject = (plugin: unknown): plugin is AutotoolPlugi
 	);
 };
 
-export const loadPlugin = async <Elements extends AutotoolElement<string>>(
+export const loadPlugin = async <Elements extends AutotoolElement>(
 	plugin: AutotoolPluginObject<Elements> | AutotoolPluginFactory<Elements>,
 	packageName: string,
 	options: NormalizedAutotoolPluginOptions
