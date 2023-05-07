@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"private": false,
 	"keywords": [
-		"@alexaegis/autotool-example-plugin-node",
+		"@alexaegis/autotool-plugin-example-node",
 		"@alexaegis/setup-depcheck",
 		"@alexaegis/setup-eslint",
 		"@alexaegis/setup-prettier",
@@ -59,10 +59,10 @@
 	"dependencies": {
 		"@alexaegis/cli-tools": "^0.1.6",
 		"@alexaegis/common": "^0.1.6",
+		"@alexaegis/fs": "^0.1.6",
 		"@alexaegis/logging": "^0.1.6",
 		"@alexaegis/match": "^0.1.6",
 		"@alexaegis/workspace-tools": "^0.1.6",
-		"autotool-example-plugin": "workspace:^",
 		"autotool-plugin": "workspace:^",
 		"globby": "^13.1.4"
 	},

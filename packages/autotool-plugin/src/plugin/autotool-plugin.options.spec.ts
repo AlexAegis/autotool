@@ -1,4 +1,5 @@
 import { noopLogger } from '@alexaegis/logging';
+import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import { describe, expect, it } from 'vitest';
 import {
 	normalizeAutotoolPluginOptions,
@@ -7,19 +8,30 @@ import {
 } from './autotool-plugin.options.js';
 
 describe('normalizeAutotoolPluginOptions', () => {
+	const workspaceRootPackage: WorkspacePackage = {
+		packageJson: {},
+		packageJsonPath: '',
+		packageKind: 'regular',
+		packagePath: '',
+	};
+
 	it('should have a default when not defined', () => {
-		expect(normalizeAutotoolPluginOptions({ workspaceRoot: 'root' })).toEqual({
+		expect(normalizeAutotoolPluginOptions({ workspaceRootPackage })).toEqual({
 			cwd: process.cwd(),
+			dry: false,
+			dryish: false,
 			logger: noopLogger,
-			workspaceRoot: 'root',
+			workspaceRootPackage,
 		} as NormalizedAutotoolPluginOptions);
 	});
 
 	it('should use the provided values when defined', () => {
 		const manualOptions: AutotoolPluginOptions = {
 			cwd: 'foo',
+			dry: true,
+			dryish: true,
 			logger: noopLogger,
-			workspaceRoot: 'root',
+			workspaceRootPackage,
 		};
 		expect(normalizeAutotoolPluginOptions(manualOptions)).toEqual(manualOptions);
 	});

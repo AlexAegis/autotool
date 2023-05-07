@@ -1,5 +1,5 @@
 {
-	"name": "@alexaegis/workspace",
+	"name": "@autotool/workspace",
 	"description": "Autotool workspace",
 	"version": "0.1.6",
 	"license": "mit",
@@ -74,6 +74,8 @@
 		"typedoc": "turbo run typedoc_"
 	},
 	"devDependencies": {
+		"@autotool/autotool-plugin-example": "workspace:^",
+		"@autotool/autotool-plugin-example-2": "workspace:^",
 		"@alexaegis/coverage-tools": "^0.1.6",
 		"@alexaegis/eslint-config-core": "^0.2.0",
 		"@alexaegis/nuke": "^0.2.0",

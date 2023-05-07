@@ -1,21 +1,23 @@
+import { sleep } from '@alexaegis/common';
 import {
 	getAssumedFinalInstallLocationOfPackage,
-	normalizeAutotoolPluginOptions,
 	type AutotoolElementFileCopy,
-	type AutotoolPluginFactory,
+	type AutotoolPlugin,
 } from 'autotool-plugin';
 import { join } from 'node:path';
 import packageJson from '../package.json';
 
-export const tsPlugin: AutotoolPluginFactory = (rawOptions) => {
-	const options = normalizeAutotoolPluginOptions(rawOptions);
+export const plugin: AutotoolPlugin = async (options) => {
+	console.log('TSPLUGIN!!!');
 	const logger = options.logger.getSubLogger({ name: 'ts' });
 	const packageDirectory = getAssumedFinalInstallLocationOfPackage(options, packageJson);
 
 	logger.info('loading...');
 
+	await sleep(2);
+
 	return {
-		name: 'ts',
+		name: 'autotool-plugin-example-1',
 		elements: [
 			{
 				description: 'copy workspace root ts config',
@@ -99,4 +101,4 @@ export const tsPlugin: AutotoolPluginFactory = (rawOptions) => {
 	};
 };
 
-export default tsPlugin;
+export default plugin;

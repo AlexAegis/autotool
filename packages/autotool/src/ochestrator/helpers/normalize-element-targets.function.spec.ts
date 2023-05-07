@@ -1,4 +1,8 @@
-import type { AutotoolPlugin, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
+import type {
+	AutotoolPluginObject,
+	PackageResolvedElement,
+	WorkspacePackage,
+} from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { InternalElementsWithResolvedTargets } from '../types.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
@@ -6,7 +10,7 @@ import { normalizeElementTargets } from './normalize-element-targets.function.js
 vi.mock('globby');
 
 describe('normalizeElementTargets', () => {
-	const fakeSourcePlugin: AutotoolPlugin = {
+	const fakeSourcePlugin: AutotoolPluginObject = {
 		elements: [],
 		name: 'foo',
 	};

@@ -1,25 +1,23 @@
-import { normalizeCwdOption, type CwdOption, type NormalizedCwdOption } from '@alexaegis/fs';
+import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import {
-	normalizeLoggerOption,
-	type LoggerOption,
-	type NormalizedLoggerOption,
-} from '@alexaegis/logging';
+	normalizeAutotoolOptions,
+	type AutotoolOptions,
+	type NormalizedAutotoolOptions,
+} from './autotool.function.options.js';
 
 export interface BaseAutotoolPluginOptions {
-	workspaceRoot: string;
+	workspaceRootPackage: WorkspacePackage;
 }
 
-export type AutotoolPluginOptions = CwdOption & LoggerOption & BaseAutotoolPluginOptions;
-export type NormalizedAutotoolPluginOptions = NormalizedCwdOption &
-	NormalizedLoggerOption &
+export type AutotoolPluginOptions = AutotoolOptions & BaseAutotoolPluginOptions;
+export type NormalizedAutotoolPluginOptions = NormalizedAutotoolOptions &
 	Required<BaseAutotoolPluginOptions>;
 
 export const normalizeAutotoolPluginOptions = (
 	options: AutotoolPluginOptions
 ): NormalizedAutotoolPluginOptions => {
 	return {
-		...normalizeCwdOption(options),
-		...normalizeLoggerOption(options),
-		workspaceRoot: options.workspaceRoot,
+		...normalizeAutotoolOptions(options),
+		workspaceRootPackage: options.workspaceRootPackage,
 	};
 };

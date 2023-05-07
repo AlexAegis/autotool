@@ -1,7 +1,7 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
-	AutotoolPlugin,
 	AutotoolPluginElementPackageTargetKind,
+	AutotoolPluginObject,
 } from './autotool-plugin.interface.js';
 import type { PackageJsonFilter } from './package-json-filter.interface.js';
 
@@ -99,7 +99,7 @@ export interface PackageResolvedElement<
 > {
 	element: ElementForPackage<Element>;
 	workspacePackage: WorkspacePackage;
-	sourcePlugin: AutotoolPlugin | AutotoolPlugin[];
+	sourcePlugin: AutotoolPluginObject | AutotoolPluginObject[];
 }
 
 export type AppliedElement<Element extends AutotoolElement<string> = AutotoolElement<string>> =

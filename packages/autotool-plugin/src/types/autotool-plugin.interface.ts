@@ -1,6 +1,7 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { Awaitable } from 'vitest';
 import type { DefaultAutotoolElements } from '../default/index.js';
-import type { AutotoolPluginOptions } from '../plugin/index.js';
+import type { NormalizedAutotoolPluginOptions } from '../plugin/index.js';
 import type { AutotoolElementValidator } from '../validator/element-validator.interface.js';
 import type { AutotoolElementExecutor } from './autotool-element-executor.interface.js';
 import type { AutotoolElement } from './autotool-element.interface.js';
@@ -30,13 +31,16 @@ export interface AutotoolPluginFilter {
 	packageKind?: AutotoolPluginElementPackageTargetKind | undefined;
 }
 
-export interface AutotoolPlugin<Elements extends AutotoolElement<string> = DefaultAutotoolElements>
-	extends AutotoolPluginFilter {
+export interface AutotoolPluginObject<
+	Elements extends AutotoolElement<string> = DefaultAutotoolElements
+> extends AutotoolPluginFilter {
 	/**
-	 * Name of the plugin, used for logging.
+	 * Used to scope logging, it's best to use the name of the package
+	 *
+	 * The only reason it's not autofilled during load is that one package can
+	 * export multiple plugins.
 	 */
 	name: string;
-
 	/**
 	 * Some elements like JSON properties and files are treated as templates.
 	 * Values defined as `${key}` will be replaced if a variable here is found
@@ -60,9 +64,17 @@ export interface AutotoolPlugin<Elements extends AutotoolElement<string> = Defau
 }
 
 export interface SourcePluginInformation {
-	sourcePlugin: AutotoolPlugin;
+	sourcePlugin: AutotoolPluginObject;
 }
 
 export type AutotoolPluginFactory<
 	Elements extends AutotoolElement<string> = DefaultAutotoolElements
-> = (options: AutotoolPluginOptions) => AutotoolPlugin<Elements> | AutotoolPlugin<Elements>[];
+> = (
+	options: NormalizedAutotoolPluginOptions
+) => Awaitable<AutotoolPluginObject<Elements>> | Awaitable<AutotoolPluginObject<Elements>[]>;
+
+export type AutotoolPlugin<Elements extends AutotoolElement<string> = DefaultAutotoolElements> =
+	| Awaitable<AutotoolPluginObject<Elements>>
+	| Awaitable<AutotoolPluginObject<Elements>[]>
+	| Awaitable<AutotoolPluginFactory<Elements>>
+	| Awaitable<AutotoolPluginFactory<Elements>[]>;

@@ -1,40 +1,43 @@
 import { asyncMap } from '@alexaegis/common';
+import type { NormalizedLoggerOption } from '@alexaegis/logging';
 import { collectWorkspacePackages } from '@alexaegis/workspace-tools';
-import { tsPlugin } from 'autotool-example-plugin';
 import {
 	normalizeAutotoolOptions,
 	type AutotoolElement,
 	type AutotoolElementExecutor,
 	type AutotoolOptions,
-	type AutotoolPlugin,
-	type AutotoolPluginFactory,
-	type AutotoolPluginOptions,
-	type DefaultAutotoolElements,
+	type AutotoolPluginObject,
 } from 'autotool-plugin';
 import { executeElementsOnPackage } from './execute-elements-on-package.function.js';
+import { findInstalledPlugins, loadInstalledPlugins } from './find-installed-plugins.function.js';
 import { filterElementsForPackage } from './helpers/filter-elements-for-package.function.js';
 import { groupAndConsolidateElementsByTargetFile } from './helpers/group-elements-by-target-file.function.js';
 import { reportElementError } from './report-element-error.function.js';
-import type { PackageElementErrorWithSourceData } from './types.js';
+import type { ExecutorMap, PackageElementErrorWithSourceData } from './types.js';
 
-export const normalizePlugin = <Element extends AutotoolElement<string> = DefaultAutotoolElements>(
-	pluginOrFactory:
-		| AutotoolPlugin<Element>
-		| AutotoolPlugin<Element>[]
-		| AutotoolPluginFactory<Element>,
-	options: AutotoolPluginOptions
-): AutotoolPlugin<Element>[] => {
-	if (typeof pluginOrFactory === 'function') {
-		const plugin = pluginOrFactory(options);
-		return Array.isArray(plugin) ? plugin : [plugin];
-	} else {
-		return Array.isArray(pluginOrFactory) ? pluginOrFactory : [pluginOrFactory];
-	}
+export const createExecutorMap = (
+	plugins: AutotoolPluginObject[],
+	options: NormalizedLoggerOption
+): ExecutorMap => {
+	return plugins.reduce((executorMap, plugin) => {
+		if (plugin.executors) {
+			for (const executor of plugin.executors) {
+				if (executorMap.has(executor.type)) {
+					options.logger.warn(
+						`Executor ${executor.type} already loaded! Plugin: ${plugin.name} trying to load it again!`
+					);
+				} else {
+					executorMap.set(executor.type, executor);
+				}
+			}
+		}
+		return executorMap;
+	}, new Map<string, AutotoolElementExecutor<AutotoolElement<string>>>());
 };
 
 export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	const options = normalizeAutotoolOptions(rawOptions);
-	const logger = options.logger.getSubLogger({ name: 'setup' });
+	const logger = options.logger.getSubLogger({ name: 'autotool' });
 
 	// collect target packages
 	const workspacePackages = await collectWorkspacePackages(options);
@@ -47,27 +50,23 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		return;
 	}
 
-	const pluginOptions: AutotoolPluginOptions = {
-		...options,
-		workspaceRoot: workspaceRootPackage.packagePath,
-	};
-
 	// Load plugins
-	// TODO: instead of having a fixed set of plugins, detect them
-	const plugins: AutotoolPlugin[] = [...normalizePlugin(tsPlugin, pluginOptions)];
+	const installedPlugins = await findInstalledPlugins(options);
+	options.logger.info('plugins found:', installedPlugins);
 
-	const executorMap = plugins.reduce((executorMap, plugin) => {
-		if (plugin.executors) {
-			for (const executor of plugin.executors) {
-				if (executorMap.has(executor.type)) {
-					options.logger.warn(`Executor ${executor.type} already loaded!`);
-				} else {
-					executorMap.set(executor.type, executor);
-				}
-			}
-		}
-		return executorMap;
-	}, new Map<string, AutotoolElementExecutor<AutotoolElement<string>>>());
+	const plugins: AutotoolPluginObject[] = await loadInstalledPlugins(installedPlugins, {
+		...options,
+		workspaceRootPackage,
+	});
+
+	options.logger.info(
+		'plugins loaded:',
+		plugins.map((plugin) => plugin.name)
+	);
+
+	const executorMap = createExecutorMap(plugins, options);
+
+	options.logger.info('executors loaded:', [...executorMap.keys()]);
 
 	const verifiers = plugins.flatMap((plugin) => plugin.validators ?? []);
 	// Collect elements?

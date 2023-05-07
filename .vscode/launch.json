@@ -2,16 +2,6 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "[JS] Current File",
-			"type": "node",
-			"request": "launch",
-
-			"args": ["${relativeFile}"],
-			"runtimeArgs": ["--max-old-space-size=8192"],
-			"cwd": "${workspaceRoot}",
-			"internalConsoleOptions": "openOnSessionStart"
-		},
-		{
 			"name": "[TS-ESM] Current File",
 			"type": "node",
 			"request": "launch",
@@ -31,6 +21,15 @@
 			"args": ["${relativeFile}"],
 			"internalConsoleOptions": "openOnSessionStart",
 			"resolveSourceMapLocations": ["${workspaceFolder}/", "!/node_modules/**"]
+		},
+		{
+			"name": "[JS] Current File",
+			"type": "node",
+			"request": "launch",
+			"args": ["${relativeFile}"],
+			"runtimeArgs": ["--max-old-space-size=8192"],
+			"cwd": "${workspaceRoot}",
+			"internalConsoleOptions": "openOnSessionStart"
 		}
 	]
 }

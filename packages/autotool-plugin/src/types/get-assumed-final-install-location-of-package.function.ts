@@ -6,5 +6,9 @@ export const getAssumedFinalInstallLocationOfPackage = (
 	options: BaseAutotoolPluginOptions,
 	packageJson: { name: string }
 ): string => {
-	return join(options.workspaceRoot, NODE_MODULES_DIRECTORY_NAME, ...packageJson.name.split('/'));
+	return join(
+		options.workspaceRootPackage.packagePath,
+		NODE_MODULES_DIRECTORY_NAME,
+		...packageJson.name.split('/')
+	);
 };

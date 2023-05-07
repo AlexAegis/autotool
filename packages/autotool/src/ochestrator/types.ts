@@ -2,7 +2,7 @@ import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
 	AutotoolElement,
 	AutotoolElementExecutor,
-	AutotoolPlugin,
+	AutotoolPluginObject,
 	ElementError,
 	PackageResolvedElement,
 } from 'autotool-plugin';
@@ -12,13 +12,10 @@ export type ExecutorMap = Map<string, AutotoolElementExecutor<AutotoolElement<st
 export interface PackageElementErrorWithSourceData extends ElementError {
 	target: string;
 	workspacePackage: WorkspacePackage;
-	sourcePlugins: AutotoolPlugin[];
+	sourcePlugins: AutotoolPluginObject[];
 	sourceElements: PackageResolvedElement[];
 }
 
-export type SetupElementWithSourcePlugin = AutotoolElement<string> & {
-	sourcePlugin: AutotoolPlugin;
-};
 export interface WorkspacePackageWithElements {
 	workspacePackage: WorkspacePackage;
 	elements: PackageResolvedElement[];
