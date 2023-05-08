@@ -1,12 +1,12 @@
-import type { ElementError, WorkspacePackageElementsByTarget } from 'autotool-plugin';
+import type { AutotoolElementValidator, ElementError } from 'autotool-plugin';
 import { minimatch } from 'minimatch';
 
 /**
  * Checks for conflicts in the collected setup elements for all targets
  */
-export const validateRootElementNotModifyingPackages = (
-	workspacePackageElementsByTarget: WorkspacePackageElementsByTarget
-): ElementError[] => {
+export const validateRootElementNotModifyingPackages: AutotoolElementValidator = (
+	workspacePackageElementsByTarget
+) => {
 	const errors = [];
 
 	if (workspacePackageElementsByTarget.workspacePackage.packageKind === 'root') {

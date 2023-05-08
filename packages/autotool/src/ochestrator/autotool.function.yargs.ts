@@ -1,12 +1,26 @@
-import { yargsForCwdOption, yargsForDryOption, yargsForForceOption } from '@alexaegis/cli-tools';
-import type { LoggerOption } from '@alexaegis/logging';
+import {
+	yargsForCwdOption,
+	yargsForDryOption,
+	yargsForForceOption,
+	yargsForLogLevelOption,
+} from '@alexaegis/cli-tools';
+import type { NormalizedDryOption, NormalizedForceOption } from '@alexaegis/common';
+import type { NormalizedCwdOption } from '@alexaegis/fs';
+import type { LoggerOption, NormalizedLogLevelOption } from '@alexaegis/logging';
 import type { AutotoolOptions } from 'autotool-plugin';
 import type { Argv } from 'yargs';
 
 export const yargsForAutotool = <T>(
 	yargs: Argv<T>
-): Argv<T & Omit<AutotoolOptions, keyof LoggerOption>> => {
-	return yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs)))
+): Argv<
+	T &
+		NormalizedCwdOption &
+		NormalizedDryOption &
+		NormalizedForceOption &
+		NormalizedLogLevelOption &
+		Omit<AutotoolOptions, keyof LoggerOption>
+> => {
+	return yargsForLogLevelOption(yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs))))
 		.option('dryish', {
 			boolean: true,
 			default: false,

@@ -39,7 +39,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 	/**
 	 * Halts execution if these elements are also present on a specific file
 	 * target within a package
-	 * @example ['file-copy'] -> is defined on SetupElementFileCopy meaning
+	 * @example ['fileCopy'] -> is defined on SetupElementFileCopy meaning
 	 * it will refuse to copy to the same location twice. It's also defined on
 	 * SetupElementFileRemove meaning it will refuse to remove an element
 	 * that's scheduled to be overwritten anyway.

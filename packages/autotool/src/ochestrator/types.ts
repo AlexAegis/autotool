@@ -1,16 +1,10 @@
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
 	AutotoolElement,
-	AutotoolElementExecutor,
 	AutotoolPluginObject,
 	ElementError,
 	PackageResolvedElement,
 } from 'autotool-plugin';
-
-export type ExecutorMap<Elements extends AutotoolElement = AutotoolElement> = Map<
-	string,
-	AutotoolElementExecutor<Elements>
->;
 
 export interface PackageElementErrorWithSourceData extends ElementError {
 	target: string;

@@ -1,6 +1,10 @@
 import { isNullish } from '@alexaegis/common';
-import type { AutotoolElement, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
-import type { ExecutorMap } from '../types.js';
+import type {
+	AutotoolElement,
+	ExecutorMap,
+	PackageResolvedElement,
+	WorkspacePackage,
+} from 'autotool-plugin';
 
 /**
  * Returns a smaller list of elements if their executor can consolidate them
@@ -18,7 +22,7 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 	workspacePackage: WorkspacePackage,
 	executorMap: ExecutorMap<Elements>
 ): PackageResolvedElement<Elements>[] => {
-	const a = [...executorMap.values()].flatMap((executor) => {
+	return [...executorMap.values()].flatMap((executor) => {
 		const elementsOfExecutor = elements.filter(
 			(packageElement) => packageElement.element.executor === executor.type
 		);
@@ -50,6 +54,4 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 			return elementsOfExecutor;
 		}
 	});
-
-	return a;
 };

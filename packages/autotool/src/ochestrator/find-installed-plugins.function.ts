@@ -46,7 +46,6 @@ export const loadPlugin = async <Elements extends AutotoolElement>(
 	packageName: string,
 	options: NormalizedAutotoolPluginOptions
 ): Promise<AutotoolPluginObject<Elements>[]> => {
-	console.log('loadPlugin', packageName);
 	if (typeof plugin === 'function') {
 		const factoryResult = await plugin({
 			...options,
@@ -67,8 +66,6 @@ export const loadInstalledPlugins = async (
 	plugins: string[],
 	options: NormalizedAutotoolPluginOptions
 ): Promise<AutotoolPluginObject[]> => {
-	console.log('pluginPaths', plugins);
-
 	const modules = await asyncFilterMap(
 		plugins,
 		(name) =>
@@ -77,12 +74,9 @@ export const loadInstalledPlugins = async (
 				name: string;
 			}>
 	);
-	console.log('modules', modules);
 
 	const loadedPlugins = await asyncFilterMap(modules, async ({ mod, name }) => {
 		const modulePrefDefault = await (mod.default ?? mod);
-		console.log('asdasda', typeof modulePrefDefault === 'function');
-
 		const loadedPlugins = await (Array.isArray(modulePrefDefault)
 			? asyncFilterMap(
 					modulePrefDefault.map((m) => loadPlugin(m, name, options)),
@@ -95,24 +89,5 @@ export const loadInstalledPlugins = async (
 			.map((plugin) => ({ ...plugin, name: plugin.name || name }))
 			.filter(isAutotoolPluginObject);
 	});
-
-	console.log('load', loadedPlugins);
 	return loadedPlugins.flat(1);
 };
-/*
-const r = await loadInstalledPlugins(await findInstalledPlugins(normalizeCwdOption()), {
-	cwd: process.cwd(),
-	dry: false,
-	dryish: false,
-	workspaceRootPackage: {
-		packageJson: {},
-		packageJsonPath: '',
-		packageKind: 'regular',
-		packagePath: '',
-	},
-	logger: noopLogger,
-});
-for (const p of r) {
-	console.log('plugin loaded:', p);
-}
-*/

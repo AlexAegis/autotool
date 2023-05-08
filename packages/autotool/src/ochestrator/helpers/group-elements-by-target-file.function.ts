@@ -1,9 +1,10 @@
 import type {
 	AutotoolElement,
+	ExecutorMap,
 	PackageResolvedElement,
 	WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
-import type { ExecutorMap, WorkspacePackageWithElements } from '../types.js';
+import type { WorkspacePackageWithElements } from '../types.js';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
@@ -28,6 +29,14 @@ export const groupAndConsolidateElementsByTargetFile = async <
 
 		return groups;
 	}, {});
+
+	console.log('targetedElementsByFile', targetedElementsByFile);
+	console.log(
+		'asdasda',
+		Object.values(targetedElementsByFile)
+			.flat(1)
+			.map((e) => e.element)
+	);
 
 	return {
 		workspacePackage: resolved.workspacePackage,

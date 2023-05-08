@@ -1,10 +1,11 @@
 import type {
-	AutotoolElementApplyOptions,
 	ElementTarget,
+	ExecutorMap,
 	NormalizedAutotoolOptions,
+	NormalizedAutotoolPluginOptions,
 	WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
-import type { ExecutorMap } from './types.js';
+import { join, relative } from 'node:path';
 
 /**
  * Targeted files are executed concurrently but elements targeting the same
@@ -16,33 +17,33 @@ import type { ExecutorMap } from './types.js';
 export const executeElementsOnPackage = async (
 	workspacePackageElementsByTarget: WorkspacePackageElementsByTarget,
 	executorMap: ExecutorMap,
+	elementOptions: NormalizedAutotoolPluginOptions,
 	options: NormalizedAutotoolOptions
 ): Promise<void> => {
 	options.logger.info(
 		`processing elements targeting ${workspacePackageElementsByTarget.workspacePackage.packagePath}`
 	);
 
-	const elementOptions: AutotoolElementApplyOptions = {
-		logger: options.logger,
-		cwd: options.cwd,
-		dry: options.dryish,
-	};
-
 	await Promise.allSettled(
 		Object.entries(workspacePackageElementsByTarget.targetedElementsByFile).map(
 			async ([targetFile, elements]) => {
-				console.log('executeElementsOnPackage targetFile', targetFile);
+				const targetFilePathAbsolute = join(
+					workspacePackageElementsByTarget.workspacePackage.packagePath,
+					targetFile
+				);
 
 				const target: ElementTarget = {
 					targetFilePackageRelative: targetFile,
-					targetFilePath: targetFile,
-					targetFilePathAbsolute: targetFile,
+					targetFilePath: relative(options.cwd, targetFilePathAbsolute),
+					targetFilePathAbsolute,
 					workspacePackage: workspacePackageElementsByTarget.workspacePackage,
 				};
 
+				console.log('TARGET', target.targetFilePathAbsolute);
+				console.log('elements', elements);
 				for (const resolvedElement of elements) {
 					const executor = executorMap.get(resolvedElement.element.executor);
-
+					console.log('RESOLVE', resolvedElement, executor);
 					if (executor) {
 						const logMessage = `element${
 							resolvedElement.element.description

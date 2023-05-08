@@ -7,13 +7,16 @@ import {
 	type AutotoolElementExecutor,
 	type AutotoolOptions,
 	type AutotoolPluginObject,
+	type ExecutorMap,
+	type NormalizedAutotoolPluginOptions,
 } from 'autotool-plugin';
+import { defaultPlugin } from 'autotool-plugin-default';
 import { executeElementsOnPackage } from './execute-elements-on-package.function.js';
 import { findInstalledPlugins, loadInstalledPlugins } from './find-installed-plugins.function.js';
 import { filterElementsForPackage } from './helpers/filter-elements-for-package.function.js';
 import { groupAndConsolidateElementsByTargetFile } from './helpers/group-elements-by-target-file.function.js';
 import { reportElementError } from './report-element-error.function.js';
-import type { ExecutorMap, PackageElementErrorWithSourceData } from './types.js';
+import type { PackageElementErrorWithSourceData } from './types.js';
 
 export const createExecutorMap = (
 	plugins: AutotoolPluginObject[],
@@ -41,9 +44,27 @@ export const createExecutorMap = (
 	}, new Map<string, AutotoolElementExecutor<AutotoolElement>>());
 };
 
+export const checkIfTheresAnElementWithoutValidExecutor = (
+	plugins: AutotoolPluginObject[],
+	executorMap: ExecutorMap,
+	options: NormalizedLoggerOption
+): boolean => {
+	let failed = false;
+	for (const plugin of plugins) {
+		for (const element of plugin.elements ?? []) {
+			if (!executorMap.has(element.executor)) {
+				failed = true;
+				options.logger.error(
+					`Plugin ${plugin.name} contains an element with no executor: ${element.executor}`
+				);
+			}
+		}
+	}
+	return failed;
+};
+
 export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	const options = normalizeAutotoolOptions(rawOptions);
-	const logger = options.logger.getSubLogger({ name: 'autotool' });
 
 	// collect target packages
 	const workspacePackages = await collectWorkspacePackages(options);
@@ -52,7 +73,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	);
 
 	if (!workspaceRootPackage) {
-		logger.warn('cannot do setup, not in a workspace!');
+		options.logger.warn('cannot do setup, not in a workspace!');
 		return;
 	}
 
@@ -64,6 +85,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		...options,
 		workspaceRootPackage,
 	});
+	plugins.unshift(defaultPlugin as AutotoolPluginObject);
 
 	options.logger.info(
 		'plugins loaded:',
@@ -71,25 +93,40 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	);
 
 	const executorMap = createExecutorMap(plugins, options);
-
 	options.logger.info('executors loaded:', [...executorMap.keys()]);
 
-	const verifiers = plugins.flatMap((plugin) => plugin.validators ?? []);
+	if (checkIfTheresAnElementWithoutValidExecutor(plugins, executorMap, options)) {
+		return;
+	}
+
+	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
 	// Collect elements?
 
 	const workspacePackagesWithElements = workspacePackages.map((workspacePackage) =>
 		filterElementsForPackage(workspacePackage, plugins)
 	);
-
 	const workspacePackagesWithElementsByTarget = await asyncMap(
 		workspacePackagesWithElements,
 		(workspacePackageWithElements) =>
 			groupAndConsolidateElementsByTargetFile(workspacePackageWithElements, executorMap)
 	);
 
-	const errors: PackageElementErrorWithSourceData[] = verifiers.flatMap((verifier) =>
+	console.log('workspacePackagesWithElementsByTarget', workspacePackagesWithElementsByTarget);
+
+	const elementOptions: NormalizedAutotoolPluginOptions = {
+		logger: options.logger,
+		cwd: options.cwd,
+		dry: options.dryish,
+		workspaceRootPackage: workspaceRootPackage,
+	};
+
+	const errors: PackageElementErrorWithSourceData[] = validators.flatMap((validator) =>
 		workspacePackagesWithElementsByTarget.flatMap((workspacePackageElements) =>
-			verifier(workspacePackageElements).map<PackageElementErrorWithSourceData>((error) => ({
+			validator(
+				workspacePackageElements,
+				executorMap,
+				elementOptions
+			).map<PackageElementErrorWithSourceData>((error) => ({
 				// TODO fill metadata
 				sourceElements: [],
 				sourcePlugins: [],
@@ -101,18 +138,23 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	);
 
 	if (errors.length > 0) {
-		logger.error('Error detected within setup elements!');
+		options.logger.error('Error detected within setup elements!');
 		for (const error of errors) {
 			reportElementError(error, options);
 		}
 		return undefined;
 	}
 
-	logger.info('Valid setup elements, proceeding');
+	options.logger.info('Valid setup elements, proceeding');
 
 	await Promise.allSettled(
 		workspacePackagesWithElementsByTarget.map((workspacePackageElementsByTarget) =>
-			executeElementsOnPackage(workspacePackageElementsByTarget, executorMap, options)
+			executeElementsOnPackage(
+				workspacePackageElementsByTarget,
+				executorMap,
+				elementOptions,
+				options
+			)
 		)
 	);
 };

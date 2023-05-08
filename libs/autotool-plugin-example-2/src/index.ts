@@ -3,18 +3,15 @@ import { join } from 'node:path';
 import packageJson from '../package.json';
 
 const plugin: AutotoolPlugin = (options) => {
-	console.log('EXAMPLE PLUGIN 2!!!');
-	const logger = options.logger.getSubLogger({ name: 'ts' });
 	const packageDirectory = getAssumedFinalInstallLocationOfPackage(options, packageJson);
-
-	logger.info('loading...');
+	options.logger.info('distributing files from', packageDirectory);
 
 	return {
 		name: packageJson.name,
 		elements: [
 			{
 				description: 'doin stuff',
-				executor: 'file-copy',
+				executor: 'fileCopy',
 				packageKind: 'root',
 				targetFile: 'foo.txt',
 				sourceFile: join(packageDirectory, 'static', 'foo.txt'),

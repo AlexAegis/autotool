@@ -6,7 +6,10 @@ import {
 	autotoolElementFileSymlinkExecutor,
 	autotoolElementJsonExecutor,
 } from './executors/index.js';
-import { validateRootElementNotModifyingPackages } from './validators/index.js';
+import {
+	validateRootElementNotModifyingPackages,
+	validateTargetsAreNotOutsideOfPackage,
+} from './validators/index.js';
 
 export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
 	name: packageJson.name,
@@ -16,7 +19,7 @@ export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
 		fileSymlink: autotoolElementFileSymlinkExecutor,
 		packageJson: autotoolElementJsonExecutor,
 	},
-	validators: [validateRootElementNotModifyingPackages],
+	validators: [validateTargetsAreNotOutsideOfPackage, validateRootElementNotModifyingPackages],
 };
 
 export default defaultPlugin;

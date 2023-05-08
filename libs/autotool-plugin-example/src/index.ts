@@ -62,7 +62,7 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			{
 				description: 'remove unnecessary tsconfig files',
-				executor: 'file-remove',
+				executor: 'fileRemove',
 				targetFilePatterns: 'tsconfig.!(json)',
 			},
 			{

@@ -1,6 +1,5 @@
-import type { PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
+import type { ExecutorMap, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import type { ExecutorMap } from '../types.js';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 
 describe('consolidateElementsAndFilterOutNonExecutable', () => {
