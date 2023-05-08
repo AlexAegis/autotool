@@ -14,6 +14,7 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		packageJsonPath: '',
 		packageKind: 'regular',
 		packagePath: '',
+		packagePathFromRootPackage: '',
 	};
 
 	const fakeSourcePlugin: AutotoolPluginObject = {

@@ -40,6 +40,7 @@ describe('filterElementsForPackage', () => {
 			packageJsonPath: '',
 			packageKind: 'regular',
 			packagePath: '',
+			packagePathFromRootPackage: '',
 		};
 
 		const filtered = filterElementsForPackage(fakeWorkspacePackageFoo, plugins);
@@ -55,6 +56,7 @@ describe('filterElementsForPackage', () => {
 			packageJsonPath: '',
 			packageKind: 'regular',
 			packagePath: '',
+			packagePathFromRootPackage: '',
 		};
 
 		const filtered = filterElementsForPackage(fakeWorkspacePackageFoo, plugins);
@@ -67,6 +69,7 @@ describe('filterElementsForPackage', () => {
 			packageJsonPath: '',
 			packageKind: 'regular',
 			packagePath: '',
+			packagePathFromRootPackage: '',
 		};
 
 		const filtered = filterElementsForPackage(fakeWorkspacePackageBar, plugins);

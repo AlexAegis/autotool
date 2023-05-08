@@ -27,6 +27,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 		packageJsonPath: '',
 		packageKind: 'regular',
 		packagePath: '',
+		packagePathFromRootPackage: '',
 	};
 
 	it('should be able to replace elements that can be consolodited', () => {

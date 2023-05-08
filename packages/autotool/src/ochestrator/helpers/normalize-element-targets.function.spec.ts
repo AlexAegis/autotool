@@ -20,6 +20,7 @@ describe('normalizeElementTargets', () => {
 		packageJsonPath: '',
 		packageKind: 'regular',
 		packagePath: '',
+		packagePathFromRootPackage: '',
 	};
 
 	const fooTargetingElement: PackageResolvedElement = {

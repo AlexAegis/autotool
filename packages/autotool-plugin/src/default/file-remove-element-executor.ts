@@ -5,3 +5,9 @@ import type { AutotoolElement } from 'autotool-plugin';
  * write and remove the same file.
  */
 export type AutotoolElementFileRemove = AutotoolElement<'fileRemove'>;
+
+export const isAutotoolElementFileRemove = (
+	element: AutotoolElement
+): element is AutotoolElementFileRemove => {
+	return element.executor === 'fileRemove';
+};

@@ -12,6 +12,7 @@ describe('elementAndPluginFilter', () => {
 		packagePath: 'foo',
 		packageKind: 'root',
 		workspacePackagePatterns: ['packages/*'],
+		packagePathFromRootPackage: '.',
 	};
 
 	const regularPackageZed: WorkspacePackage = {
@@ -22,6 +23,7 @@ describe('elementAndPluginFilter', () => {
 		packageJsonPath: 'foo/packages/zed' + PACKAGE_JSON_NAME,
 		packagePath: 'foo/packages/zed',
 		packageKind: 'regular',
+		packagePathFromRootPackage: 'packages/zed',
 	};
 
 	const regularPackageZod: WorkspacePackage = {
@@ -32,6 +34,7 @@ describe('elementAndPluginFilter', () => {
 		packageJsonPath: 'foo/packages/zod' + PACKAGE_JSON_NAME,
 		packagePath: 'foo/packages/zod',
 		packageKind: 'regular',
+		packagePathFromRootPackage: 'packages/zod',
 	};
 
 	describe('packageKind filtering', () => {

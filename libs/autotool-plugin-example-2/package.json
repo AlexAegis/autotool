@@ -24,7 +24,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"build": "turbo run build-lib_ --concurrency 6 --cache-dir .cache/turbo --filter @autotool/autotool-plugin-example-2",
 		"build-lib_": "vite build",
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"lint:depcheck_": "depcheck",
@@ -64,7 +64,7 @@
 		"@alexaegis/ts": "^0.2.0",
 		"@alexaegis/vite": "^0.2.0",
 		"@alexaegis/vitest": "^0.2.0",
-		"@types/node": "^20.1.0",
+		"@types/node": "^20.1.1",
 		"@vitest/coverage-c8": "^0.31.0",
 		"publint": "^0.1.11",
 		"vite": "^4.3.5",

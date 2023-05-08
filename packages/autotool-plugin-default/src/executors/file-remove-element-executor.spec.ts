@@ -24,11 +24,20 @@ describe('autotoolElementFileRemoveExecutor', () => {
 		targetFilePackageRelative: 'foo.txt',
 		targetFilePath: 'projects/foo/foo.txt',
 		targetFilePathAbsolute: '/project/projects/foo/foo.txt',
-		workspacePackage: {
+		targetPackage: {
 			packageJson: {},
 			packageJsonPath: '/project/projects/foo/package.json',
 			packageKind: 'regular',
 			packagePath: '/project/projects/foo',
+			packagePathFromRootPackage: 'projects/foo',
+		},
+		rootPackage: {
+			workspacePackagePatterns: [],
+			packageJson: {},
+			packageJsonPath: '/project/projects/foo/package.json',
+			packageKind: 'root',
+			packagePath: '/project/projects/foo',
+			packagePathFromRootPackage: '.',
 		},
 	};
 

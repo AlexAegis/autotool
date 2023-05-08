@@ -13,6 +13,7 @@ describe('isElementUntargeted', () => {
 		packageJsonPath: '',
 		packageKind: 'regular',
 		packagePath: '',
+		packagePathFromRootPackage: '',
 	};
 
 	it('should return true for elements that have no targeting information', () => {

@@ -1,9 +1,9 @@
-import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
 	AutotoolElement,
 	AutotoolPluginObject,
 	ElementError,
 	PackageResolvedElement,
+	WorkspacePackage,
 } from 'autotool-plugin';
 
 export interface PackageElementErrorWithSourceData extends ElementError {

@@ -1,6 +1,10 @@
 import { asyncMap } from '@alexaegis/common';
 import type { NormalizedLoggerOption } from '@alexaegis/logging';
-import { collectWorkspacePackages } from '@alexaegis/workspace-tools';
+import {
+	collectWorkspacePackages,
+	type RootWorkspacePackage,
+	type WorkspacePackage,
+} from '@alexaegis/workspace-tools';
 import {
 	normalizeAutotoolOptions,
 	type AutotoolElement,
@@ -63,14 +67,18 @@ export const checkIfTheresAnElementWithoutValidExecutor = (
 	return failed;
 };
 
+export const isRootWorkspacePackage = (
+	workspacePackage: WorkspacePackage
+): workspacePackage is RootWorkspacePackage => {
+	return workspacePackage.packageKind === 'root';
+};
+
 export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	const options = normalizeAutotoolOptions(rawOptions);
 
 	// collect target packages
 	const workspacePackages = await collectWorkspacePackages(options);
-	const workspaceRootPackage = workspacePackages.find(
-		(workspacePackage) => workspacePackage.packageKind === 'root'
-	);
+	const workspaceRootPackage = workspacePackages.find(isRootWorkspacePackage);
 
 	if (!workspaceRootPackage) {
 		options.logger.warn('cannot do setup, not in a workspace!');
@@ -83,7 +91,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 
 	const plugins: AutotoolPluginObject[] = await loadInstalledPlugins(installedPlugins, {
 		...options,
-		workspaceRootPackage,
+		rootWorkspacePackage: workspaceRootPackage,
 	});
 	plugins.unshift(defaultPlugin as AutotoolPluginObject);
 
@@ -118,7 +126,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		cwd: options.cwd,
 		dry: options.dryish,
 		force: options.force,
-		workspaceRootPackage: workspaceRootPackage,
+		rootWorkspacePackage: workspaceRootPackage,
 	};
 
 	const unflattenedErrors: PackageElementErrorWithSourceData[][] = await asyncMap(
@@ -161,6 +169,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		workspacePackagesWithElementsByTarget.map((workspacePackageElementsByTarget) =>
 			executeElementsOnPackage(
 				workspacePackageElementsByTarget,
+				workspaceRootPackage,
 				executorMap,
 				elementOptions,
 				options

@@ -1,17 +1,8 @@
-import { sleep } from '@alexaegis/common';
-import {
-	getAssumedFinalInstallLocationOfPackage,
-	type AutotoolElementFileCopy,
-	type AutotoolPlugin,
-} from 'autotool-plugin';
+import { type AutotoolElementFileCopy, type AutotoolPlugin } from 'autotool-plugin';
 import { join } from 'node:path';
 import packageJson from '../package.json';
 
-export const plugin: AutotoolPlugin = async (options) => {
-	const packageDirectory = getAssumedFinalInstallLocationOfPackage(options, packageJson);
-
-	await sleep(2);
-
+export const plugin: AutotoolPlugin = (_options) => {
 	return {
 		name: packageJson.name,
 		elements: [
@@ -20,7 +11,8 @@ export const plugin: AutotoolPlugin = async (options) => {
 				executor: 'fileCopy',
 				packageKind: 'root',
 				targetFile: 'tsconfig.json',
-				sourceFile: join(packageDirectory, 'static', 'workspace-tsconfig.json'),
+				sourcePluginPackageName: packageJson.name,
+				sourceFile: join('static', 'workspace-tsconfig.json'),
 			},
 			{
 				description: 'add workspace root ts scripts',
@@ -79,13 +71,14 @@ export const plugin: AutotoolPlugin = async (options) => {
 			},
 			...['base', 'web', 'svelte', 'node'].map<AutotoolElementFileCopy>((flavour) => ({
 				name: `copy tsconfig for ${flavour} packages`,
+				sourcePluginPackageName: packageJson.name,
 				executor: 'fileCopy',
 				packageKind: 'regular',
 				targetFile: 'tsconfig.json',
 				packageJsonFilter: {
 					keywords: (keywords) => keywords.includes(`${packageJson.name}-${flavour}`),
 				},
-				sourceFile: join(packageDirectory, 'static', 'package-simple-tsconfig.json'),
+				sourceFile: join('static', 'package-simple-tsconfig.json'),
 				templateVariables: {
 					flavour,
 				},

@@ -1,9 +1,9 @@
-import type { WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { RootWorkspacePackage, WorkspacePackage } from '@alexaegis/workspace-tools';
 import type { AutotoolElementApplyOptions } from '../plugin/index.js';
 import type { AppliedElement, AutotoolElement } from './autotool-element.interface.js';
 
 export interface ElementTarget {
-	workspacePackage: WorkspacePackage;
+	targetPackage: WorkspacePackage;
 	/**
 	 * The path to the target file from `cwd`
 	 */
@@ -16,6 +16,11 @@ export interface ElementTarget {
 	 * The path to the file from the directory of the packageFile
 	 */
 	targetFilePackageRelative: string;
+
+	/**
+	 * For reference the root package is also included
+	 */
+	rootPackage: RootWorkspacePackage;
 }
 
 /**

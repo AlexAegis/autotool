@@ -1,14 +1,14 @@
 import { normalizeDryOption, normalizeForceOption } from '@alexaegis/common';
 import { normalizeCwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption } from '@alexaegis/logging';
-import type { WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { RootWorkspacePackage } from '@alexaegis/workspace-tools';
 import {
 	type AutotoolOptions,
 	type NormalizedAutotoolOptions,
 } from './autotool.function.options.js';
 
 export interface BaseAutotoolPluginOptions {
-	workspaceRootPackage: WorkspacePackage;
+	rootWorkspacePackage: RootWorkspacePackage;
 }
 
 export type AutotoolPluginOptions = Omit<AutotoolOptions, 'dryish' | 'listPlugins'> &
@@ -27,6 +27,6 @@ export const normalizeAutotoolPluginOptions = (
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
 		...normalizeForceOption(options),
-		workspaceRootPackage: options.workspaceRootPackage,
+		rootWorkspacePackage: options.rootWorkspacePackage,
 	};
 };

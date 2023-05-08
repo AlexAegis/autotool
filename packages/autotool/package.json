@@ -24,7 +24,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool",
+		"build": "turbo run build-lib_ --concurrency 6 --cache-dir .cache/turbo --filter autotool",
 		"build-lib_": "vite build",
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool",
 		"lint:depcheck_": "depcheck",
@@ -57,12 +57,12 @@
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.1.6",
-		"@alexaegis/common": "^0.1.6",
-		"@alexaegis/fs": "^0.1.6",
-		"@alexaegis/logging": "^0.1.6",
-		"@alexaegis/match": "^0.1.6",
-		"@alexaegis/workspace-tools": "^0.1.6",
+		"@alexaegis/cli-tools": "^0.1.7",
+		"@alexaegis/common": "^0.1.7",
+		"@alexaegis/fs": "^0.1.7",
+		"@alexaegis/logging": "^0.1.7",
+		"@alexaegis/match": "^0.1.7",
+		"@alexaegis/workspace-tools": "^0.1.7",
 		"autotool-plugin": "workspace:^",
 		"autotool-plugin-default": "workspace:^",
 		"globby": "^13.1.4"
@@ -72,7 +72,7 @@
 		"@alexaegis/ts": "^0.2.0",
 		"@alexaegis/vite": "^0.2.0",
 		"@alexaegis/vitest": "^0.2.0",
-		"@types/node": "^20.1.0",
+		"@types/node": "^20.1.1",
 		"@types/yargs": "17.0.24",
 		"@vitest/coverage-c8": "^0.31.0",
 		"publint": "^0.1.11",
