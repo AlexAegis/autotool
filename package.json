@@ -107,14 +107,14 @@
 		"eslint": "^8.40.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.2.2",
-		"npm-check-updates": "^16.10.9",
+		"npm-check-updates": "^16.10.10",
 		"prettier": "^2.8.8",
 		"remark": "^14.0.2",
 		"remark-cli": "^11.0.0",
 		"stylelint": "^15.6.1",
 		"ts-node": "^10.9.1",
 		"turbo": "^1.9.3",
-		"typedoc": "^0.24.6",
+		"typedoc": "^0.24.7",
 		"typescript": "^5.0.4",
 		"vitest": "^0.31.0"
 	}

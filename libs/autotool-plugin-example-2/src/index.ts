@@ -10,15 +10,14 @@ const plugin: AutotoolPlugin = (options) => {
 	logger.info('loading...');
 
 	return {
-		name: 'autotool-plugin-example-2',
+		name: packageJson.name,
 		elements: [
 			{
 				description: 'doin stuff',
 				executor: 'file-copy',
 				packageKind: 'root',
 				targetFile: 'tsconfig.json',
-
-				sourceFile: join(packageDirectory, 'static', 'workspace-tsconfig.json'),
+				sourceFile: join(packageDirectory, 'static', 'foo.txt'),
 			},
 		],
 	};

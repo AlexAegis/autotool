@@ -13,7 +13,7 @@ export const plugin: AutotoolPlugin = async (options) => {
 	await sleep(2);
 
 	return {
-		name: 'autotool-plugin-example-1',
+		name: packageJson.name,
 		elements: [
 			{
 				description: 'copy workspace root ts config',

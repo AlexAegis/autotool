@@ -49,12 +49,8 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
-		"./package-composing-tsconfig": "./static/package-composing-tsconfig.json",
-		"./package-simple-tsconfig": "./static/package-simple-tsconfig.json",
-		"./package-source-tsconfig": "./static/package-source-tsconfig.json",
-		"./package-spec-vitest-tsconfig": "./static/package-spec-vitest-tsconfig.json",
-		"./readme": "./readme.md",
-		"./workspace-tsconfig": "./static/workspace-tsconfig.json"
+		"./foo": "./static/foo.txt",
+		"./readme": "./readme.md"
 	},
 	"dependencies": {
 		"autotool-plugin": "workspace:^",
