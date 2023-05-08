@@ -1,9 +1,11 @@
-import type {
-	ElementTarget,
-	ExecutorMap,
-	NormalizedAutotoolOptions,
-	NormalizedAutotoolPluginOptions,
-	WorkspacePackageElementsByTarget,
+import {
+	AUTOTOOL_MARK,
+	isManagedFile,
+	type ElementTarget,
+	type ExecutorMap,
+	type NormalizedAutotoolOptions,
+	type NormalizedAutotoolPluginOptions,
+	type WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
 import { join, relative } from 'node:path';
 
@@ -39,8 +41,24 @@ export const executeElementsOnPackage = async (
 					workspacePackage: workspacePackageElementsByTarget.workspacePackage,
 				};
 
+				const bearsTheMark = await isManagedFile(targetFilePathAbsolute);
+				if (!bearsTheMark) {
+					if (options.force) {
+						options.logger.warn(
+							`Target file ${targetFile} at ${workspacePackageElementsByTarget.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}") but it's ignored because '--force' was used.`
+						);
+					} else {
+						options.logger.warn(
+							`Target file ${targetFile} at ${workspacePackageElementsByTarget.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}"), skipping!`
+						);
+
+						return;
+					}
+				}
+
 				console.log('TARGET', target.targetFilePathAbsolute);
 				console.log('elements', elements);
+				// Elements are applied one at a time
 				for (const resolvedElement of elements) {
 					const executor = executorMap.get(resolvedElement.element.executor);
 					console.log('RESOLVE', resolvedElement, executor);

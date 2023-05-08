@@ -15,6 +15,7 @@ void (async () => {
 	const options: AutotoolOptions = {
 		...args,
 		logger: createLogger({
+			// TODO: try to make this automatic during parse using maybe 'coerce'
 			name: packageJson.name,
 			minLevel: args.logLevel,
 		}),

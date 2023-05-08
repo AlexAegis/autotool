@@ -1,4 +1,11 @@
-import { normalizeDryOption, type DryOption, type NormalizedDryOption } from '@alexaegis/common';
+import {
+	normalizeDryOption,
+	normalizeForceOption,
+	type DryOption,
+	type ForceOption,
+	type NormalizedDryOption,
+	type NormalizedForceOption,
+} from '@alexaegis/common';
 import { normalizeCwdOption, type CwdOption, type NormalizedCwdOption } from '@alexaegis/fs';
 import {
 	normalizeLoggerOption,
@@ -11,11 +18,16 @@ interface BaseAutotoolOptions {
 	listPlugins?: boolean;
 }
 
-export type AutotoolOptions = BaseAutotoolOptions & CwdOption & LoggerOption & DryOption;
+export type AutotoolOptions = BaseAutotoolOptions &
+	CwdOption &
+	LoggerOption &
+	DryOption &
+	ForceOption;
 export type NormalizedAutotoolOptions = Required<BaseAutotoolOptions> &
 	NormalizedCwdOption &
 	NormalizedLoggerOption &
-	NormalizedDryOption;
+	NormalizedDryOption &
+	NormalizedForceOption;
 
 /**
  * Same as NormalizedAutotoolOptions but without 'dryish'
@@ -33,6 +45,7 @@ export const normalizeAutotoolOptions = (options?: AutotoolOptions): NormalizedA
 		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
+		...normalizeForceOption(options),
 		dryish: options?.dryish ?? false,
 		listPlugins: options?.listPlugins ?? false,
 	};

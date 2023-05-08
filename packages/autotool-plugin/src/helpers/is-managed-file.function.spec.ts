@@ -1,12 +1,12 @@
 import type { PathLike } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { DISTRIBUTION_MARK, isManagedFile } from './is-managed-file.function.js';
+import { AUTOTOOL_MARK, isManagedFile } from './is-managed-file.function.js';
 
 vi.mock('node:fs/promises', () => {
 	return {
 		readFile: vi.fn((path: PathLike): string | undefined => {
 			if (path.toString() === 'distributed') {
-				return DISTRIBUTION_MARK;
+				return AUTOTOOL_MARK;
 			} else if (path.toString() === 'edited') {
 				return 'edited';
 			} else {

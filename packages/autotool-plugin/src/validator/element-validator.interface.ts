@@ -1,3 +1,4 @@
+import type { Awaitable } from '@alexaegis/common';
 import type { NormalizedAutotoolPluginOptions } from '../index.js';
 import type {
 	AutotoolElement,
@@ -13,4 +14,4 @@ export type AutotoolElementValidator<Element extends AutotoolElement = AutotoolE
 	workspacePackageElementsByTarget: WorkspacePackageElementsByTarget<Element>,
 	executorMap: ExecutorMap,
 	options: NormalizedAutotoolPluginOptions
-) => ElementError[];
+) => Awaitable<ElementError[]>;

@@ -117,25 +117,35 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		logger: options.logger,
 		cwd: options.cwd,
 		dry: options.dryish,
+		force: options.force,
 		workspaceRootPackage: workspaceRootPackage,
 	};
 
-	const errors: PackageElementErrorWithSourceData[] = validators.flatMap((validator) =>
-		workspacePackagesWithElementsByTarget.flatMap((workspacePackageElements) =>
-			validator(
-				workspacePackageElements,
-				executorMap,
-				elementOptions
-			).map<PackageElementErrorWithSourceData>((error) => ({
-				// TODO fill metadata
-				sourceElements: [],
-				sourcePlugins: [],
-				target: '',
-				workspacePackage: workspacePackageElements.workspacePackage,
-				message: error.message,
-			}))
-		)
+	const unflattenedErrors: PackageElementErrorWithSourceData[][] = await asyncMap(
+		validators,
+		async (validator) => {
+			const elementErrors = await asyncMap(
+				workspacePackagesWithElementsByTarget,
+				async (workspacePackageElements) => {
+					const validationErrors = await validator(
+						workspacePackageElements,
+						executorMap,
+						elementOptions
+					);
+					return validationErrors.map<PackageElementErrorWithSourceData>((error) => ({
+						// TODO fill metadata
+						sourceElements: [],
+						sourcePlugins: [],
+						target: '',
+						workspacePackage: workspacePackageElements.workspacePackage,
+						message: error.message,
+					}));
+				}
+			);
+			return elementErrors.flat(1);
+		}
 	);
+	const errors: PackageElementErrorWithSourceData[] = unflattenedErrors.flat(1);
 
 	if (errors.length > 0) {
 		options.logger.error('Error detected within setup elements!');

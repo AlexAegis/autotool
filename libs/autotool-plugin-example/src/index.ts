@@ -20,7 +20,6 @@ export const plugin: AutotoolPlugin = async (options) => {
 				executor: 'fileCopy',
 				packageKind: 'root',
 				targetFile: 'tsconfig.json',
-
 				sourceFile: join(packageDirectory, 'static', 'workspace-tsconfig.json'),
 			},
 			{

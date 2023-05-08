@@ -1,4 +1,4 @@
-import { normalizeDryOption } from '@alexaegis/common';
+import { normalizeDryOption, normalizeForceOption } from '@alexaegis/common';
 import { normalizeCwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption } from '@alexaegis/logging';
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
@@ -26,6 +26,7 @@ export const normalizeAutotoolPluginOptions = (
 		...normalizeCwdOption(options),
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
+		...normalizeForceOption(options),
 		workspaceRootPackage: options.workspaceRootPackage,
 	};
 };
