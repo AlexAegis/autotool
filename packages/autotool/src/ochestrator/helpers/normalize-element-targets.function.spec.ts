@@ -1,5 +1,6 @@
 import type {
 	AutotoolPluginObject,
+	ExecutorMap,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
@@ -10,6 +11,7 @@ import { normalizeElementTargets } from './normalize-element-targets.function.js
 vi.mock('globby');
 
 describe('normalizeElementTargets', () => {
+	const executorMap: ExecutorMap = new Map();
 	const fakeSourcePlugin: AutotoolPluginObject = {
 		elements: [],
 		name: 'foo',
@@ -68,10 +70,13 @@ describe('normalizeElementTargets', () => {
 	};
 
 	it('should resolve the concrete files the elements target for each element', async () => {
-		const normalized = await normalizeElementTargets({
-			elements: [fooTargetingElement, fooTargetingElement],
-			workspacePackage: fakeWorkspacePackage,
-		});
+		const normalized = await normalizeElementTargets(
+			{
+				elements: [fooTargetingElement, fooTargetingElement],
+				workspacePackage: fakeWorkspacePackage,
+			},
+			executorMap
+		);
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
 				resolvedTargetFiles: ['foo'],
@@ -87,10 +92,13 @@ describe('normalizeElementTargets', () => {
 	});
 
 	it('should be able to use multiple direct targets for one element', async () => {
-		const normalized = await normalizeElementTargets({
-			elements: [fooAndBarTargetingElement],
-			workspacePackage: fakeWorkspacePackage,
-		});
+		const normalized = await normalizeElementTargets(
+			{
+				elements: [fooAndBarTargetingElement],
+				workspacePackage: fakeWorkspacePackage,
+			},
+			executorMap
+		);
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
 				resolvedTargetFiles: ['foo', 'bar'],
@@ -102,10 +110,13 @@ describe('normalizeElementTargets', () => {
 	});
 
 	it('should resolve the concrete files the elements target for each element for multi and single globs too', async () => {
-		const normalized = await normalizeElementTargets({
-			elements: [fooGlobTargetingElement, fooAndBarGlobTargetingElement],
-			workspacePackage: fakeWorkspacePackage,
-		});
+		const normalized = await normalizeElementTargets(
+			{
+				elements: [fooGlobTargetingElement, fooAndBarGlobTargetingElement],
+				workspacePackage: fakeWorkspacePackage,
+			},
+			executorMap
+		);
 
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
@@ -122,10 +133,14 @@ describe('normalizeElementTargets', () => {
 	});
 
 	it('should put elements without any targeting data into the untargeted elements array', async () => {
-		const normalized = await normalizeElementTargets({
-			elements: [nonTargetingElement],
-			workspacePackage: fakeWorkspacePackage,
-		});
+		const normalized = await normalizeElementTargets(
+			{
+				elements: [nonTargetingElement],
+				workspacePackage: fakeWorkspacePackage,
+			},
+			executorMap
+		);
+
 		expect(normalized.targetedElements).toHaveLength(0);
 
 		expect(normalized.untargetedElements).toEqual([nonTargetingElement]);

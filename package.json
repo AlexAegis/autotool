@@ -18,6 +18,7 @@
 		"url": "https://github.com/AlexAegis/js/issues"
 	},
 	"keywords": [
+		"managed-by-autotool",
 		"eslint",
 		"javascript",
 		"js",

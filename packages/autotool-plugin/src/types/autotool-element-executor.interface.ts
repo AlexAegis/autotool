@@ -51,6 +51,12 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 	 */
 	conflictsOnTargetLevel?: string[] | undefined;
 
+	/**
+	 * If an element doesn't need to specify its target because it always
+	 * targets the same file, it can be set here.
+	 */
+	defaultTarget?: string;
+
 	apply: (
 		element: Element,
 		target: ElementTarget,

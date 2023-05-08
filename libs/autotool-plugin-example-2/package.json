@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"private": true,
 	"keywords": [
+		"managed-by-autotool",
 		"@alexaegis/setup-depcheck",
 		"@alexaegis/setup-eslint",
 		"@alexaegis/setup-prettier",

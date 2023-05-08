@@ -15,7 +15,7 @@ export const groupAndConsolidateElementsByTargetFile = async <
 	workspacePackage: WorkspacePackageWithElements<Elements>,
 	executorMap: ExecutorMap<Elements>
 ): Promise<WorkspacePackageElementsByTarget<Elements>> => {
-	const resolved = await normalizeElementTargets(workspacePackage);
+	const resolved = await normalizeElementTargets(workspacePackage, executorMap);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
 		Record<string, PackageResolvedElement<Elements>[]>
 	>((groups, next) => {

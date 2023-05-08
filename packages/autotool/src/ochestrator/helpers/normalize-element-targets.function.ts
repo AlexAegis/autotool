@@ -1,5 +1,5 @@
 import { asyncFilterMap } from '@alexaegis/common';
-import type { AutotoolElement } from 'autotool-plugin';
+import type { AutotoolElement, ExecutorMap } from 'autotool-plugin';
 import { globby } from 'globby';
 import type {
 	InternalElementsWithResolvedTargets,
@@ -7,19 +7,24 @@ import type {
 	WorkspacePackageWithTargetedElements,
 } from '../types.js';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
+import { partition } from './partition.function.js';
 
 export const normalizeElementTargets = async <Elements extends AutotoolElement = AutotoolElement>(
-	workspacePackageWithElements: WorkspacePackageWithElements<Elements>
+	workspacePackageWithElements: WorkspacePackageWithElements<Elements>,
+	executorMap: ExecutorMap<Elements>
 ): Promise<WorkspacePackageWithTargetedElements<Elements>> => {
-	const elementsWithTargeting = workspacePackageWithElements.elements.filter(
-		(element) => !isElementUntargeted(element)
-	);
-	const elementsWithoutTargeting = workspacePackageWithElements.elements.filter((element) =>
-		isElementUntargeted(element)
+	const [elementsWithoutTargeting, elementsWithTargeting] = partition(
+		workspacePackageWithElements.elements,
+		(element) => isElementUntargeted(element, executorMap)
 	);
 
 	const elements = await asyncFilterMap(elementsWithTargeting, async (packageElement) => {
 		const targetFiles: string[] = [];
+		const defaultTarget = executorMap.get(packageElement.element.executor)?.defaultTarget;
+
+		if (defaultTarget) {
+			targetFiles.push(defaultTarget);
+		}
 
 		if (packageElement.element.targetFile) {
 			if (typeof packageElement.element.targetFile === 'string') {

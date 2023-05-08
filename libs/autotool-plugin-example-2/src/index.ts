@@ -14,6 +14,14 @@ const plugin: AutotoolPlugin = (_options) => {
 				sourcePluginPackageName: packageJson.name,
 				sourceFile: join('static', 'foo.txt'),
 			},
+			{
+				description: 'doin to pkgjson',
+				executor: 'packageJson',
+				packageKind: 'regular',
+				data: {
+					foo: 'lol',
+				},
+			},
 		],
 	};
 };
