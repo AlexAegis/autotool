@@ -19,7 +19,6 @@ describe('normalizeAutotoolPluginOptions', () => {
 		expect(normalizeAutotoolPluginOptions({ workspaceRootPackage })).toEqual({
 			cwd: process.cwd(),
 			dry: false,
-			dryish: false,
 			logger: noopLogger,
 			workspaceRootPackage,
 		} as NormalizedAutotoolPluginOptions);
@@ -29,7 +28,6 @@ describe('normalizeAutotoolPluginOptions', () => {
 		const manualOptions: AutotoolPluginOptions = {
 			cwd: 'foo',
 			dry: true,
-			dryish: true,
 			logger: noopLogger,
 			workspaceRootPackage,
 		};

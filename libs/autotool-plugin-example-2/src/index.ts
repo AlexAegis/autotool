@@ -16,7 +16,7 @@ const plugin: AutotoolPlugin = (options) => {
 				description: 'doin stuff',
 				executor: 'file-copy',
 				packageKind: 'root',
-				targetFile: 'tsconfig.json',
+				targetFile: 'foo.txt',
 				sourceFile: join(packageDirectory, 'static', 'foo.txt'),
 			},
 		],

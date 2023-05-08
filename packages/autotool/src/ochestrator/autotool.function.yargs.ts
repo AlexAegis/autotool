@@ -6,10 +6,16 @@ import type { Argv } from 'yargs';
 export const yargsForAutotool = <T>(
 	yargs: Argv<T>
 ): Argv<T & Omit<AutotoolOptions, keyof LoggerOption>> => {
-	return yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs))).option('dryish', {
-		boolean: true,
-		default: false,
-		description:
-			"Execute excutors, and trust them that they don't actually write anything to the disk",
-	});
+	return yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs)))
+		.option('dryish', {
+			boolean: true,
+			default: false,
+			description:
+				"Execute excutors, and trust them that they don't actually write anything to the disk",
+		})
+		.option('listPlugins', {
+			boolean: true,
+			default: false,
+			description: 'Lists all installed plugins',
+		});
 };

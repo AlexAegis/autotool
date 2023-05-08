@@ -8,6 +8,7 @@ import {
 
 interface BaseAutotoolOptions {
 	dryish?: boolean;
+	listPlugins?: boolean;
 }
 
 export type AutotoolOptions = BaseAutotoolOptions & CwdOption & LoggerOption & DryOption;
@@ -19,7 +20,10 @@ export type NormalizedAutotoolOptions = Required<BaseAutotoolOptions> &
 /**
  * Same as NormalizedAutotoolOptions but without 'dryish'
  */
-export type AutotoolElementApplyOptions = Omit<Required<BaseAutotoolOptions>, 'dryish'> &
+export type AutotoolElementApplyOptions = Omit<
+	Required<BaseAutotoolOptions>,
+	'dryish' | 'listPlugins'
+> &
 	NormalizedCwdOption &
 	NormalizedLoggerOption &
 	NormalizedDryOption;
@@ -30,5 +34,6 @@ export const normalizeAutotoolOptions = (options?: AutotoolOptions): NormalizedA
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
 		dryish: options?.dryish ?? false,
+		listPlugins: options?.listPlugins ?? false,
 	};
 };

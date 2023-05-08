@@ -12,6 +12,7 @@ describe('normalizeMemoizeOptions', () => {
 			cwd: process.cwd(),
 			dry: false,
 			dryish: false,
+			listPlugins: false,
 			logger: noopLogger,
 		} as NormalizedAutotoolOptions);
 	});
@@ -21,6 +22,7 @@ describe('normalizeMemoizeOptions', () => {
 			cwd: 'foo',
 			dry: true,
 			dryish: false,
+			listPlugins: true,
 			logger: noopLogger,
 		};
 		expect(normalizeAutotoolOptions(manualOptions)).toEqual(manualOptions);
