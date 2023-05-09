@@ -35,7 +35,7 @@ type ExecutorsOf<Elements extends AutotoolElement> = Elements extends AutotoolEl
 	? Record<U, AutotoolElementExecutor<Elements>>
 	: never;
 
-export interface AutotoolPluginObject<Elements extends AutotoolElement = AutotoolElement>
+export interface AutotoolPluginObject<Elements extends AutotoolElement = never>
 	extends AutotoolPluginFilter {
 	/**
 	 * Used to scope logging, it's best to use the name of the package

@@ -63,6 +63,24 @@ package and `sourcePluginPackageName` which has to be your package's name. These
 two are needed to know where the file will end up at the consumers
 `node_modules` folder.
 
+### CustomElement
+
+This is the simplest element. You define a function and are given the context
+all other elements have. The element it's applying (always itself), the target
+and the options containing data like if it's a `dryish` run, and the logger.
+
+```ts
+{
+  executor: 'custom',
+  description: 'say hello to all public packages!',
+  packageJsonFilter: {
+    private: false,
+  },
+  apply: (_e, target, options) =>
+    options.logger.info('Hello', target.targetPackage.packageJson.name),
+},
+```
+
 ## Provided Validators
 
 ### Elements for root should not target inside packages

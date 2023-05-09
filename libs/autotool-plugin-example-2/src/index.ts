@@ -20,6 +20,15 @@ const plugin: AutotoolPlugin = (_options) => {
 				packageKind: 'root',
 				targetFile: 'foo2.txt',
 			},
+			{
+				executor: 'custom',
+				description: 'say hello to all public packages!',
+				// packageJsonFilter: {
+				// 	private: false,
+				// },
+				apply: (_e, target, options) =>
+					options.logger.info('Hello', target.targetPackage.packageJson.name),
+			},
 		],
 	};
 };

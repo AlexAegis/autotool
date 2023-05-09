@@ -1,4 +1,5 @@
 import type {
+	AutotoolElement,
 	AutotoolPluginObject,
 	ExecutorMap,
 	PackageResolvedElement,
@@ -13,7 +14,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 
 	const executorMap: ExecutorMap = new Map();
 
-	const sourcePlugin: AutotoolPluginObject = { name: 'fake' };
+	const sourcePlugin: AutotoolPluginObject<AutotoolElement> = { name: 'fake' };
 
 	executorMap.set(testElementTypeConsolidable, {
 		type: testElementTypeConsolidable,

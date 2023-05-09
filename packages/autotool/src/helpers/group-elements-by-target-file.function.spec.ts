@@ -1,4 +1,9 @@
-import type { AutotoolPluginObject, ExecutorMap, WorkspacePackage } from 'autotool-plugin';
+import type {
+	AutotoolElement,
+	AutotoolPluginObject,
+	ExecutorMap,
+	WorkspacePackage,
+} from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import type { WorkspacePackageWithElements } from '../internal/types.js';
 import { groupAndConsolidateElementsByTargetFile } from './group-elements-by-target-file.function.js';
@@ -17,7 +22,7 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		packagePathFromRootPackage: '',
 	};
 
-	const fakeSourcePlugin: AutotoolPluginObject = {
+	const fakeSourcePlugin: AutotoolPluginObject<AutotoolElement> = {
 		name: 'fake',
 		elements: [],
 	};

@@ -1,8 +1,12 @@
-import { type AutotoolElementFileCopy, type AutotoolPlugin } from 'autotool-plugin';
+import {
+	type AutotoolElementFileCopy,
+	type AutotoolPlugin,
+	type AutotoolPluginObject,
+} from 'autotool-plugin';
 import { join } from 'node:path';
 import packageJson from '../package.json';
 
-export const plugin: AutotoolPlugin = (_options) => {
+export const plugin: AutotoolPlugin = (_options): AutotoolPluginObject => {
 	return {
 		name: packageJson.name,
 		elements: [

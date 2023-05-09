@@ -9,7 +9,7 @@ on:
 env:
   PAGES_DEPLOY_ARTIFACT_DIR: 'coverage'
   PAGES_DEPLOY_ARTIFACT_BUILDING_JOB: 'test'
-  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
   TURBO_REMOTE_ONLY: true
 
@@ -291,7 +291,7 @@ jobs:
     needs: [build, test, lint, typedoc]
     strategy:
       matrix:
-        artifact: ['autotool', 'autotool-plugin', 'autotool-plugin-default']
+        artifact: [] # artifact: ['autotool', 'autotool-plugin', 'autotool-plugin-default']
     steps:
       - name: checkout
         uses: actions/checkout@v3

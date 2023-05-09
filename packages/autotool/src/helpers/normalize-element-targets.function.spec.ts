@@ -1,4 +1,5 @@
 import type {
+	AutotoolElement,
 	AutotoolPluginObject,
 	ExecutorMap,
 	PackageResolvedElement,
@@ -12,7 +13,7 @@ vi.mock('globby');
 
 describe('normalizeElementTargets', () => {
 	const executorMap: ExecutorMap = new Map();
-	const fakeSourcePlugin: AutotoolPluginObject = {
+	const fakeSourcePlugin: AutotoolPluginObject<AutotoolElement> = {
 		elements: [],
 		name: 'foo',
 	};

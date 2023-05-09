@@ -1,9 +1,14 @@
-import type { AutotoolPluginObject, ExecutorMap, WorkspacePackage } from 'autotool-plugin';
+import type {
+	AutotoolElement,
+	AutotoolPluginObject,
+	ExecutorMap,
+	WorkspacePackage,
+} from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
 
 describe('isElementUntargeted', () => {
-	const fakeSourcePlugin: AutotoolPluginObject = {
+	const fakeSourcePlugin: AutotoolPluginObject<AutotoolElement> = {
 		elements: [],
 		name: 'foo',
 	};

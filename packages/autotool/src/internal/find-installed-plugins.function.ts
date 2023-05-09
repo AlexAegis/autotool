@@ -31,8 +31,10 @@ type AssumedPluginModule = {
 	default?: AutotoolPlugin<AutotoolElement> | undefined;
 } & AutotoolPlugin<AutotoolElement>;
 
-export const isAutotoolPluginObject = (plugin: unknown): plugin is AutotoolPluginObject => {
-	const assumed = plugin as AutotoolPluginObject;
+export const isAutotoolPluginObject = <Element extends AutotoolElement = AutotoolElement>(
+	plugin: unknown
+): plugin is AutotoolPluginObject<Element> => {
+	const assumed = plugin as AutotoolPluginObject<Element>;
 	return (
 		typeof assumed === 'object' &&
 		!Array.isArray(assumed) &&
@@ -65,7 +67,7 @@ export const loadPlugin = async <Elements extends AutotoolElement>(
 export const loadInstalledPlugins = async (
 	plugins: string[],
 	options: NormalizedAutotoolPluginOptions
-): Promise<AutotoolPluginObject[]> => {
+): Promise<AutotoolPluginObject<AutotoolElement>[]> => {
 	const modules = await asyncFilterMap(
 		plugins,
 		(name) =>

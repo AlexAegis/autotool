@@ -6,8 +6,8 @@
 	"private": false,
 	"keywords": [
 		"autotool",
-		"managed-by-autotool",
-		"autotool-plugin"
+		"autotool-plugin",
+		"managed-by-autotool"
 	],
 	"archetype": {},
 	"type": "module",

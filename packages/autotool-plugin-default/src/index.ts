@@ -1,6 +1,7 @@
 import type { AutotoolPluginObject, DefaultAutotoolElements } from 'autotool-plugin';
 import packageJson from '../package.json';
 import {
+	autotoolElementCustomExecutor,
 	autotoolElementFileCopyExecutor,
 	autotoolElementFileRemoveExecutor,
 	autotoolElementFileSymlinkExecutor,
@@ -19,6 +20,7 @@ export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
 		fileRemove: autotoolElementFileRemoveExecutor,
 		fileSymlink: autotoolElementFileSymlinkExecutor,
 		packageJson: autotoolElementJsonExecutor,
+		custom: autotoolElementCustomExecutor,
 	},
 	validators: [
 		validateTargetsAreNotOutsideOfPackage,

@@ -24,9 +24,9 @@ export const executeElementsOnPackage = async (
 	elementOptions: NormalizedAutotoolPluginOptions,
 	options: NormalizedAutotoolOptions
 ): Promise<void> => {
-	const entries = Object.entries(packageElements.targetedElementsByFile);
+	const targetedEntries = Object.entries(packageElements.targetedElementsByFile);
 
-	if (entries.length > 0) {
+	if (targetedEntries.length > 0) {
 		options.logger.info(
 			`processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}..."`
 		);
@@ -36,8 +36,15 @@ export const executeElementsOnPackage = async (
 		);
 	}
 
+	for (const [target, elements] of targetedEntries) {
+		options.logger.trace(
+			`all elements on ${target}`,
+			elements.map((element) => element.element.executor)
+		);
+	}
+
 	await Promise.allSettled(
-		entries.map(async ([targetFile, elements]) => {
+		targetedEntries.map(async ([targetFile, elements]) => {
 			const targetFilePathAbsolute = join(
 				packageElements.workspacePackage.packagePath,
 				targetFile
@@ -102,7 +109,7 @@ export const executeElementsOnPackage = async (
 		})
 	);
 
-	if (entries.length > 0) {
+	if (targetedEntries.length > 0) {
 		options.logger.info(
 			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}!"`
 		);
