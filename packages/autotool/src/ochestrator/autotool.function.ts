@@ -99,14 +99,20 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	options.logger.info('Valid setup elements, proceeding');
 
 	await Promise.allSettled(
-		workspacePackagesWithElementsByTarget.map((workspacePackageElementsByTarget) =>
-			executeElementsOnPackage(
+		workspacePackagesWithElementsByTarget.map((workspacePackageElementsByTarget) => {
+			const targetPackageLogger = options.logger.getSubLogger({
+				name: workspacePackageElementsByTarget.workspacePackage.packagePathFromRootPackage,
+			});
+			return executeElementsOnPackage(
 				workspacePackageElementsByTarget,
 				workspaceRootPackage,
 				executorMap,
-				elementOptions,
-				options
-			)
-		)
+				{ ...elementOptions, logger: targetPackageLogger },
+				{
+					...options,
+					logger: targetPackageLogger,
+				}
+			);
+		})
 	);
 };

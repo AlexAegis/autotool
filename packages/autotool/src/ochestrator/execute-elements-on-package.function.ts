@@ -24,68 +24,87 @@ export const executeElementsOnPackage = async (
 	elementOptions: NormalizedAutotoolPluginOptions,
 	options: NormalizedAutotoolOptions
 ): Promise<void> => {
-	options.logger.info(
-		`processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"`
-	);
+	const entries = Object.entries(packageElements.targetedElementsByFile);
+
+	if (entries.length > 0) {
+		options.logger.info(
+			`processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}..."`
+		);
+	} else {
+		options.logger.info(
+			`no elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"`
+		);
+	}
 
 	await Promise.allSettled(
-		Object.entries(packageElements.targetedElementsByFile).map(
-			async ([targetFile, elements]) => {
-				const targetFilePathAbsolute = join(
-					packageElements.workspacePackage.packagePath,
-					targetFile
-				);
+		entries.map(async ([targetFile, elements]) => {
+			const targetFilePathAbsolute = join(
+				packageElements.workspacePackage.packagePath,
+				targetFile
+			);
 
-				const target: ElementTarget = {
-					targetFilePackageRelative: targetFile,
-					targetFilePath: relative(options.cwd, targetFilePathAbsolute),
-					targetFilePathAbsolute,
-					targetPackage: packageElements.workspacePackage,
-					rootPackage: rootWorkspacePackage,
-				};
+			const target: ElementTarget = {
+				targetFilePackageRelative: targetFile,
+				targetFilePath: relative(options.cwd, targetFilePathAbsolute),
+				targetFilePathAbsolute,
+				targetPackage: packageElements.workspacePackage,
+				rootPackage: rootWorkspacePackage,
+			};
 
-				const bearsTheMark = await isManagedFile(targetFilePathAbsolute);
-				if (!bearsTheMark) {
-					if (options.force) {
-						options.logger.warn(
-							`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}") but it's ignored because '--force' was used.`
-						);
-					} else {
-						options.logger.warn(
-							`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}"), skipping!`
-						);
+			const bearsTheMark = await isManagedFile(targetFilePathAbsolute);
+			if (!bearsTheMark) {
+				if (options.force) {
+					options.logger.warn(
+						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}") but it's ignored because '--force' was used.`
+					);
+				} else {
+					options.logger.warn(
+						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}"), skipping!`
+					);
 
-						return;
-					}
-				}
-
-				// Elements are applied one at a time
-				for (const resolvedElement of elements) {
-					const executor = executorMap.get(resolvedElement.element.executor);
-					if (executor) {
-						const logMessage = `element${
-							resolvedElement.element.description
-								? ' "' + resolvedElement.element.description + '"'
-								: ''
-						} using "${executor.type}" on "${targetFile}" at "${
-							packageElements.workspacePackage.packagePathFromRootPackage
-						}"`;
-
-						if (options.dry) {
-							options.logger.info('Dry execution, skipping ' + logMessage);
-						} else {
-							if (options.dryish) {
-								options.logger.info('Dryish execution, running ' + logMessage);
-							} else {
-								options.logger.info('Executing ' + logMessage);
-							}
-							await executor.apply(resolvedElement.element, target, elementOptions);
-						}
-					} else {
-						throw new Error('Executor not found');
-					}
+					return;
 				}
 			}
-		)
+
+			// Elements are applied one at a time
+			for (const resolvedElement of elements) {
+				const executor = executorMap.get(resolvedElement.element.executor);
+				if (executor) {
+					const elementLogger = elementOptions.logger.getSubLogger({
+						name: resolvedElement.element.executor,
+					});
+
+					const logMessage = `element${
+						resolvedElement.element.description
+							? ' "' + resolvedElement.element.description + '"'
+							: ''
+					} using "${executor.type}" on "${targetFile}" at "${
+						packageElements.workspacePackage.packagePathFromRootPackage
+					}"`;
+
+					if (options.dry) {
+						elementLogger.info('Dry execution, skipping ' + logMessage);
+					} else {
+						if (options.dryish) {
+							elementLogger.info('Dryish execution, running ' + logMessage);
+						} else {
+							elementLogger.info('Executing ' + logMessage);
+						}
+						await executor.apply(resolvedElement.element, target, {
+							...elementOptions,
+							logger: elementLogger,
+						});
+					}
+				} else {
+					throw new Error('Executor not found');
+				}
+			}
+		})
 	);
+
+	if (entries.length > 0) {
+		options.logger.info(
+			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}!"`
+		);
+	}
 };
