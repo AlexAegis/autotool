@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"private": false,
 	"keywords": [
-		"managed-by-autotool"
+		"autotool",
+		"managed-by-autotool",
+		"autotool-plugin"
 	],
 	"archetype": {},
 	"type": "module",

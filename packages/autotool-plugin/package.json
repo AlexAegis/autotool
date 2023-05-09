@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"private": false,
 	"keywords": [
-		"@alexaegis/autotool-plugin-example-node",
-		"git",
+		"autotool",
 		"managed-by-autotool"
 	],
 	"archetype": {},
