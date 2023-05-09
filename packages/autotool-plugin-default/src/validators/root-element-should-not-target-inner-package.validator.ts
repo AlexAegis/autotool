@@ -27,7 +27,7 @@ export const validateRootElementNotModifyingPackages: AutotoolElementValidator =
 			errors.push(
 				...elementsTargetingInsideAPackage.map<ElementError>(
 					(elementTargetingInsideAPackage) => ({
-						type: 'ETRYINGTOMODIFYPKGFROMROOT',
+						code: 'ETRYINGTOMODIFYPKGFROMROOT',
 						message: 'A workspace level element tries to modify a a sub-package!',
 						workspacePackage: workspacePackageElementsByTarget.workspacePackage,
 						target: elementTargetingInsideAPackage.target,

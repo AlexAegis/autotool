@@ -9,6 +9,7 @@ import {
 import {
 	validateRootElementNotModifyingPackages,
 	validateTargetsAreNotOutsideOfPackage,
+	validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget,
 } from './validators/index.js';
 
 export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
@@ -19,7 +20,11 @@ export const defaultPlugin: AutotoolPluginObject<DefaultAutotoolElements> = {
 		fileSymlink: autotoolElementFileSymlinkExecutor,
 		packageJson: autotoolElementJsonExecutor,
 	},
-	validators: [validateTargetsAreNotOutsideOfPackage, validateRootElementNotModifyingPackages],
+	validators: [
+		validateTargetsAreNotOutsideOfPackage,
+		validateRootElementNotModifyingPackages,
+		validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget,
+	],
 };
 
 export default defaultPlugin;

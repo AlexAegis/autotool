@@ -15,6 +15,12 @@ const plugin: AutotoolPlugin = (_options) => {
 				sourceFile: join('static', 'foo.txt'),
 			},
 			{
+				description: 'doin stuff',
+				executor: 'fileRemove',
+				packageKind: 'root',
+				targetFile: 'foo.txt',
+			},
+			{
 				description: 'doin to pkgjson',
 				executor: 'packageJson',
 				packageKind: 'regular',
