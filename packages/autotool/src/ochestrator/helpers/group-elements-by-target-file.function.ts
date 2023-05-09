@@ -30,14 +30,6 @@ export const groupAndConsolidateElementsByTargetFile = async <
 		return groups;
 	}, {});
 
-	console.log('targetedElementsByFile', targetedElementsByFile);
-	console.log(
-		'asdasda',
-		Object.values(targetedElementsByFile)
-			.flat(1)
-			.map((e) => e.element)
-	);
-
 	return {
 		workspacePackage: resolved.workspacePackage,
 		untargetedElements: resolved.untargetedElements,

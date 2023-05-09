@@ -30,9 +30,11 @@ export const validateRootElementNotModifyingPackages: AutotoolElementValidator =
 						code: 'ETRYINGTOMODIFYPKGFROMROOT',
 						message: 'A workspace level element tries to modify a a sub-package!',
 						workspacePackage: workspacePackageElementsByTarget.workspacePackage,
-						target: elementTargetingInsideAPackage.target,
-						sourceElements: [elementTargetingInsideAPackage.element],
-						sourcePlugins: [elementTargetingInsideAPackage.element.sourcePlugin],
+						targetFile: elementTargetingInsideAPackage.target,
+						sourceElements: [elementTargetingInsideAPackage.element.element],
+						sourcePlugins: elementTargetingInsideAPackage.element.sourcePlugin
+							? [elementTargetingInsideAPackage.element.sourcePlugin]
+							: [],
 					})
 				)
 			);

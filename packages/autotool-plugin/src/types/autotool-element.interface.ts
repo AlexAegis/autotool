@@ -97,7 +97,7 @@ export type ElementForPackage<Element extends AutotoolElement | unknown> = Omit<
 export interface PackageResolvedElement<Element extends AutotoolElement = AutotoolElement> {
 	element: ElementForPackage<Element>;
 	workspacePackage: WorkspacePackage;
-	sourcePlugin: AutotoolPluginObject<Element> | AutotoolPluginObject<Element>[];
+	sourcePlugin: AutotoolPluginObject<Element> | undefined;
 }
 
 export type AppliedElement<Element extends AutotoolElement | unknown = AutotoolElement> = Omit<

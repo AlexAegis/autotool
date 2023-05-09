@@ -28,25 +28,19 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 		);
 		if (executor.consolidate) {
 			const consolidated = executor.consolidate(elementsOfExecutor.map((e) => e.element));
-			// When consolidating, sourcePlugin information could be lost, so for every element
-			// the consolidator returned, I add all the unique source plugins to.
-			// sourcePlugin information is only used for troubleshooting for users.
-			const sourcePlugins = [...new Set(elementsOfExecutor.flatMap((e) => e.sourcePlugin))];
-			const sourcePlugin =
-				sourcePlugins.length === 1 && sourcePlugins[0] ? sourcePlugins[0] : sourcePlugins;
 
 			if (isNullish(consolidated)) {
 				return [];
 			} else if (Array.isArray(consolidated)) {
 				return consolidated.map<PackageResolvedElement<Elements>>((element) => ({
 					element: element as Elements,
-					sourcePlugin,
+					sourcePlugin: executor.sourcePlugin,
 					workspacePackage,
 				}));
 			} else {
 				return {
 					element: consolidated,
-					sourcePlugin,
+					sourcePlugin: executor.sourcePlugin,
 					workspacePackage,
 				} as PackageResolvedElement<Elements>;
 			}

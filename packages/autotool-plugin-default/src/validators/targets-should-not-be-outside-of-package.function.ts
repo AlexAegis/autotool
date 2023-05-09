@@ -1,5 +1,6 @@
 import type { AutotoolElementValidator, ElementError } from 'autotool-plugin';
 import { normalize } from 'node:path';
+import { getErrorSourcesFromPackageElement } from './helpers/get-error-source.function.js';
 
 /**
  * Checks the target file is inside the workspacePackage
@@ -7,10 +8,12 @@ import { normalize } from 'node:path';
 export const validateTargetsAreNotOutsideOfPackage: AutotoolElementValidator = (
 	workspacePackageElementsByTarget
 ) => {
-	return Object.keys(workspacePackageElementsByTarget.targetedElementsByFile)
-		.filter((target) => normalize(target).startsWith('..'))
-		.map<ElementError>((target) => ({
+	return Object.entries(workspacePackageElementsByTarget.targetedElementsByFile)
+		.filter(([targetFile]) => normalize(targetFile).startsWith('..'))
+		.map<ElementError>(([targetFile, packageElements]) => ({
 			code: 'ETARGETISOUTSIDE',
-			message: `Target ${target} is pointing outside of the package!`,
+			message: `Target ${targetFile} is pointing outside of the package!`,
+			targetFile,
+			...getErrorSourcesFromPackageElement(packageElements),
 		}));
 };

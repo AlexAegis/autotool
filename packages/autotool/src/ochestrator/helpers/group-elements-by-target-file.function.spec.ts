@@ -18,14 +18,18 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 	};
 
 	const fakeSourcePlugin: AutotoolPluginObject = {
-		name: '',
+		name: 'fake',
 		elements: [],
 	};
 
 	const testExecutorName = 'test';
 
 	const executorMap: ExecutorMap = new Map();
-	executorMap.set('testExecutorName', { apply: vi.fn(), type: testExecutorName });
+	executorMap.set('testExecutorName', {
+		apply: vi.fn(),
+		type: testExecutorName,
+		sourcePlugin: fakeSourcePlugin,
+	});
 
 	it('should group elements with the same targetFile into one', async () => {
 		const fooTarget = 'foo';

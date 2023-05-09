@@ -22,6 +22,7 @@ describe('isElementUntargeted', () => {
 		type: executorWithDefaultTarget,
 		apply: vi.fn(),
 		defaultTarget: 'defaultTarget',
+		sourcePlugin: fakeSourcePlugin,
 	});
 
 	it('should return true for elements that have no targeting information', () => {

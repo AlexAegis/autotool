@@ -12,15 +12,14 @@ export const reportElementError = (
 		error.sourceElements.length > 1 ? 's' : ''
 	}: ${error.sourceElements
 		.map(
-			(e) =>
-				e.element.executor +
-				(e.element.description ? ' "' + e.element.description + '"' : '')
+			(element) =>
+				element.executor + (element.description ? ' "' + element.description + '"' : '')
 		)
 		.join(', ')}`;
 
-	options.logger.error(`Error:
+	options.logger.error(`Error: ${error.code}
 	Reason: ${error.message}
-	Target: ${error.target}
+	Target: ${error.targetFile}
 	${affectedPlugins}
 	${affectedElements}
 	Workspace: ${error.workspacePackage.packagePath}`);

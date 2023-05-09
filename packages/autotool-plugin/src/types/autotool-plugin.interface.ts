@@ -63,11 +63,7 @@ export interface AutotoolPluginObject<Elements extends AutotoolElement = Autotoo
 	 * If you enable `--partial` execution, only the package where the error
 	 * originates from is skipped.
 	 */
-	validators?: AutotoolElementValidator[];
-}
-
-export interface SourcePluginInformation {
-	sourcePlugin: AutotoolPluginObject;
+	validators?: AutotoolElementValidator[]; // Generic is intentionally not used
 }
 
 export type AutotoolPluginFactory<Elements extends AutotoolElement = DefaultAutotoolElements> = (

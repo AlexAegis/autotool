@@ -1,4 +1,9 @@
-import type { ExecutorMap, PackageResolvedElement, WorkspacePackage } from 'autotool-plugin';
+import type {
+	AutotoolPluginObject,
+	ExecutorMap,
+	PackageResolvedElement,
+	WorkspacePackage,
+} from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 
@@ -8,6 +13,8 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 
 	const executorMap: ExecutorMap = new Map();
 
+	const sourcePlugin: AutotoolPluginObject = { name: 'fake' };
+
 	executorMap.set(testElementTypeConsolidable, {
 		type: testElementTypeConsolidable,
 		apply: vi.fn(),
@@ -15,11 +22,13 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			const first = e[0];
 			return first ? [first] : [];
 		},
+		sourcePlugin,
 	});
 
 	executorMap.set(testElementTypeNonConsolidable, {
 		type: testElementTypeNonConsolidable,
 		apply: vi.fn(),
+		sourcePlugin,
 	});
 
 	const fakeWorkspacePackage: WorkspacePackage = {
@@ -36,7 +45,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 				executor: testElementTypeConsolidable,
 			},
 			workspacePackage: fakeWorkspacePackage,
-			sourcePlugin: { name: 'test', elements: [] },
+			sourcePlugin: executorMap.get(testElementTypeConsolidable)?.sourcePlugin,
 		};
 		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[element],
@@ -78,7 +87,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 				executor: testElementTypeConsolidable,
 			},
 			workspacePackage: fakeWorkspacePackage,
-			sourcePlugin: { name: 'test', elements: [] },
+			sourcePlugin: executorMap.get(testElementTypeConsolidable)?.sourcePlugin,
 		};
 		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[

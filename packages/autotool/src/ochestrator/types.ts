@@ -1,16 +1,12 @@
 import type {
 	AutotoolElement,
-	AutotoolPluginObject,
 	ElementError,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
 
 export interface PackageElementErrorWithSourceData extends ElementError {
-	target: string;
 	workspacePackage: WorkspacePackage;
-	sourcePlugins: AutotoolPluginObject[];
-	sourceElements: PackageResolvedElement[];
 }
 
 export interface WorkspacePackageWithElements<Elements extends AutotoolElement = AutotoolElement> {

@@ -1,6 +1,7 @@
 import type { RootWorkspacePackage, WorkspacePackage } from '@alexaegis/workspace-tools';
 import type { AutotoolElementApplyOptions } from '../plugin/index.js';
 import type { AppliedElement, AutotoolElement } from './autotool-element.interface.js';
+import type { AutotoolPluginObject } from './autotool-plugin.interface.js';
 
 export interface ElementTarget {
 	targetPackage: WorkspacePackage;
@@ -55,7 +56,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 	 * If an element doesn't need to specify its target because it always
 	 * targets the same file, it can be set here.
 	 */
-	defaultTarget?: string;
+	defaultTarget?: string | undefined;
 
 	apply: (
 		element: Element,
@@ -84,4 +85,9 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 				elements: AppliedElement<Element>[]
 		  ) => AppliedElement<Element>[] | AppliedElement<Element> | undefined)
 		| undefined;
+}
+
+export interface InternalAutotoolElementExecutor<Element extends AutotoolElement>
+	extends AutotoolElementExecutor<Element> {
+	sourcePlugin: AutotoolPluginObject<Element>;
 }
