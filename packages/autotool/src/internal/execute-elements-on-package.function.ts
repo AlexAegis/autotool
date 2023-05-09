@@ -43,14 +43,6 @@ export const executeElementsOnPackage = async (
 				targetFile
 			);
 
-			const target: ElementTarget = {
-				targetFilePackageRelative: targetFile,
-				targetFilePath: relative(options.cwd, targetFilePathAbsolute),
-				targetFilePathAbsolute,
-				targetPackage: packageElements.workspacePackage,
-				rootPackage: rootWorkspacePackage,
-			};
-
 			const bearsTheMark = await isManagedFile(targetFilePathAbsolute);
 			if (!bearsTheMark) {
 				if (options.force) {
@@ -65,6 +57,14 @@ export const executeElementsOnPackage = async (
 					return;
 				}
 			}
+
+			const target: ElementTarget = {
+				targetFilePackageRelative: targetFile,
+				targetFilePath: relative(options.cwd, targetFilePathAbsolute),
+				targetFilePathAbsolute,
+				targetPackage: packageElements.workspacePackage,
+				rootPackage: rootWorkspacePackage,
+			};
 
 			// Elements are applied one at a time
 			for (const resolvedElement of elements) {

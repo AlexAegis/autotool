@@ -4,7 +4,7 @@ import type {
 	PackageResolvedElement,
 	WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
-import type { WorkspacePackageWithElements } from '../types.js';
+import type { WorkspacePackageWithElements } from '../internal/types.js';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';

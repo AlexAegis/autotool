@@ -5,7 +5,7 @@ import type {
 	WorkspacePackage,
 } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import type { InternalElementsWithResolvedTargets } from '../types.js';
+import type { InternalElementsWithResolvedTargets } from '../internal/types.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
 vi.mock('globby');

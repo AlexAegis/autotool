@@ -5,7 +5,7 @@ import type {
 	InternalElementsWithResolvedTargets,
 	WorkspacePackageWithElements,
 	WorkspacePackageWithTargetedElements,
-} from '../types.js';
+} from '../internal/types.js';
 import { isElementUntargeted } from './is-element-untargeted.function.js';
 import { partition } from './partition.function.js';
 

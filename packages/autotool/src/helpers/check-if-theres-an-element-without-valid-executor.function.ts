@@ -1,15 +1,14 @@
 import type { NormalizedLoggerOption } from '@alexaegis/logging';
-import type { AutotoolPluginObject, ExecutorMap } from 'autotool-plugin';
+import type { AutotoolContext } from '../internal/autotool-context.type.js';
 
 export const checkIfTheresAnElementWithoutValidExecutor = (
-	plugins: AutotoolPluginObject[],
-	executorMap: ExecutorMap,
+	context: Pick<AutotoolContext, 'plugins' | 'executorMap'>,
 	options: NormalizedLoggerOption
 ): boolean => {
 	let failed = false;
-	for (const plugin of plugins) {
+	for (const plugin of context.plugins) {
 		for (const element of plugin.elements ?? []) {
-			if (!executorMap.has(element.executor)) {
+			if (!context.executorMap.has(element.executor)) {
 				failed = true;
 				options.logger.error(
 					`Plugin ${plugin.name} contains an element with no executor: ${element.executor}`

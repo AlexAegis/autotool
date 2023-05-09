@@ -4,7 +4,7 @@ import type { PackageJson } from '@alexaegis/workspace-tools';
 import type { AutotoolOptions } from 'autotool-plugin';
 import packageJson from '../../package.json';
 import { autotool, findInstalledPlugins } from '../index.js';
-import { yargsForAutotool } from '../ochestrator/autotool.function.yargs.js';
+import { yargsForAutotool } from '../internal/autotool.function.yargs.js';
 
 const yarguments = YargsBuilder.withDefaults(packageJson as PackageJson)
 	.add(yargsForAutotool)
