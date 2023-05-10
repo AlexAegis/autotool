@@ -4,8 +4,8 @@ import {
 	type AutotoolElementExecutor,
 	type AutotoolElementFileCopy,
 } from 'autotool-plugin';
-import { cp } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { cp, mkdir } from 'node:fs/promises';
+import { dirname, join, relative } from 'node:path';
 
 export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolElementFileCopy> = {
 	type: 'fileCopy',
@@ -16,14 +16,22 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 		);
 		const sourceFilePath = join(sourcePackagePath, element.sourceFile);
 		options.logger.trace('Copy file from', sourceFilePath);
-		const isManaged = await isManagedFile(sourceFilePath);
-		if (!isManaged) {
+
+		const isSourceFileManaged = await isManagedFile(sourceFilePath);
+		if (!isSourceFileManaged) {
 			options.logger.warn(
 				`File ${relative(
 					target.rootPackage.packagePath,
 					sourceFilePath
 				)} is not managed, it won't be overwritten on the next run unless forced!`
 			);
+		}
+
+		if (options.dry) {
+			options.logger.info('(Dry) Pretending to make sure target file has a directory...');
+		} else {
+			options.logger.info('Making sure target file has a directory...');
+			await mkdir(dirname(target.targetFilePathAbsolute), { recursive: true });
 		}
 
 		if (options.dry) {
