@@ -8,14 +8,20 @@ export interface ElementTarget {
 	targetPackage: WorkspacePackage;
 	/**
 	 * The path to the target file from `cwd`
+	 *
+	 * For untargeted elements, this will be an empty string.
 	 */
 	targetFilePath: string;
 	/**
 	 * The absolute path to the target file
+	 *
+	 * For untargeted elements, this will be an empty string.
 	 */
 	targetFilePathAbsolute: string;
 	/**
 	 * The path to the file from the directory of the packageFile
+	 *
+	 * For untargeted elements, this will be an empty string.
 	 */
 	targetFilePackageRelative: string;
 

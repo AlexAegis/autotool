@@ -43,6 +43,14 @@ export const executeElementsOnPackage = async (
 		);
 	}
 
+	const untarget: ElementTarget = {
+		targetFilePackageRelative: '',
+		targetFilePath: '',
+		targetFilePathAbsolute: '',
+		targetPackage: packageElements.workspacePackage,
+		rootPackage: rootWorkspacePackage,
+	};
+
 	await Promise.allSettled(
 		targetedEntries.map(async ([targetFile, elements]) => {
 			const targetFilePathAbsolute = join(
@@ -66,11 +74,10 @@ export const executeElementsOnPackage = async (
 			}
 
 			const target: ElementTarget = {
+				...untarget,
 				targetFilePackageRelative: targetFile,
 				targetFilePath: relative(options.cwd, targetFilePathAbsolute),
 				targetFilePathAbsolute,
-				targetPackage: packageElements.workspacePackage,
-				rootPackage: rootWorkspacePackage,
 			};
 
 			// Elements are applied one at a time
@@ -108,7 +115,7 @@ export const executeElementsOnPackage = async (
 			}
 		})
 	);
-	/*
+
 	for (const resolvedElement of packageElements.untargetedElements) {
 		const executor = executorMap.get(resolvedElement.element.executor);
 		if (executor) {
@@ -120,7 +127,7 @@ export const executeElementsOnPackage = async (
 				resolvedElement.element.description
 					? ' "' + resolvedElement.element.description + '"'
 					: ''
-			} using "${executor.type}" on "${targetFile}" at "${
+			} using "${executor.type}" at "${
 				packageElements.workspacePackage.packagePathFromRootPackage
 			}"`;
 
@@ -132,7 +139,7 @@ export const executeElementsOnPackage = async (
 				} else {
 					elementLogger.info('Executing ' + logMessage);
 				}
-				await executor.apply(resolvedElement.element, undefined, {
+				await executor.apply(resolvedElement.element, untarget, {
 					...elementOptions,
 					logger: elementLogger,
 				});
@@ -141,7 +148,7 @@ export const executeElementsOnPackage = async (
 			throw new Error('Executor not found');
 		}
 	}
-*/
+
 	if (targetedEntries.length > 0) {
 		options.logger.info(
 			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}!"`

@@ -14,7 +14,7 @@ const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolE
 				description: 'a valid copy',
 				executor: 'fileCopy',
 				packageKind: 'root',
-
+				targetFile: 'asd',
 				sourcePluginPackageName: packageJson.name,
 				sourceFile: join('static', 'foo.txt'),
 			},

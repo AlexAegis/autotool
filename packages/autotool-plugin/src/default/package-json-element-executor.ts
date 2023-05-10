@@ -1,6 +1,6 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
 import type { PackageJson } from '@alexaegis/workspace-tools';
-import type { AutotoolElement, UntargetedAutotoolElement } from 'autotool-plugin';
+import type { UntargetedAutotoolElement } from 'autotool-plugin';
 
 export interface AutotoolElementPackageJson extends UntargetedAutotoolElement<'packageJson'> {
 	data: PackageJson;
@@ -8,7 +8,7 @@ export interface AutotoolElementPackageJson extends UntargetedAutotoolElement<'p
 }
 
 export const isAutotoolElementPackageJson = (
-	element: AutotoolElement
+	element: UntargetedAutotoolElement
 ): element is AutotoolElementPackageJson => {
 	return element.executor === 'packageJson';
 };

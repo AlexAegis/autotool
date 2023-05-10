@@ -12,12 +12,12 @@ export const autotoolElementFileRemoveExecutor: AutotoolElementExecutor<Autotool
 				if (options.dry) {
 					options.logger.info(`(DRY) Removing ${target.targetFilePackageRelative}`);
 				} else {
-					options.logger.info(`Removing ${target.targetFilePackageRelative}`);
+					options.logger.info(`Removing ${target.targetFilePackageRelative}...`);
 					await rm(target.targetFilePathAbsolute);
 				}
 			} catch (error) {
 				if ((error as { code: string }).code === 'ENOENT') {
-					options.logger.warn('Failed does not exist');
+					options.logger.info('nothing to remove');
 				} else {
 					options.logger.error('Failed to remove file!', error);
 				}
