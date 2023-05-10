@@ -22,7 +22,6 @@ export const plugin: AutotoolPlugin = (_options): AutotoolPluginObject => {
 				description: 'add workspace root ts scripts',
 				executor: 'packageJson',
 				packageKind: 'root',
-				targetFile: 'package.json',
 				packageJsonFilter: {
 					keywords: (keywords) => keywords.includes(packageJson.name),
 				},

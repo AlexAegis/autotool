@@ -2,6 +2,7 @@ import type {
 	AutotoolElement,
 	ElementError,
 	PackageResolvedElement,
+	UntargetedAutotoolElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
 
@@ -9,7 +10,9 @@ export interface PackageElementErrorWithSourceData extends ElementError {
 	workspacePackage: WorkspacePackage;
 }
 
-export interface WorkspacePackageWithElements<Elements extends AutotoolElement = AutotoolElement> {
+export interface WorkspacePackageWithElements<
+	Elements extends UntargetedAutotoolElement = AutotoolElement
+> {
 	workspacePackage: WorkspacePackage;
 	elements: PackageResolvedElement<Elements>[];
 }
@@ -26,7 +29,7 @@ export interface WorkspacePackageWithTargetedElements<
 > {
 	workspacePackage: WorkspacePackage;
 	targetedElements: InternalElementsWithResolvedTargets<Elements>[];
-	untargetedElements: PackageResolvedElement<Elements>[];
+	untargetedElements: PackageResolvedElement<UntargetedAutotoolElement<Elements['executor']>>[];
 }
 
 /**

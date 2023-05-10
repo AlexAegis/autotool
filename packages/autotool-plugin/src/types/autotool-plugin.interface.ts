@@ -4,7 +4,7 @@ import type { DefaultAutotoolElements } from '../default/index.js';
 import type { NormalizedAutotoolPluginOptions } from '../plugin/index.js';
 import type { AutotoolElementValidator } from '../validator/element-validator.interface.js';
 import type { AutotoolElementExecutor } from './autotool-element-executor.interface.js';
-import type { AutotoolElement } from './autotool-element.interface.js';
+import type { AutotoolElement, UntargetedAutotoolElement } from './autotool-element.interface.js';
 import type { PackageJsonFilter } from './package-json-filter.interface.js';
 
 export type AutotoolPluginElementPackageTargetKind = WorkspacePackage['packageKind'] | 'all';
@@ -31,11 +31,12 @@ export interface AutotoolPluginFilter {
 	packageKind?: AutotoolPluginElementPackageTargetKind | undefined;
 }
 
-type ExecutorsOf<Elements extends AutotoolElement> = Elements extends AutotoolElement<infer U>
-	? Record<U, AutotoolElementExecutor<Elements>>
-	: never;
+type ExecutorsOf<Elements extends UntargetedAutotoolElement> =
+	Elements extends UntargetedAutotoolElement<infer U>
+		? Record<U, AutotoolElementExecutor<Elements>>
+		: never;
 
-export interface AutotoolPluginObject<Elements extends AutotoolElement = never>
+export interface AutotoolPluginObject<Elements extends UntargetedAutotoolElement = never>
 	extends AutotoolPluginFilter {
 	/**
 	 * Used to scope logging, it's best to use the name of the package

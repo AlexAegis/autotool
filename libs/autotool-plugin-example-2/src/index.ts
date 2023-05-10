@@ -1,8 +1,12 @@
-import { type AutotoolPlugin } from 'autotool-plugin';
+import {
+	type AutotoolPlugin,
+	type AutotoolPluginObject,
+	type DefaultAutotoolElements,
+} from 'autotool-plugin';
 import { join } from 'node:path';
 import packageJson from '../package.json';
 
-const plugin: AutotoolPlugin = (_options) => {
+const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolElements> => {
 	return {
 		name: packageJson.name,
 		elements: [
@@ -10,7 +14,7 @@ const plugin: AutotoolPlugin = (_options) => {
 				description: 'a valid copy',
 				executor: 'fileCopy',
 				packageKind: 'root',
-				targetFile: 'foo.txt',
+
 				sourcePluginPackageName: packageJson.name,
 				sourceFile: join('static', 'foo.txt'),
 			},
@@ -23,11 +27,9 @@ const plugin: AutotoolPlugin = (_options) => {
 			{
 				executor: 'custom',
 				description: 'say hello to all public packages!',
-				// packageJsonFilter: {
-				// 	private: false,
-				// },
-				apply: (_e, target, options) =>
-					options.logger.info('Hello', target.targetPackage.packageJson.name),
+				apply: (_e, target, options) => {
+					options.logger.info('Hello', target.targetPackage.packageJson.name);
+				},
 			},
 		],
 	};

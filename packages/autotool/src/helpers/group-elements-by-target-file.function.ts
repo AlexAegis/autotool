@@ -12,10 +12,10 @@ import { normalizeElementTargets } from './normalize-element-targets.function.js
 export const groupAndConsolidateElementsByTargetFile = async <
 	Elements extends AutotoolElement = AutotoolElement
 >(
-	workspacePackage: WorkspacePackageWithElements<Elements>,
+	workspacePackage: WorkspacePackageWithElements,
 	executorMap: ExecutorMap<Elements>
 ): Promise<WorkspacePackageElementsByTarget<Elements>> => {
-	const resolved = await normalizeElementTargets(workspacePackage, executorMap);
+	const resolved = await normalizeElementTargets<Elements>(workspacePackage, executorMap);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
 		Record<string, PackageResolvedElement<Elements>[]>
 	>((groups, next) => {
@@ -34,7 +34,7 @@ export const groupAndConsolidateElementsByTargetFile = async <
 		workspacePackage: resolved.workspacePackage,
 		untargetedElements: resolved.untargetedElements,
 		targetedElementsByFile: mapRecord(targetedElementsByFile, (elements) =>
-			consolidateElementsAndFilterOutNonExecutables(
+			consolidateElementsAndFilterOutNonExecutables<Elements>(
 				elements,
 				resolved.workspacePackage,
 				executorMap

@@ -6,16 +6,18 @@ import type {
 	WorkspacePackageWithElements,
 	WorkspacePackageWithTargetedElements,
 } from '../internal/types.js';
-import { isElementUntargeted } from './is-element-untargeted.function.js';
+import { createIsPackageElementTargeted } from './is-element-untargeted.function.js';
 import { partition } from './partition.function.js';
 
 export const normalizeElementTargets = async <Elements extends AutotoolElement = AutotoolElement>(
-	workspacePackageWithElements: WorkspacePackageWithElements<Elements>,
+	workspacePackageWithElements: WorkspacePackageWithElements,
 	executorMap: ExecutorMap<Elements>
 ): Promise<WorkspacePackageWithTargetedElements<Elements>> => {
-	const [elementsWithoutTargeting, elementsWithTargeting] = partition(
+	const isTargeted = createIsPackageElementTargeted<Elements>(executorMap);
+
+	const [elementsWithTargeting, elementsWithoutTargeting] = partition(
 		workspacePackageWithElements.elements,
-		(element) => isElementUntargeted(element, executorMap)
+		isTargeted
 	);
 
 	const elements = await asyncFilterMap(elementsWithTargeting, async (packageElement) => {

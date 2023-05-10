@@ -108,7 +108,40 @@ export const executeElementsOnPackage = async (
 			}
 		})
 	);
+	/*
+	for (const resolvedElement of packageElements.untargetedElements) {
+		const executor = executorMap.get(resolvedElement.element.executor);
+		if (executor) {
+			const elementLogger = elementOptions.logger.getSubLogger({
+				name: resolvedElement.element.executor,
+			});
 
+			const logMessage = `element${
+				resolvedElement.element.description
+					? ' "' + resolvedElement.element.description + '"'
+					: ''
+			} using "${executor.type}" on "${targetFile}" at "${
+				packageElements.workspacePackage.packagePathFromRootPackage
+			}"`;
+
+			if (options.dry) {
+				elementLogger.info('Dry execution, skipping ' + logMessage);
+			} else {
+				if (options.dryish) {
+					elementLogger.info('Dryish execution, running ' + logMessage);
+				} else {
+					elementLogger.info('Executing ' + logMessage);
+				}
+				await executor.apply(resolvedElement.element, undefined, {
+					...elementOptions,
+					logger: elementLogger,
+				});
+			}
+		} else {
+			throw new Error('Executor not found');
+		}
+	}
+*/
 	if (targetedEntries.length > 0) {
 		options.logger.info(
 			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}!"`

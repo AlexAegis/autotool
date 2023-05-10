@@ -1,6 +1,7 @@
+import type { Awaitable } from '@alexaegis/common';
 import type { RootWorkspacePackage, WorkspacePackage } from '@alexaegis/workspace-tools';
 import type { AutotoolElementApplyOptions } from '../plugin/index.js';
-import type { AppliedElement, AutotoolElement } from './autotool-element.interface.js';
+import type { AppliedElement, UntargetedAutotoolElement } from './autotool-element.interface.js';
 import type { AutotoolPluginObject } from './autotool-plugin.interface.js';
 
 export interface ElementTarget {
@@ -30,12 +31,12 @@ export interface ElementTarget {
  * actions behing a check. The CLI has an option called `dryish` which will
  * let executors to be executed, but their `dry` option will be on.
  */
-export interface AutotoolElementExecutor<Element extends AutotoolElement> {
+export interface AutotoolElementExecutor<Element extends UntargetedAutotoolElement> {
 	/**
 	 * The name of the executor, it should be unique. Elements will be
 	 * applied based on this field.
 	 */
-	type: Element extends AutotoolElement<infer U> ? U : string;
+	type: Element extends UntargetedAutotoolElement<infer U> ? U : string;
 
 	/**
 	 * Halts execution if these elements are also present on the package
@@ -62,7 +63,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 		element: Element,
 		target: ElementTarget,
 		options: AutotoolElementApplyOptions
-	) => Promise<void>;
+	) => Awaitable<void>;
 
 	/**
 	 * When defined, elements of this type are consolidated to a single element per target
@@ -87,7 +88,7 @@ export interface AutotoolElementExecutor<Element extends AutotoolElement> {
 		| undefined;
 }
 
-export interface InternalAutotoolElementExecutor<Element extends AutotoolElement>
+export interface InternalAutotoolElementExecutor<Element extends UntargetedAutotoolElement>
 	extends AutotoolElementExecutor<Element> {
 	sourcePlugin: AutotoolPluginObject<Element>;
 }

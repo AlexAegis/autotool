@@ -26,7 +26,7 @@ describe('normalizeElementTargets', () => {
 		packagePathFromRootPackage: '',
 	};
 
-	const fooTargetingElement: PackageResolvedElement = {
+	const fooTargetingElement: PackageResolvedElement<AutotoolElement> = {
 		element: {
 			executor: 'test',
 			targetFile: 'foo',
@@ -35,7 +35,7 @@ describe('normalizeElementTargets', () => {
 		workspacePackage: fakeWorkspacePackage,
 	};
 
-	const fooAndBarTargetingElement: PackageResolvedElement = {
+	const fooAndBarTargetingElement: PackageResolvedElement<AutotoolElement> = {
 		element: {
 			executor: 'test',
 			targetFile: ['foo', 'bar'],
@@ -44,7 +44,7 @@ describe('normalizeElementTargets', () => {
 		workspacePackage: fakeWorkspacePackage,
 	};
 
-	const fooGlobTargetingElement: PackageResolvedElement = {
+	const fooGlobTargetingElement: PackageResolvedElement<AutotoolElement> = {
 		element: {
 			executor: 'test',
 			targetFilePatterns: 'foo*',
@@ -53,7 +53,7 @@ describe('normalizeElementTargets', () => {
 		workspacePackage: fakeWorkspacePackage,
 	};
 
-	const fooAndBarGlobTargetingElement: PackageResolvedElement = {
+	const fooAndBarGlobTargetingElement: PackageResolvedElement<AutotoolElement> = {
 		element: {
 			executor: 'test',
 			targetFilePatterns: ['foo.js', 'foo*', 'bar*'],

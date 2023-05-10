@@ -1,8 +1,8 @@
 import type { ObjectKeyOrder } from '@alexaegis/common';
 import type { PackageJson } from '@alexaegis/workspace-tools';
-import type { AutotoolElement } from 'autotool-plugin';
+import type { AutotoolElement, UntargetedAutotoolElement } from 'autotool-plugin';
 
-export interface AutotoolElementPackageJson extends AutotoolElement<'packageJson'> {
+export interface AutotoolElementPackageJson extends UntargetedAutotoolElement<'packageJson'> {
 	data: PackageJson;
 	sortingPreference?: ObjectKeyOrder;
 }

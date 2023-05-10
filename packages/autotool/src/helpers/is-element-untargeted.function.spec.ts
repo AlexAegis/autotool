@@ -5,7 +5,7 @@ import type {
 	WorkspacePackage,
 } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
-import { isElementUntargeted } from './is-element-untargeted.function.js';
+import { isPackageElementUntargeted } from './is-element-untargeted.function.js';
 
 describe('isElementUntargeted', () => {
 	const fakeSourcePlugin: AutotoolPluginObject<AutotoolElement> = {
@@ -32,7 +32,7 @@ describe('isElementUntargeted', () => {
 
 	it('should return true for elements that have no targeting information', () => {
 		expect(
-			isElementUntargeted(
+			isPackageElementUntargeted(
 				{
 					element: {
 						executor: 'test',
@@ -47,7 +47,7 @@ describe('isElementUntargeted', () => {
 
 	it('should return false if it has direct targeting information', () => {
 		expect(
-			isElementUntargeted(
+			isPackageElementUntargeted<AutotoolElement>(
 				{
 					element: {
 						executor: 'test',
@@ -63,7 +63,7 @@ describe('isElementUntargeted', () => {
 
 	it('should return false if it has no targeting information but the executor defines a default target', () => {
 		expect(
-			isElementUntargeted(
+			isPackageElementUntargeted(
 				{
 					element: {
 						executor: executorWithDefaultTarget,
@@ -78,7 +78,7 @@ describe('isElementUntargeted', () => {
 
 	it('should return false if it has glob targeting information', () => {
 		expect(
-			isElementUntargeted(
+			isPackageElementUntargeted<AutotoolElement>(
 				{
 					element: {
 						executor: 'test',
@@ -92,7 +92,7 @@ describe('isElementUntargeted', () => {
 		).toBeFalsy();
 
 		expect(
-			isElementUntargeted(
+			isPackageElementUntargeted<AutotoolElement>(
 				{
 					element: {
 						executor: 'test',
