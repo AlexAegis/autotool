@@ -1,5 +1,5 @@
 {
-	"name": "@autotool/autotool-plugin-example",
+	"name": "autotool-plugin-example",
 	"description": "Exports custom updaters for standard-version",
 	"version": "0.0.1",
 	"license": "MIT",
