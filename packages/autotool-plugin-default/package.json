@@ -50,7 +50,7 @@
 		"@alexaegis/fs": "^0.1.7",
 		"@alexaegis/logging": "^0.1.7",
 		"@alexaegis/workspace-tools": "^0.1.7",
-		"autotool-plugin": "workspace:^",
+		"autotool-plugin": "^0.0.1",
 		"minimatch": "^9.0.0"
 	},
 	"devDependencies": {

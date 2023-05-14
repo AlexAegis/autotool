@@ -54,7 +54,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "workspace:^",
+		"autotool-plugin": "^0.0.1",
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {

@@ -58,7 +58,7 @@
 		"./workspace-tsconfig": "./static/workspace-tsconfig.json"
 	},
 	"dependencies": {
-		"autotool-plugin": "workspace:^",
+		"autotool-plugin": "^0.0.1",
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {
