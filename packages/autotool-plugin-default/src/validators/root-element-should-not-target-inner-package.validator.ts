@@ -16,12 +16,11 @@ export const validateRootElementNotModifyingPackages: AutotoolElementValidator =
 			workspacePackageElementsByTarget.workspacePackage.workspacePackagePatterns;
 		const elementsTargetingInsideAPackage = Object.entries(
 			workspacePackageElementsByTarget.targetedElementsByFile
-		).flatMap(([target, elements]) =>
-			workspacePackagePatterns
-				.filter((pattern) => minimatch(target, pattern))
-				.flatMap(() => elements)
-				.map((element) => ({ element, target }))
-		);
+		).flatMap(([target, elements]) => {
+			return workspacePackagePatterns.some((pattern) => minimatch(target, pattern + '/**'))
+				? elements.map((element) => ({ element, target }))
+				: [];
+		});
 
 		if (elementsTargetingInsideAPackage.length > 0) {
 			errors.push(

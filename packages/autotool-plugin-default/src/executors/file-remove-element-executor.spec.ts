@@ -106,4 +106,14 @@ describe('autotoolElementFileRemoveExecutor', () => {
 		expect(mockLogger.warn).not.toHaveBeenCalled();
 		expect(mockLogger.error).toHaveBeenCalled();
 	});
+
+	describe('consolidate', () => {
+		it('should just return the first one', () => {
+			const result = autotoolElementFileRemoveExecutor.consolidate?.([
+				fakeResolvedElement,
+				{ ...fakeResolvedElement },
+			]);
+			expect(result).toBe(fakeResolvedElement);
+		});
+	});
 });
