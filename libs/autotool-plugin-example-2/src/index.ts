@@ -13,8 +13,8 @@ const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolE
 			{
 				description: 'a valid copy',
 				executor: 'fileCopy',
-				packageKind: 'root',
-				targetFile: 'asd',
+				packageKind: 'regular',
+				targetFile: 'folder/asd',
 				sourcePluginPackageName: packageJson.name,
 				sourceFile: join('static', 'foo.txt'),
 			},

@@ -26,6 +26,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 		const templateVariables = getPackageJsonTemplateVariables(target.targetPackage.packageJson);
 		templateVariables['relativePathFromPackageToRoot'] =
 			relative(target.targetPackage.packagePath, workspaceRoot) || '.';
+		Object.assign(templateVariables, element.templateVariables);
 
 		const packageJsonUpdates =
 			fillObjectWithTemplateVariables<PackageJsonTemplateVariableNames>(

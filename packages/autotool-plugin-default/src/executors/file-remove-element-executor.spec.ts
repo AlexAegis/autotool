@@ -85,7 +85,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 
 		expect(rmMock).toHaveBeenCalled();
 		expect(mockLogger.info).toHaveBeenCalled();
-		expect(mockLogger.warn).toHaveBeenCalled();
+		expect(mockLogger.warn).not.toHaveBeenCalled();
 		expect(mockLogger.error).not.toHaveBeenCalled();
 	});
 
