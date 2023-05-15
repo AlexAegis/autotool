@@ -17,11 +17,13 @@ export const filterElementsForPackage = (
 	return {
 		workspacePackage,
 		elements: setupPlugins
-			.filter((plugin) => elementAndPluginFilter(workspacePackage, plugin))
+			.filter((plugin) => elementAndPluginFilter(workspacePackage, plugin, plugin))
 			.flatMap(
 				(sourcePlugin) =>
 					sourcePlugin.elements
-						?.filter((element) => elementAndPluginFilter(workspacePackage, element))
+						?.filter((element) =>
+							elementAndPluginFilter(workspacePackage, element, sourcePlugin)
+						)
 						.map<PackageResolvedElement>((element) => ({
 							element,
 							sourcePlugin,

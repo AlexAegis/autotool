@@ -68,7 +68,7 @@
 		"@types/node": "^20.1.4",
 		"@vitest/coverage-c8": "^0.31.0",
 		"publint": "^0.1.11",
-		"vite": "^4.3.5",
+		"vite": "^4.3.6",
 		"vitest": "^0.31.0"
 	}
 }

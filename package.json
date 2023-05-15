@@ -75,7 +75,7 @@
 		"typedoc": "turbo run typedoc_"
 	},
 	"devDependencies": {
-		"@alexaegis/coverage-tools": "^0.1.7",
+		"@alexaegis/coverage-tools": "^0.1.8",
 		"@alexaegis/eslint-config-core": "^0.2.0",
 		"@alexaegis/nuke": "^0.2.0",
 		"@alexaegis/setup-commitlint": "^0.2.0",
@@ -113,7 +113,7 @@
 		"remark-cli": "^11.0.0",
 		"stylelint": "^15.6.1",
 		"ts-node": "^10.9.1",
-		"turbo": "^1.9.4",
+		"turbo": "^1.9.5",
 		"typedoc": "^0.24.7",
 		"typescript": "^5.0.4",
 		"vitest": "^0.31.0"
