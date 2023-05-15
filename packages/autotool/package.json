@@ -46,7 +46,7 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autotool": "^0.0.2",
+		"autotool": "./shims/autotool.js",
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
