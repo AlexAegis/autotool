@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.2](https://github.com/AlexAegis/js/compare/v0.0.1...v0.0.2) (2023-05-15)
+
+
+### Features
+
+* disable plugins from archetype ([f701517](https://github.com/AlexAegis/js/commit/f701517eb8686947ab53f6b92adadd2d0f0fca96))
+
 ## 0.0.1 (2023-05-14)
 
 

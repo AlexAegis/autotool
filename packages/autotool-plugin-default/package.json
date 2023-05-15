@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-default",
 	"description": "Default executors and validators for autotool",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"private": false,
 	"keywords": [
@@ -50,7 +50,7 @@
 		"@alexaegis/fs": "^0.1.8",
 		"@alexaegis/logging": "^0.1.8",
 		"@alexaegis/workspace-tools": "^0.1.8",
-		"autotool-plugin": "^0.0.1",
+		"autotool-plugin": "^0.0.2",
 		"minimatch": "^9.0.0"
 	},
 	"devDependencies": {
