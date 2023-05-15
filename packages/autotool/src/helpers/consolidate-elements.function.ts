@@ -1,10 +1,19 @@
 import { isNullish } from '@alexaegis/common';
 import type {
+	AppliedElement,
 	AutotoolElement,
 	ExecutorMap,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
+
+const combinedDescriptions = (elements: AppliedElement[]): string | undefined => {
+	const combinedDescription = [
+		...new Set(elements.map((element) => element.description ?? '')),
+	].join('; ');
+
+	return combinedDescription === '' ? undefined : combinedDescription;
+};
 
 /**
  * Returns a smaller list of elements if their executor can consolidate them
@@ -27,17 +36,20 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 			(packageElement) => packageElement.element.executor === executor.type
 		);
 		if (executor.consolidate) {
-			const consolidated = executor.consolidate(elementsOfExecutor.map((e) => e.element));
+			const allElements = elementsOfExecutor.map((e) => e.element);
+			const consolidated = executor.consolidate(allElements);
+			const combinedDescription = combinedDescriptions(allElements);
 
 			if (isNullish(consolidated)) {
 				return [];
 			} else if (Array.isArray(consolidated)) {
 				return consolidated.map<PackageResolvedElement<Elements>>((element) => ({
-					element: element as Elements,
+					element: { ...element, description: combinedDescription } as Elements,
 					sourcePlugin: executor.sourcePlugin,
 					workspacePackage,
 				}));
 			} else {
+				consolidated.description = combinedDescription;
 				return {
 					element: consolidated,
 					sourcePlugin: executor.sourcePlugin,
