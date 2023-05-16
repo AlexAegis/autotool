@@ -55,7 +55,7 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autotool": "^0.0.3",
+		"autotool": "./shims/autotool.js",
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
@@ -74,7 +74,7 @@
 		"@alexaegis/ts": "^0.2.0",
 		"@alexaegis/vite": "^0.2.0",
 		"@alexaegis/vitest": "^0.2.0",
-		"@types/node": "^20.1.6",
+		"@types/node": "^20.1.7",
 		"@types/yargs": "17.0.24",
 		"@vitest/coverage-c8": "^0.31.0",
 		"publint": "^0.1.11",
