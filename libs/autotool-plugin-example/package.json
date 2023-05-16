@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-example",
 	"description": "Exports custom updaters for standard-version",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"license": "MIT",
 	"private": true,
 	"keywords": [
@@ -58,7 +58,7 @@
 		"./workspace-tsconfig": "./static/workspace-tsconfig.json"
 	},
 	"dependencies": {
-		"autotool-plugin": "^0.0.2",
+		"autotool-plugin": "^0.0.3",
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {

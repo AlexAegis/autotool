@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.3](https://github.com/AlexAegis/js/compare/v0.0.2...v0.0.3) (2023-05-16)
+
+
+### Features
+
+* **autotool:** automatically consolidate descriptions too ([7f8674b](https://github.com/AlexAegis/js/commit/7f8674b971af4c365a079e07f8c06c983b4d72d4))
+* **autotool:** deep freezing plugin config once loaded, fixed packageJson consolidation mutation ([8a9ccba](https://github.com/AlexAegis/js/commit/8a9ccbaa1db8e98861520d6d99414e00eb378551))
+
 ## [0.0.2](https://github.com/AlexAegis/js/compare/v0.0.1...v0.0.2) (2023-05-15)
 
 

@@ -1,7 +1,7 @@
 {
 	"name": "autotool",
 	"description": "Workspace transformation orchestrator",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"license": "MIT",
 	"private": false,
 	"keywords": [
@@ -55,7 +55,7 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autotool": "./shims/autotool.js",
+		"autotool": "^0.0.3",
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
@@ -65,8 +65,8 @@
 		"@alexaegis/logging": "^0.1.8",
 		"@alexaegis/match": "^0.1.8",
 		"@alexaegis/workspace-tools": "^0.1.8",
-		"autotool-plugin": "^0.0.2",
-		"autotool-plugin-default": "^0.0.2",
+		"autotool-plugin": "^0.0.3",
+		"autotool-plugin-default": "^0.0.3",
 		"globby": "^13.1.4"
 	},
 	"devDependencies": {
