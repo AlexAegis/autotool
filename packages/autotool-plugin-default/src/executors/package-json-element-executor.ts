@@ -1,9 +1,10 @@
 import { deepMerge, fillObjectWithTemplateVariables, sortObject } from '@alexaegis/common';
-import { writeJson } from '@alexaegis/fs';
+import { readJson, writeJson } from '@alexaegis/fs';
 import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 	getPackageJsonTemplateVariables,
 	mergeDependencies,
+	type PackageJson,
 	type PackageJsonTemplateVariableNames,
 } from '@alexaegis/workspace-tools';
 import type { Dependency } from '@schemastore/package';
@@ -34,18 +35,25 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 				templateVariables
 			);
 
+		// Doing a fresh read in case something modified it in a previous element
+		const packageJson = await readJson<PackageJson>(target.targetFilePathAbsolute);
+
+		if (!packageJson) {
+			throw new Error("Can't read packageJson!");
+		}
+
 		const targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce(
 			(acc, dependencyFieldKey) => {
 				if (packageJsonUpdates[dependencyFieldKey]) {
 					acc[dependencyFieldKey] = mergeDependencies(
-						target.targetPackage.packageJson[dependencyFieldKey],
+						packageJson[dependencyFieldKey],
 						packageJsonUpdates[dependencyFieldKey] as Dependency
 					);
 				}
 
 				return acc;
 			},
-			deepMerge(structuredClone(target.targetPackage.packageJson), packageJsonUpdates)
+			deepMerge(structuredClone(packageJson), packageJsonUpdates)
 		);
 
 		try {
@@ -78,7 +86,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			? elements.reduce((acc, element) => {
 					acc.data = deepMerge(acc.data, element.data);
 					return acc;
-			  }, first)
+			  }, structuredClone(first))
 			: undefined;
 	},
 };

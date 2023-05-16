@@ -8,7 +8,16 @@
 		"autotool",
 		"managed-by-autotool"
 	],
-	"archetype": {},
+	"archetype": {
+		"bundler": "vite",
+		"disabledPlugins": [
+			"@alexaegis/autolib-plugin-ts"
+		],
+		"kind": "lib",
+		"language": "ts",
+		"platform": "node",
+		"testing": "vitest"
+	},
 	"type": "module",
 	"config": {
 		"engine-strict": false
@@ -65,12 +74,12 @@
 		"@alexaegis/ts": "^0.2.0",
 		"@alexaegis/vite": "^0.2.0",
 		"@alexaegis/vitest": "^0.2.0",
-		"@types/node": "^20.1.4",
+		"@types/node": "^20.1.6",
 		"@types/yargs": "17.0.24",
 		"@vitest/coverage-c8": "^0.31.0",
 		"publint": "^0.1.11",
 		"typescript": "^5.0.4",
-		"vite": "^4.3.6",
+		"vite": "^4.3.7",
 		"vitest": "^0.31.0"
 	}
 }

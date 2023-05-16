@@ -1,5 +1,6 @@
 import type { Logger } from '@alexaegis/logging';
 import { MockLogger } from '@alexaegis/logging/mocks';
+import type { PackageJson } from '@alexaegis/workspace-tools';
 import type {
 	AppliedElement,
 	AutotoolElementApplyOptions,
@@ -24,9 +25,12 @@ vi.mock('fs/promises', () => {
 });
 
 const writeJsonMock = vi.hoisted(() => vi.fn());
+const readJsonMock = vi.hoisted(() => vi.fn<[string], PackageJson>(() => ({ name: 'mock' })));
+
 vi.mock('@alexaegis/fs', () => {
 	return {
 		writeJson: writeJsonMock,
+		readJson: readJsonMock,
 	};
 });
 
@@ -86,6 +90,8 @@ describe('autotoolElementJsonExecutor', () => {
 			packagePathFromRootPackage: '.',
 		},
 	};
+
+	readJsonMock.mockResolvedValue(fakeTargetPackage.targetPackage.packageJson);
 
 	afterEach(() => {
 		vi.clearAllMocks();
@@ -192,6 +198,8 @@ describe('autotoolElementJsonExecutor', () => {
 			});
 
 			it('should substitute even custom template variables and use . when targeting the root package as relativePathFromPackageToRoot', async () => {
+				readJsonMock.mockResolvedValueOnce(fakeTargetPackage.rootPackage.packageJson);
+
 				await autotoolElementJsonExecutor.apply(
 					{
 						...fakePackageJsonElement,

@@ -3,7 +3,6 @@ import {
 	type AutotoolPluginObject,
 	type DefaultAutotoolElements,
 } from 'autotool-plugin';
-import { join } from 'node:path';
 import packageJson from '../package.json';
 
 const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolElements> => {
@@ -11,24 +10,30 @@ const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolE
 		name: packageJson.name,
 		elements: [
 			{
-				description: 'a valid copy',
-				executor: 'fileCopy',
+				description: 'BAR TO BOTH',
+				executor: 'packageJson',
 				packageKind: 'regular',
-				targetFile: 'folder/asd',
-				sourcePluginPackageName: packageJson.name,
-				sourceFile: join('static', 'foo.txt'),
+				packageJsonFilter: {
+					archetype: {
+						language: /^(ts|typescript)$/,
+					},
+				},
+				data: {
+					bar: 'lol',
+				},
 			},
 			{
-				description: 'removing the valid copy, I will trigger an error!',
-				executor: 'fileRemove',
-				packageKind: 'root',
-				targetFile: 'foo2.txt',
-			},
-			{
-				executor: 'custom',
-				description: 'say hello to all public packages!',
-				apply: (_e, target, options) => {
-					options.logger.info('Hello', target.targetPackage.packageJson.name);
+				description: 'FOO TO NOT AUTOTOOL',
+				executor: 'packageJson',
+				packageJsonFilter: {
+					archetype: {
+						language: /^(ts|typescript)$/,
+					},
+					name: (name) => name !== 'autotool',
+				},
+				packageKind: 'regular',
+				data: {
+					foo: 'lol',
 				},
 			},
 		],

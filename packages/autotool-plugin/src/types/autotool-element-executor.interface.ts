@@ -75,6 +75,8 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 	 * When defined, elements of this type are consolidated to a single element per target
 	 * Only called when more than one element of the same type is present on a filetarget.
 	 *
+	 * The elements recieved are frozen so don't mutate them!
+	 *
 	 * Even if you can consolidate elements into a single element, you still
 	 * need to return it in an array. This is to not limit you into only
 	 * one kind of consolidation where you must have to consolidate elements

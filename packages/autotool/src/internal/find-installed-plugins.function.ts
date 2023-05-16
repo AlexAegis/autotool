@@ -10,6 +10,29 @@ import type {
 import { globby } from 'globby';
 
 /**
+ * Applies Object.freeze deeply, as seen on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+ *
+ * @returns the same object but frozen.
+ * @deprecated use core
+ */
+export const deepFreeze = <T>(object: T, dontFreeze = new Set()): T => {
+	dontFreeze.add(object);
+	const propNames = Reflect.ownKeys(object as object);
+	for (const name of propNames) {
+		const value = (object as Record<string | number | symbol, unknown>)[name];
+
+		if (
+			((value && typeof value === 'object') || typeof value === 'function') &&
+			!dontFreeze.has(value)
+		) {
+			deepFreeze(value as T, dontFreeze);
+		}
+	}
+
+	return Object.freeze(object);
+};
+
+/**
  * @returns the installed npm packages that match the naming convetion
  * autotool uses
  */
@@ -91,5 +114,10 @@ export const loadInstalledPlugins = async (
 			.map((plugin) => ({ ...plugin, name: plugin.name || name }))
 			.filter(isAutotoolPluginObject);
 	});
-	return loadedPlugins.flat(1);
+	const result = loadedPlugins.flat(1);
+
+	// Don't you dare touch anything in your plugin after it's loaded
+	deepFreeze(result);
+
+	return result;
 };
