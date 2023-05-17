@@ -151,7 +151,7 @@ export const executeElementsOnPackage = async (
 
 	if (targetedEntries.length > 0) {
 		options.logger.info(
-			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}!"`
+			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"!`
 		);
 	}
 };
