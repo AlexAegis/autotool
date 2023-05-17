@@ -7,6 +7,7 @@ import type {
 	AutotoolPluginObject,
 	NormalizedAutotoolPluginOptions,
 } from 'autotool-plugin';
+import defaultPlugin from 'autotool-plugin-default';
 import { globby } from 'globby';
 
 /**
@@ -115,8 +116,10 @@ export const loadInstalledPlugins = async (
 			.filter(isAutotoolPluginObject);
 	});
 	const result = loadedPlugins.flat(1);
+	// Always include the default plugin as the first one.
+	result.unshift(defaultPlugin as AutotoolPluginObject<AutotoolElement>);
 
-	// Don't you dare touch anything in your plugin after it's loaded
+	// Don't you dare touch anything in your plugin after they're loaded!
 	deepFreeze(result);
 
 	return result;

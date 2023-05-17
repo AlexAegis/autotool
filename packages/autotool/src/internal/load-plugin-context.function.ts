@@ -4,7 +4,6 @@ import {
 	type AutotoolPluginObject,
 	type NormalizedAutotoolOptions,
 } from 'autotool-plugin';
-import { defaultPlugin } from 'autotool-plugin-default';
 import { createExecutorMap } from '../helpers/create-executor-map.function.js';
 import type { AutotoolContext } from './autotool-context.type.js';
 import { findInstalledPlugins, loadInstalledPlugins } from './find-installed-plugins.function.js';
@@ -21,7 +20,6 @@ export const loadContext = async (
 			rootWorkspacePackage,
 		}
 	);
-	plugins.unshift(defaultPlugin as AutotoolPluginObject<AutotoolElement>);
 
 	options.logger.info(
 		'plugins loaded:',
