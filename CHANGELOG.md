@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.4](https://github.com/AlexAegis/js/compare/v0.0.3...v0.0.4) (2023-05-17)
+
+
+### Bug Fixes
+
+* **autotool:** add default plugin before freeze ([9618268](https://github.com/AlexAegis/js/commit/96182681d400dabd4b84a489dbd9a5b609574109))
+
 ## [0.0.3](https://github.com/AlexAegis/js/compare/v0.0.2...v0.0.3) (2023-05-16)
 
 
