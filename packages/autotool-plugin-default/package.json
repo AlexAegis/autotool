@@ -4,18 +4,18 @@
 	"version": "0.0.4",
 	"license": "MIT",
 	"private": false,
+	"archetype": {
+		"platform": "node",
+		"language": "ts",
+		"kind": "lib",
+		"bundler": "vite",
+		"testing": "vitest"
+	},
 	"keywords": [
 		"autotool",
 		"autotool-plugin",
 		"managed-by-autotool"
 	],
-	"archetype": {
-		"bundler": "vite",
-		"kind": "lib",
-		"language": "ts",
-		"platform": "node",
-		"testing": "vitest"
-	},
 	"type": "module",
 	"config": {
 		"engine-strict": false
@@ -23,6 +23,8 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"bar": "lol",
+	"foo": "lol",
 	"scripts": {
 		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"build-lib_": "vite build",
@@ -52,24 +54,24 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.1.8",
-		"@alexaegis/fs": "^0.1.8",
-		"@alexaegis/logging": "^0.1.8",
-		"@alexaegis/workspace-tools": "^0.1.8",
+		"@alexaegis/common": "^0.2.0",
+		"@alexaegis/fs": "^0.2.0",
+		"@alexaegis/logging": "^0.2.0",
+		"@alexaegis/workspace-tools": "^0.2.0",
 		"autotool-plugin": "^0.0.4",
 		"minimatch": "^9.0.0"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.2.0",
-		"@alexaegis/ts": "^0.2.0",
-		"@alexaegis/vite": "^0.2.0",
-		"@alexaegis/vitest": "^0.2.0",
+		"@alexaegis/eslint-config-vitest": "^0.3.0",
+		"@alexaegis/ts": "^0.3.0",
+		"@alexaegis/vite": "^0.3.0",
+		"@alexaegis/vitest": "^0.3.0",
 		"@schemastore/package": "^0.0.8",
-		"@types/node": "^20.1.7",
-		"@vitest/coverage-c8": "^0.31.0",
-		"publint": "^0.1.11",
+		"@types/node": "^20.2.1",
+		"@vitest/coverage-c8": "^0.31.1",
+		"publint": "^0.1.12",
 		"typescript": "^5.0.4",
-		"vite": "^4.3.7",
-		"vitest": "^0.31.0"
+		"vite": "^4.3.8",
+		"vitest": "^0.31.1"
 	}
 }
