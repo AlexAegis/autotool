@@ -27,6 +27,8 @@ export const normalizeAutotoolPluginOptions = (
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
 		...normalizeForceOption(options),
+		filter: options.filter ?? [],
+		filterPlugins: options.filterPlugins ?? [],
 		rootWorkspacePackage: options.rootWorkspacePackage,
 	};
 };

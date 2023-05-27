@@ -1,5 +1,6 @@
 import type { Transformer } from '@alexaegis/workspace-tools';
 import type { AutotoolElement } from 'autotool-plugin';
+import type { BuiltInParserName } from 'prettier';
 
 export interface AutotoolElementFileCopy extends AutotoolElement<'fileCopy'> {
 	/**
@@ -30,6 +31,18 @@ export interface AutotoolElementFileCopy extends AutotoolElement<'fileCopy'> {
 	 * @defaultValue false
 	 */
 	markAsExecutable?: boolean;
+
+	/**
+	 * When defined, right before writing the file, it will try to format
+	 * it using prettier and the users config. Use 'babel' for js/cjs files,
+	 * 'json' for .json, and so on.
+	 *
+	 * You can also just set it to true to guess the parser from the target
+	 * files extension
+	 *
+	 * @defaultValue undefined
+	 */
+	formatWithPrettier?: true | BuiltInParserName | string | undefined;
 }
 
 export const isAutotoolElementFileCopy = (

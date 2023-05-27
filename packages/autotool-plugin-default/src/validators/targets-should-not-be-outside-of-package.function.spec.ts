@@ -36,6 +36,8 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 		force: false,
 		rootWorkspacePackage,
 		logger,
+		filter: [],
+		filterPlugins: [],
 	};
 
 	it('should not have a problem with paths pointing inwards', async () => {

@@ -31,5 +31,20 @@ export const yargsForAutotool = <T>(
 			boolean: true,
 			default: false,
 			description: 'Lists all installed plugins',
+		})
+		.option('filter', {
+			array: true,
+			string: true,
+			deprecated: 'NOT IMPLEMENTED', // TODO: Implement it
+			description:
+				'Target only these packages. Will target all packages' +
+				'when empty or not provided',
+		})
+		.option('filterPlugins', {
+			array: true,
+			string: true,
+			description:
+				'Use only these plugins. Will use all discoverable plugins' +
+				'when empty or not provided',
 		});
 };

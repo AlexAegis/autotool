@@ -15,6 +15,8 @@ describe('normalizeMemoizeOptions', () => {
 			force: false,
 			listPlugins: false,
 			logger: noopLogger,
+			filter: [],
+			filterPlugins: [],
 		} as NormalizedAutotoolOptions);
 	});
 
@@ -26,6 +28,8 @@ describe('normalizeMemoizeOptions', () => {
 			force: true,
 			listPlugins: true,
 			logger: noopLogger,
+			filter: [],
+			filterPlugins: [],
 		};
 		expect(normalizeAutotoolOptions(manualOptions)).toEqual(manualOptions);
 	});

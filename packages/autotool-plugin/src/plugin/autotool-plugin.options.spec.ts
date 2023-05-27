@@ -24,6 +24,8 @@ describe('normalizeAutotoolPluginOptions', () => {
 			force: false,
 			logger: noopLogger,
 			rootWorkspacePackage,
+			filter: [],
+			filterPlugins: [],
 		} as NormalizedAutotoolPluginOptions);
 	});
 
@@ -34,6 +36,8 @@ describe('normalizeAutotoolPluginOptions', () => {
 			dry: true,
 			logger: noopLogger,
 			rootWorkspacePackage,
+			filter: [],
+			filterPlugins: [],
 		};
 		expect(normalizeAutotoolPluginOptions(manualOptions)).toEqual(manualOptions);
 	});

@@ -38,6 +38,8 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		cwd: options.cwd,
 		dry: options.dryish,
 		force: options.force,
+		filter: options.filter,
+		filterPlugins: options.filterPlugins,
 		rootWorkspacePackage,
 	};
 

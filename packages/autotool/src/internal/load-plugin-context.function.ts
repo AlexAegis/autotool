@@ -13,7 +13,7 @@ export const loadContext = async (
 	options: NormalizedAutotoolOptions
 ): Promise<AutotoolContext> => {
 	const installedPlugins = await findInstalledPlugins(options);
-	const plugins: AutotoolPluginObject<AutotoolElement>[] = await loadInstalledPlugins(
+	let plugins: AutotoolPluginObject<AutotoolElement>[] = await loadInstalledPlugins(
 		installedPlugins,
 		{
 			...options,
@@ -25,9 +25,22 @@ export const loadContext = async (
 		'plugins loaded:',
 		plugins.map((plugin) => plugin.name)
 	);
-	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
+
 	const executorMap = createExecutorMap(plugins, options);
+	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
 	options.logger.trace('executors loaded:', [...executorMap.keys()]);
+
+	if (options.filterPlugins.length > 0) {
+		plugins = plugins.filter(
+			(plugin) =>
+				options.filterPlugins.includes(plugin.name) ||
+				plugin.name === 'autotool-plugin-default'
+		);
+		options.logger.trace(
+			'plugins to load elements from after filterPlugins:',
+			plugins.map((plugin) => plugin.name)
+		);
+	}
 
 	return {
 		plugins,

@@ -1,0 +1,3 @@
+  // Unformatted to test autoformatting
+
+module.exports =    require('something')

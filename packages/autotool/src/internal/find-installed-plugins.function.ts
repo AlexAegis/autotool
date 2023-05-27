@@ -1,4 +1,4 @@
-import { asyncFilterMap, isObject } from '@alexaegis/common';
+import { asyncFilterMap, deepFreeze, isObject } from '@alexaegis/common';
 import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
 import type {
 	AutotoolElement,
@@ -9,29 +9,6 @@ import type {
 } from 'autotool-plugin';
 import defaultPlugin from 'autotool-plugin-default';
 import { globby } from 'globby';
-
-/**
- * Applies Object.freeze deeply, as seen on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
- *
- * @returns the same object but frozen.
- * @deprecated use core
- */
-export const deepFreeze = <T>(object: T, dontFreeze = new Set()): T => {
-	dontFreeze.add(object);
-	const propNames = Reflect.ownKeys(object as object);
-	for (const name of propNames) {
-		const value = (object as Record<string | number | symbol, unknown>)[name];
-
-		if (
-			((value && typeof value === 'object') || typeof value === 'function') &&
-			!dontFreeze.has(value)
-		) {
-			deepFreeze(value as T, dontFreeze);
-		}
-	}
-
-	return Object.freeze(object);
-};
 
 /**
  * @returns the installed npm packages that match the naming convetion
