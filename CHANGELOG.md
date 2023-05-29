@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.5](https://github.com/AlexAegis/js/compare/v0.0.4...v0.0.5) (2023-05-29)
+
+
+### Features
+
+* **autotool:** added simple --filterPlugins option and autoformat on copy ([99cb1bd](https://github.com/AlexAegis/js/commit/99cb1bdecc367df51b57a9faedd50eacd25dfda7))
+* **autotool:** run install if dependencies have changed ([b607582](https://github.com/AlexAegis/js/commit/b60758211c6a7ba36ce660aa1cfd04056288cdc9))
+
 ## [0.0.4](https://github.com/AlexAegis/js/compare/v0.0.3...v0.0.4) (2023-05-17)
 
 

@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-example",
 	"description": "Exports custom updaters for standard-version",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"license": "MIT",
 	"private": true,
 	"keywords": [
@@ -48,7 +48,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "^0.0.4",
+		"autotool-plugin": "^0.0.5",
 		"typescript": "^5.0.4"
 	},
 	"peerDependencies": {
