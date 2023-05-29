@@ -5,6 +5,9 @@ import packageJson from '../package.json';
 export const plugin: AutotoolPlugin = (_options): AutotoolPluginObject => {
 	return {
 		name: packageJson.name,
+		packageJsonFilter: {
+			name: 'disabled',
+		},
 		elements: [
 			{
 				description: 'copy unformatted example json file',
