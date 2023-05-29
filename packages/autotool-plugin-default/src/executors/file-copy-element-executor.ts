@@ -65,17 +65,17 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 		}
 
 		let fileContent = (await readFile(sourceFilePath, { encoding: 'utf8' })) || '';
-		options.logger.trace('filecontent read from source file', sourceFilePath, fileContent);
+		options.logger.silly('filecontent read from source file', sourceFilePath, fileContent);
 
 		fileContent =
 			element.transformers?.reduce(
 				(content, transformer) => transformer(content),
 				fileContent
 			) ?? fileContent;
-		options.logger.trace('filecontent ran through transformers', fileContent);
+		options.logger.silly('filecontent ran through transformers', fileContent);
 
 		fileContent = fillStringWithTemplateVariables(fileContent, templateVariables);
-		options.logger.trace('filecontent filled with template variables', fileContent);
+		options.logger.silly('filecontent filled with template variables', fileContent);
 
 		const prettierParser = element.formatWithPrettier;
 		if (prettierParser) {
@@ -88,7 +88,7 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 			});
 		}
 
-		options.logger.trace('filecontent formatted using prettier', fileContent);
+		options.logger.silly('filecontent formatted using prettier (first 50 char):', fileContent);
 
 		if (options.dry) {
 			options.logger.info('(Dry) Pretending to make sure target file has a directory...');

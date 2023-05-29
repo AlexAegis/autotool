@@ -1,4 +1,9 @@
-import type { RootWorkspacePackage } from '@alexaegis/workspace-tools';
+import { readJson } from '@alexaegis/fs';
+import {
+	PACKAGE_JSON_DEPENDENCY_FIELDS,
+	type PackageJson,
+	type RootWorkspacePackage,
+} from '@alexaegis/workspace-tools';
 import {
 	AUTOTOOL_MARK,
 	isManagedFile,
@@ -8,7 +13,15 @@ import {
 	type NormalizedAutotoolPluginOptions,
 	type WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
+import diff, { type Difference } from 'microdiff';
 import { join, relative } from 'node:path';
+
+export interface WorkspacePackageElementExecutionResult {
+	packageElements: WorkspacePackageElementsByTarget;
+	finalPackageJson: PackageJson;
+	packageJsonDiff: Difference[];
+	someDependencyChanged: boolean;
+}
 
 /**
  * Targeted files are executed concurrently but elements targeting the same
@@ -16,6 +29,8 @@ import { join, relative } from 'node:path';
  * modify it.
  *
  * TODO: chainable/consolidateable elements like 'json' modifications to avoid writing multiple times, instead
+ *
+ * @throws Error
  */
 export const executeElementsOnPackage = async (
 	packageElements: WorkspacePackageElementsByTarget,
@@ -23,7 +38,7 @@ export const executeElementsOnPackage = async (
 	executorMap: ExecutorMap,
 	elementOptions: NormalizedAutotoolPluginOptions,
 	options: NormalizedAutotoolOptions
-): Promise<void> => {
+): Promise<WorkspacePackageElementExecutionResult> => {
 	const targetedEntries = Object.entries(packageElements.targetedElementsByFile);
 
 	if (targetedEntries.length > 0) {
@@ -51,6 +66,7 @@ export const executeElementsOnPackage = async (
 		rootPackage: rootWorkspacePackage,
 	};
 
+	// Execute all targeted elements
 	await Promise.allSettled(
 		targetedEntries.map(async ([targetFile, elements]) => {
 			const targetFilePathAbsolute = join(
@@ -116,6 +132,7 @@ export const executeElementsOnPackage = async (
 		})
 	);
 
+	// Execute all non-targeted elements
 	for (const resolvedElement of packageElements.untargetedElements) {
 		const executor = executorMap.get(resolvedElement.element.executor);
 		if (executor) {
@@ -154,4 +171,28 @@ export const executeElementsOnPackage = async (
 			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"!`
 		);
 	}
+
+	// Read results to calculate deltas
+	const finalPackageJson = await readJson<PackageJson>(
+		packageElements.workspacePackage.packageJsonPath
+	);
+
+	if (!finalPackageJson) {
+		throw new Error('PackageJson got corrupted!');
+	}
+
+	const packageJsonDiff = diff(packageElements.workspacePackage.packageJson, finalPackageJson);
+
+	const someDependencyChanged = packageJsonDiff.some((difference) =>
+		PACKAGE_JSON_DEPENDENCY_FIELDS.some((dependencyFieldName) =>
+			difference.path.includes(dependencyFieldName)
+		)
+	);
+
+	return {
+		packageElements,
+		finalPackageJson,
+		packageJsonDiff,
+		someDependencyChanged,
+	};
 };
