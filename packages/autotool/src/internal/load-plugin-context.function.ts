@@ -21,11 +21,6 @@ export const loadContext = async (
 		}
 	);
 
-	options.logger.info(
-		'plugins loaded:',
-		plugins.map((plugin) => plugin.name)
-	);
-
 	const executorMap = createExecutorMap(plugins, options);
 	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
 	options.logger.trace('executors loaded:', [...executorMap.keys()]);
@@ -36,11 +31,12 @@ export const loadContext = async (
 				options.filterPlugins.includes(plugin.name) ||
 				plugin.name === 'autotool-plugin-default'
 		);
-		options.logger.trace(
-			'plugins to load elements from after filterPlugins:',
-			plugins.map((plugin) => plugin.name)
-		);
 	}
+
+	options.logger.info(
+		'plugins loaded:',
+		plugins.map((plugin) => plugin.name)
+	);
 
 	return {
 		plugins,
