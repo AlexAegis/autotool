@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.0](https://github.com/AlexAegis/js/compare/v0.0.5...v0.1.0) (2023-06-28)
+
+
+### Features
+
+* do not execute anything for non-managed packages ([030c72d](https://github.com/AlexAegis/js/commit/030c72d1f30bd51647a77d62f40f54897adb9855))
+
+
+### Bug Fixes
+
+* **autotool:** drop off fields that are no longer used after this step ([5206ce2](https://github.com/AlexAegis/js/commit/5206ce21f6e70465a119aea9e95d571edc1d111d))
+* list loaded plugins after filtering ([5391831](https://github.com/AlexAegis/js/commit/5391831941223cce2741aefd4887fb294b72a8ac))
+
 ## [0.0.5](https://github.com/AlexAegis/js/compare/v0.0.4...v0.0.5) (2023-05-29)
 
 
