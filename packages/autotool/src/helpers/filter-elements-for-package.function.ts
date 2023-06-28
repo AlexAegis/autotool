@@ -24,11 +24,17 @@ export const filterElementsForPackage = (
 						?.filter((element) =>
 							elementAndPluginFilter(workspacePackage, element, sourcePlugin)
 						)
-						.map<PackageResolvedElement>((element) => ({
-							element,
-							sourcePlugin,
-							workspacePackage,
-						})) ?? []
+						.map<PackageResolvedElement>((element) => {
+							// Dropping off keys that won't be used later and would cause problems
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							const { packageJsonFilter, packageKind, ...elementWithoutFilters } =
+								element;
+							return {
+								element: elementWithoutFilters,
+								sourcePlugin,
+								workspacePackage,
+							};
+						}) ?? []
 			),
 	};
 };
