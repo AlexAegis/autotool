@@ -53,7 +53,8 @@
 		".": {
 			"types": "./src/index.ts",
 			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
 		},
 		"./readme": "./readme.md"
 	},
@@ -62,28 +63,27 @@
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.2.1",
-		"@alexaegis/common": "^0.2.1",
-		"@alexaegis/fs": "^0.2.1",
-		"@alexaegis/logging": "^0.2.1",
-		"@alexaegis/match": "^0.2.1",
-		"@alexaegis/workspace-tools": "^0.2.1",
+		"@alexaegis/cli-tools": "^0.2.4",
+		"@alexaegis/common": "^0.2.4",
+		"@alexaegis/fs": "^0.2.4",
+		"@alexaegis/logging": "^0.2.4",
+		"@alexaegis/match": "^0.2.4",
+		"@alexaegis/workspace-tools": "^0.2.4",
 		"autotool-plugin": "^0.0.5",
 		"autotool-plugin-default": "^0.0.5",
-		"globby": "^13.1.4",
+		"globby": "^13.2.0",
 		"microdiff": "^1.3.2"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.3.1",
-		"@alexaegis/ts": "^0.3.1",
-		"@alexaegis/vite": "^0.3.1",
-		"@alexaegis/vitest": "^0.3.1",
-		"@types/node": "^20.3.0",
+		"@alexaegis/eslint-config-vitest": "^0.3.3",
+		"@alexaegis/ts": "^0.3.3",
+		"@alexaegis/vite": "^0.3.3",
+		"@alexaegis/vitest": "^0.3.3",
+		"@types/node": "^20.3.2",
 		"@types/yargs": "17.0.24",
-		"@vitest/coverage-c8": "^0.32.0",
 		"publint": "^0.1.12",
-		"typescript": "^5.1.3",
+		"typescript": "^5.1.5",
 		"vite": "^4.3.9",
-		"vitest": "^0.32.0"
+		"vitest": "^0.32.2"
 	}
 }
