@@ -8,8 +8,6 @@
 		"platform": "node",
 		"language": "ts",
 		"kind": "lib",
-		"bundler": "vite",
-		"testing": "vitest",
 		"disabledPlugins": [
 			"@alexaegis/autolib-plugin-ts"
 		]
@@ -25,7 +23,6 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"bar": "lol",
 	"scripts": {
 		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool",
 		"build-lib_": "vite build",
@@ -63,12 +60,12 @@
 		"autotool-postinstall": "./shims/postinstall.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.2.4",
-		"@alexaegis/common": "^0.2.4",
-		"@alexaegis/fs": "^0.2.4",
-		"@alexaegis/logging": "^0.2.4",
-		"@alexaegis/match": "^0.2.4",
-		"@alexaegis/workspace-tools": "^0.2.4",
+		"@alexaegis/cli-tools": "^0.3.1",
+		"@alexaegis/common": "^0.3.1",
+		"@alexaegis/fs": "^0.3.1",
+		"@alexaegis/logging": "^0.3.1",
+		"@alexaegis/match": "^0.3.1",
+		"@alexaegis/workspace-tools": "^0.3.1",
 		"autotool-plugin": "^0.1.0",
 		"autotool-plugin-default": "^0.1.0",
 		"globby": "^13.2.0",
@@ -81,8 +78,8 @@
 		"@alexaegis/vitest": "^0.3.3",
 		"@types/node": "^20.3.2",
 		"@types/yargs": "17.0.24",
-		"publint": "^0.1.12",
-		"typescript": "^5.1.5",
+		"publint": "^0.1.13",
+		"typescript": "^5.1.6",
 		"vite": "^4.3.9",
 		"vitest": "^0.32.2"
 	}

@@ -1,7 +1,8 @@
-import { deepMerge, fillObjectWithTemplateVariables, sortObject } from '@alexaegis/common';
+import { deepMerge, fillObjectWithTemplateVariables, groupBy, sortObject } from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
 import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
+	PACKAGE_JSON_DEPENDENCY_FIELDS,
 	getPackageJsonTemplateVariables,
 	mergeDependencies,
 	type PackageJson,
@@ -10,13 +11,6 @@ import {
 import type { Dependency } from '@schemastore/package';
 import type { AutotoolElementExecutor, AutotoolElementPackageJson } from 'autotool-plugin';
 import { relative } from 'node:path/posix';
-
-export const PACKAGE_JSON_DEPENDENCY_FIELDS = [
-	'dependencies',
-	'devDependencies',
-	'optionalDependencies',
-	'peerDependencies',
-] as const;
 
 export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElementPackageJson> = {
 	type: 'packageJson',
@@ -81,12 +75,26 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 		}
 	},
 	consolidate: (elements) => {
-		const first = elements[0];
-		return first
-			? elements.reduce((acc, element) => {
-					acc.data = deepMerge(acc.data, element.data);
+		const groupedByPass = groupBy(elements, (element) =>
+			element.consolidationPass ? element.consolidationPass.toString() : '0'
+		);
+
+		// Lower numbers will come first
+		const elementGroupsByPass = Object.entries(groupedByPass)
+			.map(([k, elements]) => ({
+				pass: Number.parseInt(k, 10),
+				elements,
+			}))
+			.sort((a, b) => a.pass - b.pass)
+			.map((e) => e.elements);
+
+		const baseElement = elementGroupsByPass[0]?.shift();
+
+		return baseElement
+			? elementGroupsByPass.reduce((acc, group) => {
+					acc.data = deepMerge(acc.data, ...group.map((g) => g.data));
 					return acc;
-			  }, structuredClone(first))
+			  }, structuredClone(baseElement))
 			: undefined;
 	},
 };

@@ -1,6 +1,7 @@
-import type { Transformer } from '@alexaegis/workspace-tools';
 import type { AutotoolElement } from 'autotool-plugin';
 import type { BuiltInParserName } from 'prettier';
+
+export type Transformer = (content: string) => string;
 
 export interface AutotoolElementFileCopy extends AutotoolElement<'fileCopy'> {
 	/**

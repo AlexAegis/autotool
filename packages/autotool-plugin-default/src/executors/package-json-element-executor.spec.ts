@@ -61,6 +61,7 @@ describe('autotoolElementJsonExecutor', () => {
 		cwd: '/project',
 		dry: false,
 		logger,
+		force: false,
 	};
 
 	const fakeTargetPackage: ElementTarget = {
@@ -149,6 +150,41 @@ describe('autotoolElementJsonExecutor', () => {
 					data: {
 						dependencies: {
 							foo: '1.0.0',
+							bar: '1.0.0',
+						},
+					},
+				});
+			});
+
+			it('should be able to drop off elements using undefined by using a higher consolidationPass', () => {
+				const elementA: AppliedElement<AutotoolElementPackageJson> = {
+					executor: 'packageJson',
+					consolidationPass: 2,
+					data: {
+						dependencies: {
+							foo: undefined,
+							bar: '1.0.0',
+						},
+					},
+				};
+
+				const elementB: AppliedElement<AutotoolElementPackageJson> = {
+					executor: 'packageJson',
+					consolidationPass: 1,
+					data: {
+						dependencies: {
+							foo: '1.0.0',
+						},
+					},
+				};
+				const result = autotoolElementJsonExecutor.consolidate?.([elementA, elementB]);
+
+				expect(result).toBeDefined();
+				expect(result).toEqual({
+					executor: 'packageJson',
+					consolidationPass: expect.any(Number) as number,
+					data: {
+						dependencies: {
 							bar: '1.0.0',
 						},
 					},

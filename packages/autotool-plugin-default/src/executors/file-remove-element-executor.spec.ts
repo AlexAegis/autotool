@@ -50,6 +50,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			cwd: 'root',
 			dry: false,
 			logger,
+			force: false,
 		});
 
 		expect(rmMock).toHaveBeenCalled();
@@ -63,6 +64,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			cwd: 'root',
 			dry: true,
 			logger,
+			force: false,
 		});
 
 		expect(rmMock).not.toHaveBeenCalled();
@@ -81,6 +83,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			cwd: 'root',
 			dry: false,
 			logger,
+			force: false,
 		});
 
 		expect(rmMock).toHaveBeenCalled();
@@ -99,6 +102,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			cwd: 'root',
 			dry: false,
 			logger,
+			force: false,
 		});
 
 		expect(rmMock).toHaveBeenCalled();

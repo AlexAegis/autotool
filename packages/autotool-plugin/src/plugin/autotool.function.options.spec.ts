@@ -15,8 +15,13 @@ describe('normalizeMemoizeOptions', () => {
 			force: false,
 			listPlugins: false,
 			logger: noopLogger,
-			filter: [],
-			filterPlugins: [],
+			dependencyCriteria: [],
+			disabledPlugins: [],
+			enabledPlugins: [],
+			onlyWorkspaceRoot: false,
+			skipWorkspaceRoot: false,
+			packageJsonMatcher: undefined,
+			maxAllowedRecursion: 3,
 		} as NormalizedAutotoolOptions);
 	});
 
@@ -28,8 +33,13 @@ describe('normalizeMemoizeOptions', () => {
 			force: true,
 			listPlugins: true,
 			logger: noopLogger,
-			filter: [],
-			filterPlugins: [],
+			maxAllowedRecursion: 2,
+			packageJsonMatcher: undefined,
+			skipWorkspaceRoot: false,
+			onlyWorkspaceRoot: false,
+			dependencyCriteria: [],
+			disabledPlugins: [],
+			enabledPlugins: [],
 		};
 		expect(normalizeAutotoolOptions(manualOptions)).toEqual(manualOptions);
 	});

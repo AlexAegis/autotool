@@ -1,4 +1,5 @@
 import {
+	yargsForCollectWorkspacePackagesOptions,
 	yargsForCwdOption,
 	yargsForDryOption,
 	yargsForForceOption,
@@ -20,7 +21,9 @@ export const yargsForAutotool = <T>(
 		NormalizedLogLevelOption &
 		Omit<AutotoolOptions, keyof LoggerOption>
 > => {
-	return yargsForLogLevelOption(yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs))))
+	return yargsForCollectWorkspacePackagesOptions(
+		yargsForLogLevelOption(yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs))))
+	)
 		.option('dryish', {
 			boolean: true,
 			default: false,
@@ -32,19 +35,18 @@ export const yargsForAutotool = <T>(
 			default: false,
 			description: 'Lists all installed plugins',
 		})
-		.option('filter', {
+		.option('enabledPlugins', {
 			array: true,
 			string: true,
-			deprecated: 'NOT IMPLEMENTED', // TODO: Implement it
 			description:
-				'Target only these packages. Will target all packages' +
-				'when empty or not provided',
+				'Use only these plugins. Will use all discoverable plugins ' +
+				'that are not also disabled when empty or not provided',
 		})
-		.option('filterPlugins', {
+		.option('disabledPlugins', {
 			array: true,
 			string: true,
 			description:
-				'Use only these plugins. Will use all discoverable plugins' +
-				'when empty or not provided',
+				'Do not use these plugins. Regardless if they are explicity ' +
+				'enabled or not. Does not have an effect when left empty',
 		});
 };

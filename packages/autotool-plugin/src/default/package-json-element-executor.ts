@@ -4,6 +4,14 @@ import type { UntargetedAutotoolElement } from 'autotool-plugin';
 
 export interface AutotoolElementPackageJson extends UntargetedAutotoolElement<'packageJson'> {
 	data: PackageJson;
+	/**
+	 * You can think of this as the power of this element. Higher passes
+	 * always overwrite lower ones. Can be used to forcefully remove/overwrite
+	 * things other plugins would define.
+	 *
+	 * @default 0
+	 */
+	consolidationPass?: number;
 	sortingPreference?: ObjectKeyOrder;
 }
 

@@ -81,7 +81,7 @@ describe('elementAndPluginFilter', () => {
 		it('should be able filter out only regular packages', () => {
 			const filter: AutotoolPluginFilter = {
 				packageJsonFilter: {
-					name: (name) => name.startsWith('z'),
+					name: (name) => name?.startsWith('z'),
 				},
 			};
 			expect(elementAndPluginFilter(rootPackage, filter, sourcePlugin)).toBeFalsy();
@@ -94,7 +94,7 @@ describe('elementAndPluginFilter', () => {
 		it('should not match for anything even if it would if the plugin is disabled on that package', () => {
 			const filter: AutotoolPluginFilter = {
 				packageJsonFilter: {
-					name: (name) => name.startsWith('z'),
+					name: (name) => name?.startsWith('z'),
 				},
 			};
 			expect(elementAndPluginFilter(regularPackageZed, filter, sourcePlugin)).toBeTruthy();

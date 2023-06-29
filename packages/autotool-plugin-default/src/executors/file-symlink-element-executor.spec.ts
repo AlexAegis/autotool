@@ -62,6 +62,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 		cwd: '/project',
 		dry: false,
 		logger,
+		force: false,
 	};
 
 	const fakeTargetDirectlyOnPackage: ElementTarget = {

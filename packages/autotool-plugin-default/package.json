@@ -7,9 +7,7 @@
 	"archetype": {
 		"platform": "node",
 		"language": "ts",
-		"kind": "lib",
-		"bundler": "vite",
-		"testing": "vitest"
+		"kind": "lib"
 	},
 	"keywords": [
 		"autotool",
@@ -23,8 +21,6 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"bar": "lol",
-	"foo": "lol",
 	"scripts": {
 		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"build-lib_": "vite build",
@@ -57,10 +53,10 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.2.4",
-		"@alexaegis/fs": "^0.2.4",
-		"@alexaegis/logging": "^0.2.4",
-		"@alexaegis/workspace-tools": "^0.2.4",
+		"@alexaegis/common": "^0.3.1",
+		"@alexaegis/fs": "^0.3.1",
+		"@alexaegis/logging": "^0.3.1",
+		"@alexaegis/workspace-tools": "^0.3.1",
 		"autotool-plugin": "^0.1.0",
 		"minimatch": "^9.0.2"
 	},
@@ -71,8 +67,8 @@
 		"@alexaegis/vitest": "^0.3.3",
 		"@schemastore/package": "^0.0.8",
 		"@types/node": "^20.3.2",
-		"publint": "^0.1.12",
-		"typescript": "^5.1.5",
+		"publint": "^0.1.13",
+		"typescript": "^5.1.6",
 		"vite": "^4.3.9",
 		"vitest": "^0.32.2"
 	}

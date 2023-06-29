@@ -22,6 +22,7 @@ describe('autotoolElementCustomExecutor', () => {
 		cwd: '/project',
 		dry: false,
 		logger,
+		force: false,
 	};
 
 	const fakeTarget: ElementTarget = {

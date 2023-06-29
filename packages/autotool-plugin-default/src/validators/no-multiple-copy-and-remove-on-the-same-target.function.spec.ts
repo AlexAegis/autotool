@@ -61,8 +61,6 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 		force: false,
 		rootWorkspacePackage,
 		logger,
-		filter: [],
-		filterPlugins: [],
 	};
 
 	it('should pass if theres only one copy element', async () => {

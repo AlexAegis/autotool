@@ -1,0 +1,70 @@
+{
+	"name": "@alexaegis/autotool-plugin-recursive-2",
+	"description": "To test the recursive behavior of autotool",
+	"version": "0.1.0",
+	"license": "MIT",
+	"private": true,
+	"archetype": {
+		"platform": "node",
+		"language": "ts",
+		"kind": "lib"
+	},
+	"keywords": [
+		"autotool",
+		"autotool-plugin",
+		"managed-by-autotool"
+	],
+	"type": "module",
+	"config": {
+		"engine-strict": false
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-recursive-2",
+		"build-lib_": "vite build",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-recursive-2",
+		"lint:depcheck_": "depcheck",
+		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
+		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"lint:format_": "prettier --no-plugin-search --cache-location .cache/prettier --check .",
+		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"lint:tsc_": "tsc --noEmit",
+		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-recursive-2",
+		"publint_": "publint dist",
+		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
+		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter @alexaegis/autotool-plugin-recursive-2",
+		"test_": "vitest --passWithNoTests --coverage --run",
+		"test:watch": "vitest --passWithNoTests --coverage"
+	},
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./readme": "./readme.md"
+	},
+	"dependencies": {
+		"autotool-plugin": "^0.1.0"
+	},
+	"devDependencies": {
+		"@alexaegis/eslint-config-vitest": "^0.3.3",
+		"@alexaegis/logging": "^0.3.1",
+		"@alexaegis/ts": "^0.3.3",
+		"@alexaegis/vite": "^0.3.3",
+		"@alexaegis/vitest": "^0.3.3",
+		"@types/node": "^20.3.2",
+		"publint": "^0.1.13",
+		"typescript": "^5.1.6",
+		"vite": "^4.3.9",
+		"vitest": "^0.32.2"
+	}
+}

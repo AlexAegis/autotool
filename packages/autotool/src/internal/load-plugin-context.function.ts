@@ -6,6 +6,7 @@ import {
 } from 'autotool-plugin';
 import { createExecutorMap } from '../helpers/create-executor-map.function.js';
 import type { AutotoolContext } from './autotool-context.type.js';
+import { autotoolPluginFilterPredicate } from './autotool-plugin-filter-predicate.function.js';
 import { findInstalledPlugins, loadInstalledPlugins } from './find-installed-plugins.function.js';
 
 export const loadContext = async (
@@ -25,16 +26,10 @@ export const loadContext = async (
 	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
 	options.logger.trace('executors loaded:', [...executorMap.keys()]);
 
-	if (options.filterPlugins.length > 0) {
-		plugins = plugins.filter(
-			(plugin) =>
-				options.filterPlugins.includes(plugin.name) ||
-				plugin.name === 'autotool-plugin-default'
-		);
-	}
+	plugins = plugins.filter((plugin) => autotoolPluginFilterPredicate(plugin.name, options));
 
 	options.logger.info(
-		'plugins loaded:',
+		'plugins loaded after filters:',
 		plugins.map((plugin) => plugin.name)
 	);
 

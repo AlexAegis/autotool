@@ -10,13 +10,20 @@ import { checkIfTheresAnElementWithoutValidExecutor } from '../helpers/check-if-
 import { discoverPackageManager } from '../helpers/discover-package-manager.function.js';
 import { isRootWorkspacePackage } from '../helpers/is-root-workspace-package.function.js';
 import { assignElementsToTargets } from './assign-elements-to-targets.function.js';
+import { autotoolPluginFilterPredicate } from './autotool-plugin-filter-predicate.function.js';
 import { executeElementsOnPackage } from './execute-elements-on-package.function.js';
 import { loadContext } from './load-plugin-context.function.js';
 import { validate } from './validate.function.js';
 
 export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	const options = normalizeAutotoolOptions(rawOptions);
-	const workspacePackages = await collectWorkspacePackages(options);
+
+	if (options.maxAllowedRecursion <= 0) {
+		options.logger.info('recursive limit reached!');
+		return;
+	}
+
+	const workspacePackages = await collectWorkspacePackages(rawOptions);
 	const rootWorkspacePackage = workspacePackages.find(isRootWorkspacePackage);
 
 	if (!rootWorkspacePackage) {
@@ -46,8 +53,6 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		cwd: options.cwd,
 		dry: options.dryish,
 		force: options.force,
-		filter: options.filter,
-		filterPlugins: options.filterPlugins,
 		rootWorkspacePackage,
 	};
 
@@ -79,6 +84,12 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 			}
 		);
 
+		const addedAutotoolPlugins = results
+			.flatMap((result) => result.addedAutotoolPlugins)
+			.filter((pluginName) => autotoolPluginFilterPredicate(pluginName, options));
+
+		options.logger.warn('addedAutotoolPlugins', addedAutotoolPlugins); // TODO: REMOVE
+
 		if (results.some((result) => result.someDependencyChanged)) {
 			options.logger.info(
 				'Some dependencies have changed! Installing packages using',
@@ -87,6 +98,24 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 			execSync(packageManager.installCommand, {
 				stdio: 'inherit',
 			});
+
+			// If a plugin is present in the root-packageJson that wasn't loaded into the context
+			// that means it was freshly added by another plugin. Recursively call autotool in this case.
+			if (addedAutotoolPlugins.length > 0) {
+				options.logger.info(
+					'New autotool plugins have been added! Re-executing autotool!',
+					addedAutotoolPlugins
+				);
+				options.logger.info(
+					'Remaining recursions available:',
+					options.maxAllowedRecursion - 1
+				);
+
+				return await autotool({
+					...options,
+					maxAllowedRecursion: options.maxAllowedRecursion - 1,
+				});
+			}
 		}
 	}
 };

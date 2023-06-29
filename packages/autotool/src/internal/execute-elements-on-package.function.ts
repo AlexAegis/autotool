@@ -1,11 +1,13 @@
+import { isNotNullish } from '@alexaegis/common';
 import { readJson } from '@alexaegis/fs';
 import {
-	PACKAGE_JSON_DEPENDENCY_FIELDS,
+	isPackageJsonDependencyField,
 	type PackageJson,
 	type RootWorkspacePackage,
 } from '@alexaegis/workspace-tools';
 import {
 	AUTOTOOL_MARK,
+	AUTOTOOL_PLUGIN_NAME_PREFIX,
 	isManagedFile,
 	type ElementTarget,
 	type ExecutorMap,
@@ -21,6 +23,7 @@ export interface WorkspacePackageElementExecutionResult {
 	finalPackageJson: PackageJson;
 	packageJsonDiff: Difference[];
 	someDependencyChanged: boolean;
+	addedAutotoolPlugins: string[];
 }
 
 /**
@@ -184,15 +187,34 @@ export const executeElementsOnPackage = async (
 	const packageJsonDiff = diff(packageElements.workspacePackage.packageJson, finalPackageJson);
 
 	const someDependencyChanged = packageJsonDiff.some((difference) =>
-		PACKAGE_JSON_DEPENDENCY_FIELDS.some((dependencyFieldName) =>
-			difference.path.includes(dependencyFieldName)
-		)
+		isPackageJsonDependencyField(difference.path[0])
 	);
+
+	options.logger.error('packageJsonDiff', packageJsonDiff); // TODO: REMOVE
+
+	const addedAutotoolPlugins = packageJsonDiff
+		.map((difference) => {
+			// Searching for dependencies added
+			const lastPathFragment = difference.path.at(-1);
+
+			if (
+				difference.type === 'CREATE' &&
+				isPackageJsonDependencyField(difference.path[0]) &&
+				typeof lastPathFragment === 'string' &&
+				lastPathFragment.includes(AUTOTOOL_PLUGIN_NAME_PREFIX)
+			) {
+				return lastPathFragment;
+			}
+
+			return undefined;
+		})
+		.filter(isNotNullish);
 
 	return {
 		packageElements,
 		finalPackageJson,
 		packageJsonDiff,
 		someDependencyChanged,
+		addedAutotoolPlugins,
 	};
 };

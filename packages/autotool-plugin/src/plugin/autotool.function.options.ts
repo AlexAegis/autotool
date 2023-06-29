@@ -1,6 +1,8 @@
 import {
+	Defined,
 	normalizeDryOption,
 	normalizeForceOption,
+	normalizeRegExpLikeToRegExp,
 	type DryOption,
 	type ForceOption,
 	type NormalizedDryOption,
@@ -12,40 +14,63 @@ import {
 	type LoggerOption,
 	type NormalizedLoggerOption,
 } from '@alexaegis/logging';
+import {
+	CollectWorkspacePackagesOptions,
+	NormalizedCollectWorkspacePackagesOptions,
+	normalizeCollectWorkspacePackagesOptions,
+} from '@alexaegis/workspace-tools';
 
-interface BaseAutotoolOptions {
+export interface BaseAutotoolOptions {
 	dryish?: boolean;
 	listPlugins?: boolean;
-	filter?: string[] | undefined;
-	filterPlugins?: string[] | undefined;
+	enabledPlugins?: (string | RegExp)[] | undefined;
+	disabledPlugins?: (string | RegExp)[] | undefined;
+
+	/**
+	 * Autotool can re-run itself if a plugin adds more plugins. This allows
+	 * the usage of meta-plugins that just add more plugins. The default value
+	 * is 3 meaning a meta plugin can install more meta plugins but those can't
+	 * install more meta plugins.
+	 *
+	 * To avoid infinite loops this option is lowered every time a new
+	 * recursion happens. If it's less than 0, autotool exits immediately,
+	 * breaking the loop.
+	 *
+	 * You usually don't want to change this value, but by changing it to 1
+	 * you can effectively disable recursion. Or you can increase it if your
+	 * setup needs it.
+	 *
+	 * @internal
+	 * @defaultValue 3
+	 */
+	maxAllowedRecursion?: number | undefined;
 }
 
-export type AutotoolOptions = BaseAutotoolOptions &
-	CwdOption &
-	LoggerOption &
-	DryOption &
-	ForceOption;
-export type NormalizedAutotoolOptions = Omit<
-	Required<BaseAutotoolOptions>,
-	'filter' | 'filterPlugins'
-> & {
-	filter: string[]; // TODO: Explore opt-in RegExp's with the /string/ convention
-	filterPlugins: string[]; // TODO: Explore opt-in RegExp's with the /string/ convention
-} & NormalizedCwdOption &
+export type AdditionalAutotoolOptions = CwdOption & LoggerOption & DryOption & ForceOption;
+export type NormalizedAdditionalAutotoolOptions = NormalizedCwdOption &
 	NormalizedLoggerOption &
 	NormalizedDryOption &
 	NormalizedForceOption;
 
+export type AutotoolOptions = BaseAutotoolOptions &
+	AdditionalAutotoolOptions &
+	CollectWorkspacePackagesOptions;
+
+export type NormalizedAutotoolOptions = Omit<
+	Defined<BaseAutotoolOptions>,
+	'enabledPlugins' | 'disabledPlugins'
+> & {
+	enabledPlugins: RegExp[];
+	disabledPlugins: RegExp[];
+} & NormalizedAdditionalAutotoolOptions &
+	NormalizedCollectWorkspacePackagesOptions;
+
 /**
- * Same as NormalizedAutotoolOptions but without 'dryish'
+ * Same as NormalizedAutotoolOptions but without options that are not relevant
+ * or already normalized by the time an element is applied.
  */
-export type AutotoolElementApplyOptions = Omit<
-	Required<BaseAutotoolOptions>,
-	'dryish' | 'listPlugins' | 'filter' | 'filterPlugins'
-> &
-	NormalizedCwdOption &
-	NormalizedLoggerOption &
-	NormalizedDryOption;
+export type AutotoolElementApplyOptions = Pick<BaseAutotoolOptions, 'maxAllowedRecursion'> &
+	NormalizedAdditionalAutotoolOptions;
 
 export const normalizeAutotoolOptions = (options?: AutotoolOptions): NormalizedAutotoolOptions => {
 	return {
@@ -53,9 +78,11 @@ export const normalizeAutotoolOptions = (options?: AutotoolOptions): NormalizedA
 		...normalizeLoggerOption(options),
 		...normalizeDryOption(options),
 		...normalizeForceOption(options),
-		filter: options?.filter ?? [],
-		filterPlugins: options?.filterPlugins ?? [],
+		...normalizeCollectWorkspacePackagesOptions(options),
+		enabledPlugins: options?.enabledPlugins?.map(normalizeRegExpLikeToRegExp) ?? [],
+		disabledPlugins: options?.disabledPlugins?.map(normalizeRegExpLikeToRegExp) ?? [],
 		dryish: options?.dryish ?? false,
 		listPlugins: options?.listPlugins ?? false,
+		maxAllowedRecursion: options?.maxAllowedRecursion ?? 3,
 	};
 };

@@ -1,11 +1,12 @@
 import { asyncFilterMap, deepFreeze, isObject } from '@alexaegis/common';
 import { normalizeCwdOption, type CwdOption } from '@alexaegis/fs';
-import type {
-	AutotoolElement,
-	AutotoolPlugin,
-	AutotoolPluginFactory,
-	AutotoolPluginObject,
-	NormalizedAutotoolPluginOptions,
+import {
+	AUTOTOOL_PLUGIN_NAME_PREFIX,
+	type AutotoolElement,
+	type AutotoolPlugin,
+	type AutotoolPluginFactory,
+	type AutotoolPluginObject,
+	type NormalizedAutotoolPluginOptions,
 } from 'autotool-plugin';
 import defaultPlugin from 'autotool-plugin-default';
 import { globby } from 'globby';
@@ -17,7 +18,10 @@ import { globby } from 'globby';
 export const findInstalledPlugins = async (rawOptions: CwdOption): Promise<string[]> => {
 	const options = normalizeCwdOption(rawOptions);
 	const results = await globby(
-		['node_modules/autotool-plugin-*', 'node_modules/@*/autotool-plugin*'],
+		[
+			`node_modules/${AUTOTOOL_PLUGIN_NAME_PREFIX}-*`,
+			`node_modules/@*/${AUTOTOOL_PLUGIN_NAME_PREFIX}*`, // Not checking for a '-' to allow names like @org/autotool-plugin
+		],
 		{
 			onlyDirectories: true,
 			deep: 2,

@@ -89,6 +89,7 @@
 		"@alexaegis/autotool-plugin-husky": "^0.3.3",
 		"@alexaegis/autotool-plugin-prettier": "^0.3.3",
 		"@alexaegis/autotool-plugin-publint": "^0.3.3",
+		"@alexaegis/autotool-plugin-recursive-1": "workspace:^",
 		"@alexaegis/autotool-plugin-remark": "^0.3.3",
 		"@alexaegis/autotool-plugin-standard-version": "^0.3.3",
 		"@alexaegis/autotool-plugin-stylelint": "^0.3.3",
@@ -100,7 +101,7 @@
 		"@alexaegis/autotool-plugin-vitest": "^0.3.3",
 		"@alexaegis/autotool-plugin-vscode": "^0.3.3",
 		"@alexaegis/autotool-plugin-workspace": "^0.3.3",
-		"@alexaegis/coverage-tools": "^0.2.4",
+		"@alexaegis/coverage-tools": "^0.3.1",
 		"@alexaegis/eslint-config-core": "^0.3.3",
 		"@alexaegis/nuke": "^0.3.3",
 		"@alexaegis/stylelint-config": "^0.3.3",
@@ -125,7 +126,7 @@
 		"ts-node": "^10.9.1",
 		"turbo": "^1.10.6",
 		"typedoc": "^0.24.8",
-		"typescript": "^5.1.5",
+		"typescript": "^5.1.6",
 		"vitest": "^0.32.2"
 	}
 }

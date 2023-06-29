@@ -63,6 +63,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		cwd: '/project',
 		dry: false,
 		logger,
+		force: false,
 	};
 
 	const fakeTargetDirectlyOnPackage: ElementTarget = {
@@ -160,6 +161,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 					cwd: 'root',
 					dry: false,
 					logger,
+					force: false,
 				}
 			);
 
