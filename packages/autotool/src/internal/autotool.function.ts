@@ -44,10 +44,11 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 
 	const workspacePackagesWithElementsByTarget = await assignElementsToTargets(
 		workspacePackages,
-		context
+		context,
+		options
 	);
 
-	options.logger.trace(workspacePackagesWithElementsByTarget);
+	// options.logger.trace(workspacePackagesWithElementsByTarget);
 	const elementOptions: NormalizedAutotoolPluginOptions = {
 		logger: options.logger,
 		cwd: options.cwd,
@@ -68,8 +69,10 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 			workspacePackagesWithElementsByTarget,
 			async (workspacePackageElementsByTarget) => {
 				const targetPackageLogger = options.logger.getSubLogger({
-					name: workspacePackageElementsByTarget.workspacePackage
-						.packagePathFromRootPackage,
+					name: workspacePackageElementsByTarget.workspacePackage.packagePathFromRootPackage.replace(
+						/^\.$/,
+						'workspace-root'
+					),
 				});
 				return await executeElementsOnPackage(
 					workspacePackageElementsByTarget,
@@ -87,8 +90,6 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		const addedAutotoolPlugins = results
 			.flatMap((result) => result.addedAutotoolPlugins)
 			.filter((pluginName) => autotoolPluginFilterPredicate(pluginName, options));
-
-		options.logger.warn('addedAutotoolPlugins', addedAutotoolPlugins); // TODO: REMOVE
 
 		if (results.some((result) => result.someDependencyChanged)) {
 			options.logger.info(
@@ -117,5 +118,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 				});
 			}
 		}
+	} else {
+		options.logger.error('setup was not valid. exit without doing anything.');
 	}
 };

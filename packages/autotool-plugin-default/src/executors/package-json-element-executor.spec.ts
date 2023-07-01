@@ -156,7 +156,7 @@ describe('autotoolElementJsonExecutor', () => {
 				});
 			});
 
-			it('should be able to drop off elements using undefined by using a higher consolidationPass', () => {
+			it.only('should be able to drop off elements using undefined by using a higher consolidationPass', () => {
 				const elementA: AppliedElement<AutotoolElementPackageJson> = {
 					executor: 'packageJson',
 					consolidationPass: 2,

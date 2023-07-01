@@ -1,4 +1,10 @@
-import { deepMerge, fillObjectWithTemplateVariables, groupBy, sortObject } from '@alexaegis/common';
+import {
+	deepMerge,
+	dropKeys,
+	fillObjectWithTemplateVariables,
+	groupBy,
+	sortObject,
+} from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
 import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
@@ -47,7 +53,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 				return acc;
 			},
-			deepMerge(structuredClone(packageJson), packageJsonUpdates)
+			deepMerge([packageJson, packageJsonUpdates], { dropKeys: false })
 		);
 
 		try {
@@ -58,9 +64,11 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			}
 
 			await writeJson(
-				sortObject(
-					targetPackageJson,
-					element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE
+				dropKeys(
+					sortObject(
+						targetPackageJson,
+						element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE
+					)
 				),
 				target.targetPackage.packageJsonPath,
 				{
@@ -80,21 +88,28 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 		);
 
 		// Lower numbers will come first
-		const elementGroupsByPass = Object.entries(groupedByPass)
+		const elementsOrderedByPass = Object.entries(groupedByPass)
 			.map(([k, elements]) => ({
 				pass: Number.parseInt(k, 10),
 				elements,
 			}))
 			.sort((a, b) => a.pass - b.pass)
-			.map((e) => e.elements);
+			.flatMap((e) => e.elements);
 
-		const baseElement = elementGroupsByPass[0]?.shift();
+		const baseElement = elementsOrderedByPass[0];
+
+		const mergedData = deepMerge(
+			elementsOrderedByPass.map((element) => element.data),
+			{
+				dropKeys: true,
+			}
+		) as PackageJson;
 
 		return baseElement
-			? elementGroupsByPass.reduce((acc, group) => {
-					acc.data = deepMerge(acc.data, ...group.map((g) => g.data));
-					return acc;
-			  }, structuredClone(baseElement))
+			? {
+					...baseElement,
+					data: mergedData,
+			  }
 			: undefined;
 	},
 };

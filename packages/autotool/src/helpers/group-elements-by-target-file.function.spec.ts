@@ -1,3 +1,4 @@
+import { NormalizedLoggerOption, noopLogger } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	AutotoolPluginObject,
@@ -20,6 +21,10 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		packageKind: 'regular',
 		packagePath: '',
 		packagePathFromRootPackage: '',
+	};
+
+	const mockOptions: NormalizedLoggerOption = {
+		logger: noopLogger,
 	};
 
 	const fakeSourcePlugin: AutotoolPluginObject<AutotoolElement> = {
@@ -60,7 +65,11 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 			],
 		};
 
-		const grouped = await groupAndConsolidateElementsByTargetFile(packageElements, executorMap);
+		const grouped = await groupAndConsolidateElementsByTargetFile(
+			packageElements,
+			executorMap,
+			mockOptions
+		);
 
 		expect(Object.keys(grouped.targetedElementsByFile)).toHaveLength(1);
 		expect(grouped.targetedElementsByFile[fooTarget]).toHaveLength(2);
@@ -89,7 +98,11 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 			],
 		};
 
-		const grouped = await groupAndConsolidateElementsByTargetFile(packageElements, executorMap);
+		const grouped = await groupAndConsolidateElementsByTargetFile(
+			packageElements,
+			executorMap,
+			mockOptions
+		);
 
 		expect(Object.keys(grouped.targetedElementsByFile)).toHaveLength(2);
 		expect(grouped.targetedElementsByFile['foo.js']).toHaveLength(2);

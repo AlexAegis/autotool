@@ -31,8 +31,6 @@ export interface WorkspacePackageElementExecutionResult {
  * file are executed sequentially to avoid data-loss if two elements want to
  * modify it.
  *
- * TODO: chainable/consolidateable elements like 'json' modifications to avoid writing multiple times, instead
- *
  * @throws Error
  */
 export const executeElementsOnPackage = async (
@@ -170,9 +168,7 @@ export const executeElementsOnPackage = async (
 	}
 
 	if (targetedEntries.length > 0) {
-		options.logger.info(
-			`finished processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"!`
-		);
+		options.logger.info('finished processing elements here!');
 	}
 
 	// Read results to calculate deltas
@@ -189,8 +185,6 @@ export const executeElementsOnPackage = async (
 	const someDependencyChanged = packageJsonDiff.some((difference) =>
 		isPackageJsonDependencyField(difference.path[0])
 	);
-
-	options.logger.error('packageJsonDiff', packageJsonDiff); // TODO: REMOVE
 
 	const addedAutotoolPlugins = packageJsonDiff
 		.map((difference) => {

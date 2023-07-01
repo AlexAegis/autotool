@@ -1,3 +1,4 @@
+import { NormalizedLoggerOption, noopLogger } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	AutotoolPluginObject,
@@ -15,6 +16,10 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 	const executorMap: ExecutorMap = new Map();
 
 	const sourcePlugin: AutotoolPluginObject<AutotoolElement> = { name: 'fake' };
+
+	const mockOptions: NormalizedLoggerOption = {
+		logger: noopLogger,
+	};
 
 	executorMap.set(testElementTypeConsolidable, {
 		type: testElementTypeConsolidable,
@@ -51,7 +56,8 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[element],
 			fakeWorkspacePackage,
-			executorMap
+			executorMap,
+			mockOptions
 		);
 		expect(consolidated).toHaveLength(1);
 		expect(consolidated[0]).toEqual(element);
@@ -68,7 +74,8 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[element, element],
 			fakeWorkspacePackage,
-			executorMap
+			executorMap,
+			mockOptions
 		);
 		expect(consolidated).toHaveLength(2);
 		expect(consolidated[0]).toBe(element);
@@ -98,7 +105,8 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 				elementConsolidable,
 			],
 			fakeWorkspacePackage,
-			executorMap
+			executorMap,
+			mockOptions
 		);
 
 		expect(consolidated).toHaveLength(3);
@@ -118,7 +126,8 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 		const consolidated = consolidateElementsAndFilterOutNonExecutables(
 			[elementWithoutExecutor],
 			fakeWorkspacePackage,
-			executorMap
+			executorMap,
+			mockOptions
 		);
 
 		expect(consolidated).toHaveLength(0);

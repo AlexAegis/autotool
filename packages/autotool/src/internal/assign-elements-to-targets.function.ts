@@ -1,4 +1,5 @@
 import { asyncMap } from '@alexaegis/common';
+import { NormalizedLoggerOption } from '@alexaegis/logging';
 import { type WorkspacePackage } from '@alexaegis/workspace-tools';
 import { isManagedContent, type WorkspacePackageElementsByTarget } from 'autotool-plugin';
 import { filterElementsForPackage } from '../helpers/filter-elements-for-package.function.js';
@@ -10,7 +11,8 @@ import type { AutotoolContext } from './autotool-context.type.js';
  */
 export const assignElementsToTargets = async (
 	workspacePackages: WorkspacePackage[],
-	context: AutotoolContext
+	context: AutotoolContext,
+	options: NormalizedLoggerOption
 ): Promise<WorkspacePackageElementsByTarget[]> => {
 	const workspacePackagesWithElements = workspacePackages
 		.filter((workspacePackage) =>
@@ -18,6 +20,10 @@ export const assignElementsToTargets = async (
 		)
 		.map((workspacePackage) => filterElementsForPackage(workspacePackage, context.plugins));
 	return asyncMap(workspacePackagesWithElements, (workspacePackageWithElements) =>
-		groupAndConsolidateElementsByTargetFile(workspacePackageWithElements, context.executorMap)
+		groupAndConsolidateElementsByTargetFile(
+			workspacePackageWithElements,
+			context.executorMap,
+			options
+		)
 	);
 };

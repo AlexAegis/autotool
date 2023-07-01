@@ -1,4 +1,5 @@
 import { isNullish } from '@alexaegis/common';
+import { NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AppliedElement,
 	AutotoolElement,
@@ -29,7 +30,8 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 >(
 	elements: PackageResolvedElement<Elements>[],
 	workspacePackage: WorkspacePackage,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
+	options: NormalizedLoggerOption
 ): PackageResolvedElement<Elements>[] => {
 	return [...executorMap.values()].flatMap((executor) => {
 		const elementsOfExecutor = elements.filter(
@@ -37,7 +39,10 @@ export const consolidateElementsAndFilterOutNonExecutables = <
 		);
 		if (executor.consolidate) {
 			const allElements = elementsOfExecutor.map((e) => e.element);
+			options.logger.trace('elements before consolidation', allElements);
 			const consolidated = executor.consolidate(allElements);
+			options.logger.trace('elements after consolidation', consolidated);
+
 			const combinedDescription = combinedDescriptions(allElements);
 
 			if (isNullish(consolidated)) {

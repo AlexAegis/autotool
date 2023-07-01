@@ -1,3 +1,4 @@
+import { NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	ExecutorMap,
@@ -13,7 +14,8 @@ export const groupAndConsolidateElementsByTargetFile = async <
 	Elements extends AutotoolElement = AutotoolElement
 >(
 	workspacePackage: WorkspacePackageWithElements,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
+	options: NormalizedLoggerOption
 ): Promise<WorkspacePackageElementsByTarget<Elements>> => {
 	const resolved = await normalizeElementTargets<Elements>(workspacePackage, executorMap);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
@@ -37,7 +39,8 @@ export const groupAndConsolidateElementsByTargetFile = async <
 			consolidateElementsAndFilterOutNonExecutables<Elements>(
 				elements,
 				resolved.workspacePackage,
-				executorMap
+				executorMap,
+				options
 			)
 		),
 	};
