@@ -30,8 +30,6 @@
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"lint:tsc_": "tsc --noEmit",
-		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
-		"publint_": "publint dist",
 		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
@@ -62,7 +60,6 @@
 		"@alexaegis/vite": "^0.3.4",
 		"@alexaegis/vitest": "^0.3.4",
 		"@types/node": "^20.3.3",
-		"publint": "^0.1.13",
 		"vite": "^4.3.9",
 		"vitest": "^0.32.2"
 	}
