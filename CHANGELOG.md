@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.1](https://github.com/AlexAegis/js/compare/v0.1.0...v0.1.1) (2023-07-02)
+
+
+### Features
+
+* **autotool:** implement plugin filtering ([5e759e3](https://github.com/AlexAegis/js/commit/5e759e38c131f4eb412553c26cbe04fdaeb9d4da))
+* **autotool:** moved dependency merging functions here ([fb9a82b](https://github.com/AlexAegis/js/commit/fb9a82b646e80b1d0df1f25193e9790c9a30d470))
+
 ## [0.1.0](https://github.com/AlexAegis/js/compare/v0.0.5...v0.1.0) (2023-06-28)
 
 
