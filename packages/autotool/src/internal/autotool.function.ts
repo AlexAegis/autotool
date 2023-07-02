@@ -1,4 +1,4 @@
-import { asyncMap } from '@alexaegis/common';
+import { asyncMap, sleep } from '@alexaegis/common';
 import { collectWorkspacePackages } from '@alexaegis/workspace-tools';
 import {
 	normalizeAutotoolOptions,
@@ -48,7 +48,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		options
 	);
 
-	// options.logger.trace(workspacePackagesWithElementsByTarget);
+	options.logger.trace(workspacePackagesWithElementsByTarget);
 	const elementOptions: NormalizedAutotoolPluginOptions = {
 		logger: options.logger,
 		cwd: options.cwd,
@@ -111,6 +111,8 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 					'Remaining recursions available:',
 					options.maxAllowedRecursion - 1
 				);
+
+				await sleep(1000);
 
 				return await autotool({
 					...options,

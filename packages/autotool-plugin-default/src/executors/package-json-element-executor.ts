@@ -10,13 +10,13 @@ import {
 	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 	PACKAGE_JSON_DEPENDENCY_FIELDS,
 	getPackageJsonTemplateVariables,
-	mergeDependencies,
 	type PackageJson,
 	type PackageJsonTemplateVariableNames,
 } from '@alexaegis/workspace-tools';
 import type { Dependency } from '@schemastore/package';
 import type { AutotoolElementExecutor, AutotoolElementPackageJson } from 'autotool-plugin';
 import { relative } from 'node:path/posix';
+import { mergeDependencies } from '../helpers/index.js';
 
 export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElementPackageJson> = {
 	type: 'packageJson',
@@ -37,10 +37,15 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 		// Doing a fresh read in case something modified it in a previous element
 		const packageJson = await readJson<PackageJson>(target.targetFilePathAbsolute);
+		options.logger.trace('UPDATES', packageJsonUpdates);
 
+		options.logger.trace('packageJson[dependencyFieldKey]', packageJson?.devDependencies);
 		if (!packageJson) {
 			throw new Error("Can't read packageJson!");
 		}
+
+		const freshyMerged = deepMerge([packageJson, packageJsonUpdates], { dropKeys: false });
+		options.logger.warn('freshyMerged pjson, devDependencies', freshyMerged.devDependencies);
 
 		const targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce(
 			(acc, dependencyFieldKey) => {
@@ -53,8 +58,10 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 				return acc;
 			},
-			deepMerge([packageJson, packageJsonUpdates], { dropKeys: false })
+			freshyMerged
 		);
+
+		options.logger.warn('resulting pjson, devDependencies', targetPackageJson.devDependencies);
 
 		try {
 			if (options.dry) {
@@ -64,11 +71,9 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			}
 
 			await writeJson(
-				dropKeys(
-					sortObject(
-						targetPackageJson,
-						element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE
-					)
+				sortObject(
+					dropKeys(targetPackageJson),
+					element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE
 				),
 				target.targetPackage.packageJsonPath,
 				{
@@ -101,7 +106,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 		const mergedData = deepMerge(
 			elementsOrderedByPass.map((element) => element.data),
 			{
-				dropKeys: true,
+				dropKeys: false,
 			}
 		) as PackageJson;
 

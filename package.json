@@ -91,7 +91,6 @@
 		"@alexaegis/autotool-plugin-prettier": "^0.3.4",
 		"@alexaegis/autotool-plugin-publint": "^0.3.4",
 		"@alexaegis/autotool-plugin-recursive-1": "workspace:^",
-		"@alexaegis/autotool-plugin-recursive-2": "workspace:^",
 		"@alexaegis/autotool-plugin-remark": "^0.3.4",
 		"@alexaegis/autotool-plugin-standard-version": "^0.3.4",
 		"@alexaegis/autotool-plugin-stylelint": "^0.3.4",
