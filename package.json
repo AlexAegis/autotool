@@ -20,12 +20,12 @@
 		"url": "https://github.com/AlexAegis"
 	},
 	"repository": {
-		"url": "https://github.com/AlexAegis/js",
+		"url": "https://github.com/AlexAegis/autotool",
 		"type": "git"
 	},
 	"bugs": {
 		"email": "alexaegis@gmail.com",
-		"url": "https://github.com/AlexAegis/js/issues"
+		"url": "https://github.com/AlexAegis/autotool/issues"
 	},
 	"type": "module",
 	"config": {
