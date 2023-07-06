@@ -68,7 +68,7 @@ export interface AutotoolPluginObject<Elements extends UntargetedAutotoolElement
 }
 
 export type AutotoolPluginFactory<Elements extends AutotoolElement = DefaultAutotoolElements> = (
-	options: NormalizedAutotoolPluginOptions
+	options: NormalizedAutotoolPluginOptions,
 ) => Awaitable<AutotoolPluginObject<Elements>> | Awaitable<AutotoolPluginObject<Elements>[]>;
 
 export type AutotoolPlugin<Elements extends AutotoolElement = DefaultAutotoolElements> =

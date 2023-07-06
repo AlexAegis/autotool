@@ -27,7 +27,7 @@ export const findInstalledPlugins = async (rawOptions: CwdOption): Promise<strin
 			deep: 2,
 			gitignore: false,
 			cwd: options.cwd,
-		}
+		},
 	);
 	return results.map((path) => path.replace('node_modules/', ''));
 };
@@ -37,7 +37,7 @@ type AssumedPluginModule = {
 } & AutotoolPlugin<AutotoolElement>;
 
 export const isAutotoolPluginObject = <Element extends AutotoolElement = AutotoolElement>(
-	plugin: unknown
+	plugin: unknown,
 ): plugin is AutotoolPluginObject<Element> => {
 	const assumed = plugin as AutotoolPluginObject<Element>;
 	return (
@@ -51,7 +51,7 @@ export const isAutotoolPluginObject = <Element extends AutotoolElement = Autotoo
 export const loadPlugin = async <Elements extends AutotoolElement>(
 	plugin: AutotoolPluginObject<Elements> | AutotoolPluginFactory<Elements>,
 	packageName: string,
-	options: NormalizedAutotoolPluginOptions
+	options: NormalizedAutotoolPluginOptions,
 ): Promise<AutotoolPluginObject<Elements>[]> => {
 	if (typeof plugin === 'function') {
 		const factoryResult = await plugin({
@@ -71,7 +71,7 @@ export const loadPlugin = async <Elements extends AutotoolElement>(
 
 export const loadInstalledPlugins = async (
 	plugins: string[],
-	options: NormalizedAutotoolPluginOptions
+	options: NormalizedAutotoolPluginOptions,
 ): Promise<AutotoolPluginObject<AutotoolElement>[]> => {
 	const modules = await asyncFilterMap(
 		plugins,
@@ -79,7 +79,7 @@ export const loadInstalledPlugins = async (
 			import(name).then((mod) => ({ mod: mod as AssumedPluginModule, name })) as Promise<{
 				mod: AssumedPluginModule;
 				name: string;
-			}>
+			}>,
 	);
 
 	const loadedPlugins = await asyncFilterMap(modules, async ({ mod, name }) => {
@@ -87,7 +87,7 @@ export const loadInstalledPlugins = async (
 		const loadedPlugins = await (Array.isArray(modulePrefDefault)
 			? asyncFilterMap(
 					modulePrefDefault.map((m) => loadPlugin(m, name, options)),
-					async (m) => await m
+					async (m) => await m,
 			  )
 			: loadPlugin(modulePrefDefault, name, options));
 

@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type {
 	AppliedElement,
 	AutotoolElementApplyOptions,
@@ -55,8 +54,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 		sourcePluginPackageName: 'foo',
 	};
 
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { mockLogger, logger } = createMockLogger(vi);
 
 	const defaultOptions: AutotoolElementApplyOptions = {
 		cwd: '/project',
@@ -97,14 +95,14 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 			await autotoolElementFileSymlinkExecutor.apply(
 				fakeSymlinkElement,
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', { recursive: true });
 
 			expect(symlinkMock).toHaveBeenCalledWith(
 				'../../node_modules/foo/file',
-				fakeTargetDirectlyOnPackage.targetFilePathAbsolute
+				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -125,7 +123,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 			await autotoolElementFileSymlinkExecutor.apply(
 				fakeSymlinkElement,
 				deeperTarget,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo/nested', {
@@ -134,7 +132,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 
 			expect(symlinkMock).toHaveBeenCalledWith(
 				'../../../node_modules/foo/file',
-				deeperTarget.targetFilePathAbsolute
+				deeperTarget.targetFilePathAbsolute,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -148,14 +146,14 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 			await autotoolElementFileSymlinkExecutor.apply(
 				fakeSymlinkElementFromOrgPackage,
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', { recursive: true });
 
 			expect(symlinkMock).toHaveBeenCalledWith(
 				'../../node_modules/@org/foo/file',
-				fakeTargetDirectlyOnPackage.targetFilePathAbsolute
+				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -168,7 +166,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 				await autotoolElementFileSymlinkExecutor.apply(
 					fakeSymlinkElement,
 					fakeTargetDirectlyOnPackage,
-					{ ...defaultOptions, dry: true }
+					{ ...defaultOptions, dry: true },
 				);
 
 				expect(mkdirMock).not.toHaveBeenCalled();
@@ -186,7 +184,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 			await autotoolElementFileSymlinkExecutor.apply(
 				fakeSymlinkElement,
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -195,7 +193,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 
 			expect(symlinkMock).toHaveBeenCalledWith(
 				'../../node_modules/foo/file',
-				fakeTargetDirectlyOnPackage.targetFilePathAbsolute
+				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();

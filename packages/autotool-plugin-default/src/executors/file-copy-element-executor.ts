@@ -49,7 +49,7 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 
 		const sourcePackagePath = getAssumedFinalInstallLocationOfPackage(
 			target.rootPackage,
-			element.sourcePluginPackageName
+			element.sourcePluginPackageName,
 		);
 		const sourceFilePath = join(sourcePackagePath, element.sourceFile);
 		options.logger.trace('Copy file from', sourceFilePath);
@@ -59,8 +59,8 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 			options.logger.warn(
 				`File ${relative(
 					target.rootPackage.packagePath,
-					sourceFilePath
-				)} is not managed, it won't be overwritten on the next run unless forced!`
+					sourceFilePath,
+				)} is not managed, it won't be overwritten on the next run unless forced!`,
 			);
 		}
 
@@ -70,7 +70,7 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 		fileContent =
 			element.transformers?.reduce(
 				(content, transformer) => transformer(content),
-				fileContent
+				fileContent,
 			) ?? fileContent;
 		options.logger.silly('filecontent ran through transformers', fileContent);
 
@@ -99,24 +99,24 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 
 		if (options.dry) {
 			options.logger.info(
-				`(Dry) Pretending to copy ${element.sourceFile} to ${target.targetFilePackageRelative}...`
+				`(Dry) Pretending to copy ${element.sourceFile} to ${target.targetFilePackageRelative}...`,
 			);
 
 			if (element.markAsExecutable) {
 				options.logger.info(
-					`(Dry) Pretending to mark ${target.targetFilePackageRelative} as executable...`
+					`(Dry) Pretending to mark ${target.targetFilePackageRelative} as executable...`,
 				);
 			}
 		} else {
 			options.logger.info(
-				`Copying ${element.sourceFile} to ${target.targetFilePackageRelative}...`
+				`Copying ${element.sourceFile} to ${target.targetFilePackageRelative}...`,
 			);
 
 			try {
 				await writeFile(target.targetFilePathAbsolute, fileContent);
 				if (element.markAsExecutable) {
 					options.logger.info(
-						`Marking ${target.targetFilePackageRelative} as executable...`
+						`Marking ${target.targetFilePackageRelative} as executable...`,
 					);
 					await turnIntoExecutable(target.targetFilePathAbsolute, options);
 				}

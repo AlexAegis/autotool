@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type {
 	AppliedElement,
 	AutotoolElementApplyOptions,
@@ -56,8 +55,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		sourcePluginPackageName: 'foo',
 	};
 
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { mockLogger, logger } = createMockLogger(vi);
 
 	const defaultOptions: AutotoolElementApplyOptions = {
 		cwd: '/project',
@@ -100,7 +98,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			await autotoolElementFileCopyExecutor.apply(
 				fakeCopyElement,
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', { recursive: true });
@@ -109,7 +107,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			});
 			expect(writeFileMock).toHaveBeenCalledWith(
 				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				content
+				content,
 			);
 			expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -131,7 +129,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			await autotoolElementFileCopyExecutor.apply(
 				fakeCopyElement,
 				deeperTarget,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo/nested', {
@@ -142,7 +140,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			});
 			expect(writeFileMock).toHaveBeenCalledWith(
 				deeperTarget.targetFilePathAbsolute,
-				content
+				content,
 			);
 			expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -162,7 +160,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 					dry: false,
 					logger,
 					force: false,
-				}
+				},
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', { recursive: true });
@@ -171,7 +169,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			});
 			expect(writeFileMock).toHaveBeenCalledWith(
 				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				content
+				content,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -183,7 +181,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			await autotoolElementFileCopyExecutor.apply(
 				{ ...fakeCopyElement, markAsExecutable: true },
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -194,12 +192,12 @@ describe('autotoolElementFileCopyExecutor', () => {
 			});
 			expect(writeFileMock).toHaveBeenCalledWith(
 				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				''
+				'',
 			);
 
 			expect(turnIntoExecutableMock).toHaveBeenCalledWith(
 				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -214,7 +212,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				await autotoolElementFileCopyExecutor.apply(
 					fakeCopyElement,
 					fakeTargetDirectlyOnPackage,
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -225,7 +223,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				});
 				expect(writeFileMock).toHaveBeenCalledWith(
 					fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-					'../..' + (fakeTargetDirectlyOnPackage.targetPackage.packageJson.name ?? '')
+					'../..' + (fakeTargetDirectlyOnPackage.targetPackage.packageJson.name ?? ''),
 				);
 				expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -243,7 +241,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 						...fakeTargetDirectlyOnPackage,
 						targetPackage: fakeTargetDirectlyOnPackage.rootPackage,
 					},
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -254,7 +252,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				});
 				expect(writeFileMock).toHaveBeenCalledWith(
 					fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-					'.'
+					'.',
 				);
 				expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -275,7 +273,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 						...fakeTargetDirectlyOnPackage,
 						targetPackage: fakeTargetDirectlyOnPackage.rootPackage,
 					},
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -286,7 +284,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				});
 				expect(writeFileMock).toHaveBeenCalledWith(
 					fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-					'.'
+					'.',
 				);
 				expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -302,7 +300,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				await autotoolElementFileCopyExecutor.apply(
 					{ ...fakeCopyElement, templateVariables: { custom: customTemplateVariable } },
 					fakeTargetDirectlyOnPackage,
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -315,7 +313,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 					fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
 					'../..' +
 						(fakeTargetDirectlyOnPackage.targetPackage.packageJson.name ?? '') +
-						customTemplateVariable
+						customTemplateVariable,
 				);
 				expect(cpMock).not.toHaveBeenCalled(); // Not actually using copy
 
@@ -332,7 +330,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				await autotoolElementFileCopyExecutor.apply(
 					{ ...fakeCopyElement, markAsExecutable: true },
 					fakeTargetDirectlyOnPackage,
-					{ ...defaultOptions, dry: true }
+					{ ...defaultOptions, dry: true },
 				);
 
 				expect(mkdirMock).not.toHaveBeenCalled();
@@ -350,13 +348,15 @@ describe('autotoolElementFileCopyExecutor', () => {
 	});
 
 	describe('invalid cases', () => {
-		it('should report an error when write fails and not try to mark it as executable even if it should', async () => {
-			const error = 'Something went wrong!';
-			writeFileMock.mockRejectedValueOnce(() => error);
+		afterEach(() => {
+			vi.clearAllMocks();
+		});
+		it('should warn the user if the file being copied is not managed', async () => {
+			isManagedFileMock.mockImplementationOnce(() => false);
 			await autotoolElementFileCopyExecutor.apply(
-				{ ...fakeCopyElement, markAsExecutable: true },
+				fakeCopyElement,
 				fakeTargetDirectlyOnPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
@@ -367,7 +367,32 @@ describe('autotoolElementFileCopyExecutor', () => {
 			});
 			expect(writeFileMock).toHaveBeenCalledWith(
 				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				''
+				'',
+			);
+
+			expect(mockLogger.info).toHaveBeenCalled();
+			expect(mockLogger.warn).toHaveBeenCalled();
+			expect(mockLogger.error).not.toHaveBeenCalled();
+		});
+
+		it('should report an error when write fails and not try to mark it as executable even if it should', async () => {
+			const error = 'Something went wrong!';
+			writeFileMock.mockRejectedValueOnce(error);
+			await autotoolElementFileCopyExecutor.apply(
+				{ ...fakeCopyElement, markAsExecutable: true },
+				fakeTargetDirectlyOnPackage,
+				defaultOptions,
+			);
+
+			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
+				recursive: true,
+			});
+			expect(readFileMock).toHaveBeenCalledWith('/project/node_modules/foo/file', {
+				encoding: 'utf8',
+			});
+			expect(writeFileMock).toHaveBeenCalledWith(
+				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
+				'',
 			);
 
 			expect(turnIntoExecutableMock).not.toHaveBeenCalled();
@@ -375,30 +400,6 @@ describe('autotoolElementFileCopyExecutor', () => {
 			expect(mockLogger.info).toHaveBeenCalled();
 			expect(mockLogger.warn).not.toHaveBeenCalled();
 			expect(mockLogger.error).toHaveBeenCalled();
-		});
-
-		it('should warn the user if the file being copied is not managed', async () => {
-			isManagedFileMock.mockImplementationOnce(() => false);
-			await autotoolElementFileCopyExecutor.apply(
-				fakeCopyElement,
-				fakeTargetDirectlyOnPackage,
-				defaultOptions
-			);
-
-			expect(mkdirMock).toHaveBeenCalledWith('/project/projects/foo', {
-				recursive: true,
-			});
-			expect(readFileMock).toHaveBeenCalledWith('/project/node_modules/foo/file', {
-				encoding: 'utf8',
-			});
-			expect(writeFileMock).toHaveBeenCalledWith(
-				fakeTargetDirectlyOnPackage.targetFilePathAbsolute,
-				''
-			);
-
-			expect(mockLogger.info).toHaveBeenCalled();
-			expect(mockLogger.warn).toHaveBeenCalled();
-			expect(mockLogger.error).not.toHaveBeenCalled();
 		});
 	});
 });

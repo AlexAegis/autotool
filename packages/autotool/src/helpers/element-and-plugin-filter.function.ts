@@ -6,7 +6,7 @@ import type { AutotoolElement, AutotoolPluginFilter, AutotoolPluginObject } from
 export const elementAndPluginFilter = (
 	workspacePackage: WorkspacePackage,
 	filter: AutotoolPluginFilter,
-	plugin: AutotoolPluginObject<AutotoolElement>
+	plugin: AutotoolPluginObject<AutotoolElement>,
 ): boolean => {
 	const pluginPackageKind = filter.packageKind ?? 'all';
 
@@ -15,7 +15,7 @@ export const elementAndPluginFilter = (
 	if (isNotNullish(filter.packageJsonFilter)) {
 		const packageJsonMatch = match(
 			workspacePackage.packageJson,
-			filter.packageJsonFilter as JsonMatcher
+			filter.packageJsonFilter as JsonMatcher,
 		);
 		result = result && packageJsonMatch;
 	}

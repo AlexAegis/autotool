@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type {
 	AutotoolElementFileCopy,
 	AutotoolElementFileRemove,
@@ -10,7 +9,7 @@ import type {
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget } from './no-multiple-copy-and-remove-on-the-same-target.function.js';
 
 describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () => {
@@ -52,8 +51,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 	};
 
 	const executorMap: ExecutorMap = new Map();
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { logger } = createMockLogger(vi);
 
 	const options: NormalizedAutotoolPluginOptions = {
 		cwd: '/projects',
@@ -73,7 +71,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(0);
@@ -89,7 +87,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(1);
@@ -105,7 +103,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(1);
@@ -121,7 +119,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(0);
@@ -137,7 +135,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(0);
@@ -153,7 +151,7 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(1);

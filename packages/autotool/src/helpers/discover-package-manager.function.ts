@@ -17,7 +17,7 @@ export const installCommands: {
 
 type Evidence = (
 	rootWorkspacePackage: RootWorkspacePackage,
-	options: NormalizedAutotoolOptions
+	options: NormalizedAutotoolOptions,
 ) => Awaitable<boolean>;
 
 const evidenceMap: Record<PackageManagerName, Evidence[]> = {
@@ -53,7 +53,7 @@ export interface PackageManager<T extends PackageManagerName = PackageManagerNam
  */
 export const discoverPackageManager = async (
 	rootWorkspacePackage: RootWorkspacePackage,
-	options: NormalizedAutotoolOptions
+	options: NormalizedAutotoolOptions,
 ): Promise<PackageManager> => {
 	options.logger.trace('gathering evidence...');
 	const results = await asyncMap(
@@ -61,14 +61,14 @@ export const discoverPackageManager = async (
 		async ([packageManagerName, evidences]) => {
 			const evidenceFound = await asyncMap(
 				evidences,
-				async (evidence) => await evidence(rootWorkspacePackage, options)
+				async (evidence) => await evidence(rootWorkspacePackage, options),
 			);
 
 			return {
 				packageManagerName: packageManagerName as PackageManagerName,
 				evidenceFound: evidenceFound.filter((result) => !!result).length,
 			};
-		}
+		},
 	);
 
 	results.sort((a, b) => b.evidenceFound - a.evidenceFound);

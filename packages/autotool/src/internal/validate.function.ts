@@ -12,7 +12,7 @@ export const validate = async (
 	workspacePackagesWithElementsByTarget: WorkspacePackageElementsByTarget[],
 	context: Pick<AutotoolContext, 'executorMap' | 'validators'>,
 	elementOptions: NormalizedAutotoolPluginOptions,
-	options: NormalizedAutotoolOptions
+	options: NormalizedAutotoolOptions,
 ): Promise<boolean> => {
 	const unflattenedErrors: PackageElementErrorWithSourceData[][] = await asyncMap(
 		context.validators,
@@ -23,16 +23,16 @@ export const validate = async (
 					const validationErrors = await validator(
 						workspacePackageElements,
 						context.executorMap,
-						elementOptions
+						elementOptions,
 					);
 					return validationErrors.map<PackageElementErrorWithSourceData>((error) => ({
 						...error,
 						workspacePackage: workspacePackageElements.workspacePackage,
 					}));
-				}
+				},
 			);
 			return elementErrors.flat(1);
-		}
+		},
 	);
 	const errors: PackageElementErrorWithSourceData[] = unflattenedErrors.flat(1);
 

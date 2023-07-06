@@ -32,7 +32,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 		const packageJsonUpdates =
 			fillObjectWithTemplateVariables<PackageJsonTemplateVariableNames>(
 				element.data,
-				templateVariables
+				templateVariables,
 			);
 
 		// Doing a fresh read in case something modified it in a previous element
@@ -52,13 +52,13 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 				if (packageJsonUpdates[dependencyFieldKey]) {
 					acc[dependencyFieldKey] = mergeDependencies(
 						packageJson[dependencyFieldKey],
-						packageJsonUpdates[dependencyFieldKey] as Dependency
+						packageJsonUpdates[dependencyFieldKey] as Dependency,
 					);
 				}
 
 				return acc;
 			},
-			freshyMerged
+			freshyMerged,
 		);
 
 		options.logger.warn('resulting pjson, devDependencies', targetPackageJson.devDependencies);
@@ -73,23 +73,23 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			await writeJson(
 				sortObject(
 					dropKeys(targetPackageJson),
-					element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE
+					element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 				),
 				target.targetPackage.packageJsonPath,
 				{
 					dry: options.dry,
-				}
+				},
 			);
 		} catch (error) {
 			options.logger.error(
 				`can't write updates to ${target.targetPackage.packageJsonPath}, error happened:`,
-				error
+				error,
 			);
 		}
 	},
 	consolidate: (elements) => {
 		const groupedByPass = groupBy(elements, (element) =>
-			element.consolidationPass ? element.consolidationPass.toString() : '0'
+			element.consolidationPass ? element.consolidationPass.toString() : '0',
 		);
 
 		// Lower numbers will come first
@@ -107,7 +107,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			elementsOrderedByPass.map((element) => element.data),
 			{
 				dropKeys: false,
-			}
+			},
 		) as PackageJson;
 
 		return baseElement

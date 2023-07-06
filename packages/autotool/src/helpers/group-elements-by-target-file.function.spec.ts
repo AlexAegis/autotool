@@ -68,7 +68,7 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		const grouped = await groupAndConsolidateElementsByTargetFile(
 			packageElements,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 
 		expect(Object.keys(grouped.targetedElementsByFile)).toHaveLength(1);
@@ -101,7 +101,7 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		const grouped = await groupAndConsolidateElementsByTargetFile(
 			packageElements,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 
 		expect(Object.keys(grouped.targetedElementsByFile)).toHaveLength(2);

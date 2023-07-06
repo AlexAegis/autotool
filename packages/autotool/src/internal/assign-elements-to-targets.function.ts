@@ -12,18 +12,18 @@ import type { AutotoolContext } from './autotool-context.type.js';
 export const assignElementsToTargets = async (
 	workspacePackages: WorkspacePackage[],
 	context: AutotoolContext,
-	options: NormalizedLoggerOption
+	options: NormalizedLoggerOption,
 ): Promise<WorkspacePackageElementsByTarget[]> => {
 	const workspacePackagesWithElements = workspacePackages
 		.filter((workspacePackage) =>
-			isManagedContent(JSON.stringify(workspacePackage.packageJson))
+			isManagedContent(JSON.stringify(workspacePackage.packageJson)),
 		)
 		.map((workspacePackage) => filterElementsForPackage(workspacePackage, context.plugins));
 	return asyncMap(workspacePackagesWithElements, (workspacePackageWithElements) =>
 		groupAndConsolidateElementsByTargetFile(
 			workspacePackageWithElements,
 			context.executorMap,
-			options
-		)
+			options,
+		),
 	);
 };

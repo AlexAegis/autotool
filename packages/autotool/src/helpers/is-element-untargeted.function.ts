@@ -7,10 +7,10 @@ import {
 } from 'autotool-plugin';
 
 export const isElementUntargeted = <
-	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement
+	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement,
 >(
 	element: UntargetedAutotoolElement<Elements['executor']>,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
 ): element is UntargetedAutotoolElement<Elements['executor']> => {
 	return (
 		isNullish((element as AutotoolElement).targetFile) &&
@@ -20,10 +20,10 @@ export const isElementUntargeted = <
 };
 
 export const isElementTargeted = <
-	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement
+	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement,
 >(
 	element: UntargetedAutotoolElement<Elements['executor']>,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
 ): element is AutotoolElement<Elements['executor']> => {
 	return (
 		isNotNullish((element as AutotoolElement).targetFile) ||
@@ -33,19 +33,19 @@ export const isElementTargeted = <
 };
 
 export const isPackageElementUntargeted = <
-	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement
+	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement,
 >(
 	packageElement: PackageResolvedElement<Elements>,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
 ): packageElement is PackageResolvedElement<Elements> => {
 	return isElementUntargeted<Elements>(packageElement.element, executorMap);
 };
 
 export const isPackageElementTargeted = <
-	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement
+	Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement,
 >(
 	packageElement: PackageResolvedElement,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
 ): packageElement is PackageResolvedElement<AutotoolElement<Elements['executor']>> => {
 	return isElementTargeted<Elements>(packageElement.element, executorMap);
 };
@@ -56,9 +56,9 @@ export const isPackageElementTargeted = <
  */
 export const createIsPackageElementTargeted =
 	<Elements extends UntargetedAutotoolElement = UntargetedAutotoolElement>(
-		executorMap: ExecutorMap<Elements>
+		executorMap: ExecutorMap<Elements>,
 	) =>
 	(
-		packageElement: PackageResolvedElement
+		packageElement: PackageResolvedElement,
 	): packageElement is PackageResolvedElement<AutotoolElement<Elements['executor']>> =>
 		isPackageElementTargeted<Elements>(packageElement, executorMap);

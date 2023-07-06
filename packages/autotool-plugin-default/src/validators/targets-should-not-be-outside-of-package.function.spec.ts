@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type {
 	AutotoolElementFileRemove,
 	ExecutorMap,
@@ -7,7 +6,7 @@ import type {
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { validateTargetsAreNotOutsideOfPackage } from './targets-should-not-be-outside-of-package.function.js';
 
 describe('validateTargetsAreNotOutsideOfPackage', () => {
@@ -27,8 +26,7 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 	};
 
 	const executorMap: ExecutorMap = new Map();
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { logger } = createMockLogger(vi);
 
 	const options: NormalizedAutotoolPluginOptions = {
 		cwd: '/projects',
@@ -48,7 +46,7 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(0);
@@ -64,7 +62,7 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(1);
@@ -80,7 +78,7 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				workspacePackage: rootWorkspacePackage,
 			},
 			executorMap,
-			options
+			options,
 		);
 
 		expect(result).toHaveLength(1);

@@ -190,7 +190,8 @@
 			],
 			"dependsOn": [],
 			"outputs": [".cache/prettier"],
-			"outputMode": "new-only"
+			"outputMode": "new-only",
+			"cache": false
 		},
 		"//#format_": {
 			"dependsOn": [],
@@ -200,7 +201,8 @@
 				"!vite*.config.*.*"
 			],
 			"outputs": [".cache/prettier"],
-			"outputMode": "new-only"
+			"outputMode": "new-only",
+			"cache": false
 		},
 		"typedoc_": {
 			"dependsOn": [],
@@ -216,7 +218,7 @@
 		"//#typedoc_": {
 			"dependsOn": [],
 			"inputs": [
-				"**/*.ts",
+				"{packages,libs,apps}/**/*.ts",
 				"typedoc.json",
 				"!{.turbo,.cache,dist,build,.svelte-kit}/**/*",
 				"!vite*.config.*.*"

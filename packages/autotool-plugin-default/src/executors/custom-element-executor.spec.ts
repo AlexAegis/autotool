@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type {
 	AppliedElement,
 	AutotoolElementApplyOptions,
@@ -15,8 +14,7 @@ describe('autotoolElementCustomExecutor', () => {
 		apply: vi.fn(),
 	};
 
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { mockLogger, logger } = createMockLogger(vi);
 
 	const defaultOptions: AutotoolElementApplyOptions = {
 		cwd: '/project',
@@ -58,7 +56,7 @@ describe('autotoolElementCustomExecutor', () => {
 		expect(fakeCustomElement.apply).toHaveBeenCalledWith(
 			fakeCustomElement,
 			fakeTarget,
-			defaultOptions
+			defaultOptions,
 		);
 		expect(mockLogger.info).not.toHaveBeenCalled();
 		expect(mockLogger.warn).not.toHaveBeenCalled();

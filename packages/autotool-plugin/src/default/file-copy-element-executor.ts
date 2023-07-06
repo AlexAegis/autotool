@@ -47,7 +47,7 @@ export interface AutotoolElementFileCopy extends AutotoolElement<'fileCopy'> {
 }
 
 export const isAutotoolElementFileCopy = (
-	element: AutotoolElement
+	element: AutotoolElement,
 ): element is AutotoolElementFileCopy => {
 	return element.executor === 'fileCopy';
 };

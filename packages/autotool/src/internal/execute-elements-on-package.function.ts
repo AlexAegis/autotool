@@ -38,24 +38,24 @@ export const executeElementsOnPackage = async (
 	rootWorkspacePackage: RootWorkspacePackage,
 	executorMap: ExecutorMap,
 	elementOptions: NormalizedAutotoolPluginOptions,
-	options: NormalizedAutotoolOptions
+	options: NormalizedAutotoolOptions,
 ): Promise<WorkspacePackageElementExecutionResult> => {
 	const targetedEntries = Object.entries(packageElements.targetedElementsByFile);
 
 	if (targetedEntries.length > 0) {
 		options.logger.info(
-			`processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}..."`
+			`processing elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}..."`,
 		);
 	} else {
 		options.logger.info(
-			`no elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"`
+			`no elements targeting "${packageElements.workspacePackage.packagePathFromRootPackage}"`,
 		);
 	}
 
 	for (const [target, elements] of targetedEntries) {
 		options.logger.trace(
 			`all elements on ${target}`,
-			elements.map((element) => element.element.executor)
+			elements.map((element) => element.element.executor),
 		);
 	}
 
@@ -72,18 +72,18 @@ export const executeElementsOnPackage = async (
 		targetedEntries.map(async ([targetFile, elements]) => {
 			const targetFilePathAbsolute = join(
 				packageElements.workspacePackage.packagePath,
-				targetFile
+				targetFile,
 			);
 
 			const bearsTheMark = await isManagedFile(targetFilePathAbsolute);
 			if (!bearsTheMark) {
 				if (options.force) {
 					options.logger.warn(
-						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}") but it's ignored because '--force' was used.`
+						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}") but it's ignored because '--force' was used.`,
 					);
 				} else {
 					options.logger.warn(
-						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}"), skipping!`
+						`Target file ${targetFile} at ${packageElements.workspacePackage.packagePath} bears no mark ("${AUTOTOOL_MARK}"), skipping!`,
 					);
 
 					return;
@@ -130,7 +130,7 @@ export const executeElementsOnPackage = async (
 					throw new Error('Executor not found');
 				}
 			}
-		})
+		}),
 	);
 
 	// Execute all non-targeted elements
@@ -173,7 +173,7 @@ export const executeElementsOnPackage = async (
 
 	// Read results to calculate deltas
 	const finalPackageJson = await readJson<PackageJson>(
-		packageElements.workspacePackage.packageJsonPath
+		packageElements.workspacePackage.packageJsonPath,
 	);
 
 	if (!finalPackageJson) {
@@ -183,7 +183,7 @@ export const executeElementsOnPackage = async (
 	const packageJsonDiff = diff(packageElements.workspacePackage.packageJson, finalPackageJson);
 
 	const someDependencyChanged = packageJsonDiff.some((difference) =>
-		isPackageJsonDependencyField(difference.path[0])
+		isPackageJsonDependencyField(difference.path[0]),
 	);
 
 	const addedAutotoolPlugins = packageJsonDiff

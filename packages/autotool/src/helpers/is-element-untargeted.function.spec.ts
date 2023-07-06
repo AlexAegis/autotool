@@ -40,8 +40,8 @@ describe('isElementUntargeted', () => {
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage: fakeWorkspacePackage,
 				},
-				executorMap
-			)
+				executorMap,
+			),
 		).toBeTruthy();
 	});
 
@@ -56,8 +56,8 @@ describe('isElementUntargeted', () => {
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage: fakeWorkspacePackage,
 				},
-				executorMap
-			)
+				executorMap,
+			),
 		).toBeFalsy();
 	});
 
@@ -71,8 +71,8 @@ describe('isElementUntargeted', () => {
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage: fakeWorkspacePackage,
 				},
-				executorMap
-			)
+				executorMap,
+			),
 		).toBeFalsy();
 	});
 
@@ -87,8 +87,8 @@ describe('isElementUntargeted', () => {
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage: fakeWorkspacePackage,
 				},
-				executorMap
-			)
+				executorMap,
+			),
 		).toBeFalsy();
 
 		expect(
@@ -101,8 +101,8 @@ describe('isElementUntargeted', () => {
 					sourcePlugin: fakeSourcePlugin,
 					workspacePackage: fakeWorkspacePackage,
 				},
-				executorMap
-			)
+				executorMap,
+			),
 		).toBeFalsy();
 	});
 });

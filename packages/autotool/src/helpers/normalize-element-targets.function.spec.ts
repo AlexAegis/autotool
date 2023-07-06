@@ -76,7 +76,7 @@ describe('normalizeElementTargets', () => {
 				elements: [fooTargetingElement, fooTargetingElement],
 				workspacePackage: fakeWorkspacePackage,
 			},
-			executorMap
+			executorMap,
 		);
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
@@ -98,7 +98,7 @@ describe('normalizeElementTargets', () => {
 				elements: [fooAndBarTargetingElement],
 				workspacePackage: fakeWorkspacePackage,
 			},
-			executorMap
+			executorMap,
 		);
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
 			{
@@ -116,7 +116,7 @@ describe('normalizeElementTargets', () => {
 				elements: [fooGlobTargetingElement, fooAndBarGlobTargetingElement],
 				workspacePackage: fakeWorkspacePackage,
 			},
-			executorMap
+			executorMap,
 		);
 
 		expect(normalized.targetedElements).toEqual<InternalElementsWithResolvedTargets[]>([
@@ -139,7 +139,7 @@ describe('normalizeElementTargets', () => {
 				elements: [nonTargetingElement],
 				workspacePackage: fakeWorkspacePackage,
 			},
-			executorMap
+			executorMap,
 		);
 
 		expect(normalized.targetedElements).toHaveLength(0);

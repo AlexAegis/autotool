@@ -11,7 +11,7 @@ import { findInstalledPlugins, loadInstalledPlugins } from './find-installed-plu
 
 export const loadContext = async (
 	rootWorkspacePackage: RootWorkspacePackage,
-	options: NormalizedAutotoolOptions
+	options: NormalizedAutotoolOptions,
 ): Promise<AutotoolContext> => {
 	const installedPlugins = await findInstalledPlugins(options);
 	let plugins: AutotoolPluginObject<AutotoolElement>[] = await loadInstalledPlugins(
@@ -19,7 +19,7 @@ export const loadContext = async (
 		{
 			...options,
 			rootWorkspacePackage,
-		}
+		},
 	);
 
 	const executorMap = createExecutorMap(plugins, options);
@@ -30,7 +30,7 @@ export const loadContext = async (
 
 	options.logger.info(
 		'plugins loaded after filters:',
-		plugins.map((plugin) => plugin.name)
+		plugins.map((plugin) => plugin.name),
 	);
 
 	return {

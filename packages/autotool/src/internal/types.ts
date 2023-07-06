@@ -11,21 +11,21 @@ export interface PackageElementErrorWithSourceData extends ElementError {
 }
 
 export interface WorkspacePackageWithElements<
-	Elements extends UntargetedAutotoolElement = AutotoolElement
+	Elements extends UntargetedAutotoolElement = AutotoolElement,
 > {
 	workspacePackage: WorkspacePackage;
 	elements: PackageResolvedElement<Elements>[];
 }
 
 export interface InternalElementsWithResolvedTargets<
-	Elements extends AutotoolElement = AutotoolElement
+	Elements extends AutotoolElement = AutotoolElement,
 > {
 	element: PackageResolvedElement<Elements>;
 	resolvedTargetFiles: string[];
 }
 
 export interface WorkspacePackageWithTargetedElements<
-	Elements extends AutotoolElement = AutotoolElement
+	Elements extends AutotoolElement = AutotoolElement,
 > {
 	workspacePackage: WorkspacePackage;
 	targetedElements: InternalElementsWithResolvedTargets<Elements>[];

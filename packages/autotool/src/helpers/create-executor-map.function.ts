@@ -9,22 +9,22 @@ import type {
 
 export const createExecutorMap = <Elements extends AutotoolElement = AutotoolElement>(
 	plugins: AutotoolPluginObject<Elements>[],
-	options: NormalizedLoggerOption
+	options: NormalizedLoggerOption,
 ): ExecutorMap<Elements> => {
 	return plugins.reduce((executorMap, plugin) => {
 		if (plugin.executors) {
 			plugin.executors;
 			for (const [key, executor] of Object.entries<AutotoolElementExecutor<Elements>>(
-				plugin.executors
+				plugin.executors,
 			)) {
 				if (key !== executor.type) {
 					options.logger.warn(
-						`Executor ${executor.type} was declared with the wrong key (${key}) in ${plugin.name}!`
+						`Executor ${executor.type} was declared with the wrong key (${key}) in ${plugin.name}!`,
 					);
 				}
 				if (executorMap.has(executor.type)) {
 					options.logger.warn(
-						`Executor ${executor.type} already loaded! Plugin: ${plugin.name} trying to load it again!`
+						`Executor ${executor.type} already loaded! Plugin: ${plugin.name} trying to load it again!`,
 					);
 				} else {
 					executorMap.set(executor.type, {

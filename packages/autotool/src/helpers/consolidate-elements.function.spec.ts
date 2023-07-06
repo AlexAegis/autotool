@@ -57,7 +57,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			[element],
 			fakeWorkspacePackage,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 		expect(consolidated).toHaveLength(1);
 		expect(consolidated[0]).toEqual(element);
@@ -75,7 +75,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			[element, element],
 			fakeWorkspacePackage,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 		expect(consolidated).toHaveLength(2);
 		expect(consolidated[0]).toBe(element);
@@ -106,7 +106,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			],
 			fakeWorkspacePackage,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 
 		expect(consolidated).toHaveLength(3);
@@ -127,7 +127,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 			[elementWithoutExecutor],
 			fakeWorkspacePackage,
 			executorMap,
-			mockOptions
+			mockOptions,
 		);
 
 		expect(consolidated).toHaveLength(0);

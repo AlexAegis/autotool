@@ -68,7 +68,7 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 	apply: (
 		element: Element,
 		target: ElementTarget,
-		options: AutotoolElementApplyOptions
+		options: AutotoolElementApplyOptions,
 	) => Awaitable<void>;
 
 	/**
@@ -91,7 +91,7 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 	 */
 	consolidate?:
 		| ((
-				elements: AppliedElement<Element>[]
+				elements: AppliedElement<Element>[],
 		  ) => AppliedElement<Element>[] | AppliedElement<Element> | undefined)
 		| undefined;
 }

@@ -45,7 +45,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	const workspacePackagesWithElementsByTarget = await assignElementsToTargets(
 		workspacePackages,
 		context,
-		options
+		options,
 	);
 
 	options.logger.trace(workspacePackagesWithElementsByTarget);
@@ -61,7 +61,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		workspacePackagesWithElementsByTarget,
 		context,
 		elementOptions,
-		options
+		options,
 	);
 
 	if (isValid) {
@@ -71,7 +71,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 				const targetPackageLogger = options.logger.getSubLogger({
 					name: workspacePackageElementsByTarget.workspacePackage.packagePathFromRootPackage.replace(
 						/^\.$/,
-						'workspace-root'
+						'workspace-root',
 					),
 				});
 				return await executeElementsOnPackage(
@@ -82,9 +82,9 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 					{
 						...options,
 						logger: targetPackageLogger,
-					}
+					},
 				);
-			}
+			},
 		);
 
 		const addedAutotoolPlugins = results
@@ -94,7 +94,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		if (results.some((result) => result.someDependencyChanged)) {
 			options.logger.info(
 				'Some dependencies have changed! Installing packages using',
-				packageManager.name
+				packageManager.name,
 			);
 			execSync(packageManager.installCommand, {
 				stdio: 'inherit',
@@ -105,11 +105,11 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 			if (addedAutotoolPlugins.length > 0) {
 				options.logger.info(
 					'New autotool plugins have been added! Re-executing autotool!',
-					addedAutotoolPlugins
+					addedAutotoolPlugins,
 				);
 				options.logger.info(
 					'Remaining recursions available:',
-					options.maxAllowedRecursion - 1
+					options.maxAllowedRecursion - 1,
 				);
 
 				await sleep(1000);

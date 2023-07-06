@@ -12,7 +12,7 @@ import type { AutotoolOptions } from 'autotool-plugin';
 import type { Argv } from 'yargs';
 
 export const yargsForAutotool = <T>(
-	yargs: Argv<T>
+	yargs: Argv<T>,
 ): Argv<
 	T &
 		NormalizedCwdOption &
@@ -22,7 +22,7 @@ export const yargsForAutotool = <T>(
 		Omit<AutotoolOptions, keyof LoggerOption>
 > => {
 	return yargsForCollectWorkspacePackagesOptions(
-		yargsForLogLevelOption(yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs))))
+		yargsForLogLevelOption(yargsForDryOption(yargsForForceOption(yargsForCwdOption(yargs)))),
 	)
 		.option('dryish', {
 			boolean: true,

@@ -9,7 +9,7 @@ export interface AutotoolElementCustom extends UntargetedAutotoolElement<'custom
 }
 
 export const isAutotoolElementCustom = (
-	element: AutotoolElement
+	element: AutotoolElement,
 ): element is AutotoolElementCustom => {
 	return element.executor === 'custom';
 };

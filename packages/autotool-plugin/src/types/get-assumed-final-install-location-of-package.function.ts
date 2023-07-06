@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 export const getAssumedFinalInstallLocationOfPackage = (
 	rootWorkspacePackage: RootWorkspacePackage,
-	packageJsonName: string
+	packageJsonName: string,
 ): string => {
 	return join(rootWorkspacePackage.packagePath, 'node_modules', ...packageJsonName.split('/'));
 };

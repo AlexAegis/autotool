@@ -5,7 +5,7 @@ import { minimatch } from 'minimatch';
  * Checks for conflicts in the collected setup elements for all targets
  */
 export const validateRootElementNotModifyingPackages: AutotoolElementValidator = (
-	workspacePackageElementsByTarget
+	workspacePackageElementsByTarget,
 ) => {
 	const errors = [];
 
@@ -15,7 +15,7 @@ export const validateRootElementNotModifyingPackages: AutotoolElementValidator =
 		const workspacePackagePatterns =
 			workspacePackageElementsByTarget.workspacePackage.workspacePackagePatterns;
 		const elementsTargetingInsideAPackage = Object.entries(
-			workspacePackageElementsByTarget.targetedElementsByFile
+			workspacePackageElementsByTarget.targetedElementsByFile,
 		).flatMap(([target, elements]) => {
 			return workspacePackagePatterns.some((pattern) => minimatch(target, pattern + '/**'))
 				? elements.map((element) => ({ element, target }))
@@ -34,8 +34,8 @@ export const validateRootElementNotModifyingPackages: AutotoolElementValidator =
 						sourcePlugins: elementTargetingInsideAPackage.element.sourcePlugin
 							? [elementTargetingInsideAPackage.element.sourcePlugin]
 							: [],
-					})
-				)
+					}),
+				),
 			);
 		}
 	}

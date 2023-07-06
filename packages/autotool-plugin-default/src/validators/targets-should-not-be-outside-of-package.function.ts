@@ -6,7 +6,7 @@ import { getErrorSourcesFromPackageElement } from './helpers/get-error-source.fu
  * Checks the target file is inside the workspacePackage
  */
 export const validateTargetsAreNotOutsideOfPackage: AutotoolElementValidator = (
-	workspacePackageElementsByTarget
+	workspacePackageElementsByTarget,
 ) => {
 	return Object.entries(workspacePackageElementsByTarget.targetedElementsByFile)
 		.filter(([targetFile]) => normalize(targetFile).startsWith('..'))

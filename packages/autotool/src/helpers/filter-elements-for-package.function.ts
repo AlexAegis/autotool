@@ -12,7 +12,7 @@ import { elementAndPluginFilter } from './element-and-plugin-filter.function.js'
  */
 export const filterElementsForPackage = (
 	workspacePackage: WorkspacePackage,
-	setupPlugins: AutotoolPluginObject<AutotoolElement>[]
+	setupPlugins: AutotoolPluginObject<AutotoolElement>[],
 ): WorkspacePackageWithElements => {
 	return {
 		workspacePackage,
@@ -22,7 +22,7 @@ export const filterElementsForPackage = (
 				(sourcePlugin) =>
 					sourcePlugin.elements
 						?.filter((element) =>
-							elementAndPluginFilter(workspacePackage, element, sourcePlugin)
+							elementAndPluginFilter(workspacePackage, element, sourcePlugin),
 						)
 						.map<PackageResolvedElement>((element) => {
 							// Dropping off keys that won't be used later and would cause problems
@@ -34,7 +34,7 @@ export const filterElementsForPackage = (
 								sourcePlugin,
 								workspacePackage,
 							};
-						}) ?? []
+						}) ?? [],
 			),
 	};
 };

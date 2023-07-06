@@ -11,13 +11,13 @@ import { partition } from './partition.function.js';
 
 export const normalizeElementTargets = async <Elements extends AutotoolElement = AutotoolElement>(
 	workspacePackageWithElements: WorkspacePackageWithElements,
-	executorMap: ExecutorMap<Elements>
+	executorMap: ExecutorMap<Elements>,
 ): Promise<WorkspacePackageWithTargetedElements<Elements>> => {
 	const isTargeted = createIsPackageElementTargeted<Elements>(executorMap);
 
 	const [elementsWithTargeting, elementsWithoutTargeting] = partition(
 		workspacePackageWithElements.elements,
-		isTargeted
+		isTargeted,
 	);
 
 	const elements = await asyncFilterMap(elementsWithTargeting, async (packageElement) => {

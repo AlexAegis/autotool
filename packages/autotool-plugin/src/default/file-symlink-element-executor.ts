@@ -6,7 +6,7 @@ export interface AutotoolElementFileSymlink extends AutotoolElement<'fileSymlink
 }
 
 export const isAutotoolElementFileSymlink = (
-	element: AutotoolElement
+	element: AutotoolElement,
 ): element is AutotoolElementFileSymlink => {
 	return element.executor === 'fileSymlink';
 };

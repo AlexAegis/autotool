@@ -13,5 +13,5 @@ import type { ElementError } from './element-error.interface.js';
 export type AutotoolElementValidator<Element extends AutotoolElement = AutotoolElement> = (
 	workspacePackageElementsByTarget: WorkspacePackageElementsByTarget<Element>,
 	executorMap: ExecutorMap,
-	options: NormalizedAutotoolPluginOptions
+	options: NormalizedAutotoolPluginOptions,
 ) => Awaitable<ElementError[]>;

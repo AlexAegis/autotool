@@ -108,8 +108,8 @@ describe('elementAndPluginFilter', () => {
 						},
 					},
 					filter,
-					sourcePlugin
-				)
+					sourcePlugin,
+				),
 			).toBeFalsy();
 		});
 	});

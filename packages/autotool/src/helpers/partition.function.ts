@@ -3,7 +3,7 @@
  */
 export const partition = <T, O extends T>(
 	array: T[],
-	partitioner: (a: T) => a is O
+	partitioner: (a: T) => a is O,
 ): [O[], T[]] => {
 	const a: O[] = [];
 	const b: T[] = [];

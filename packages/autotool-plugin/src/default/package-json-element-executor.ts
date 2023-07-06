@@ -16,7 +16,7 @@ export interface AutotoolElementPackageJson extends UntargetedAutotoolElement<'p
 }
 
 export const isAutotoolElementPackageJson = (
-	element: UntargetedAutotoolElement
+	element: UntargetedAutotoolElement,
 ): element is AutotoolElementPackageJson => {
 	return element.executor === 'packageJson';
 };

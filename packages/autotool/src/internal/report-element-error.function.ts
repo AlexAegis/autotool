@@ -3,7 +3,7 @@ import type { PackageElementErrorWithSourceData } from './types.js';
 
 export const reportElementError = (
 	error: PackageElementErrorWithSourceData,
-	options: NormalizedLoggerOption
+	options: NormalizedLoggerOption,
 ): void => {
 	const affectedPlugins = `Affected plugin${
 		error.sourcePlugins.length > 1 ? 's' : ''
@@ -13,7 +13,7 @@ export const reportElementError = (
 	}: ${error.sourceElements
 		.map(
 			(element) =>
-				element.executor + (element.description ? ' "' + element.description + '"' : '')
+				element.executor + (element.description ? ' "' + element.description + '"' : ''),
 		)
 		.join(', ')}`;
 

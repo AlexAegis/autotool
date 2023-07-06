@@ -11,11 +11,11 @@ import { mapRecord } from './map-record.function.js';
 import { normalizeElementTargets } from './normalize-element-targets.function.js';
 
 export const groupAndConsolidateElementsByTargetFile = async <
-	Elements extends AutotoolElement = AutotoolElement
+	Elements extends AutotoolElement = AutotoolElement,
 >(
 	workspacePackage: WorkspacePackageWithElements,
 	executorMap: ExecutorMap<Elements>,
-	options: NormalizedLoggerOption
+	options: NormalizedLoggerOption,
 ): Promise<WorkspacePackageElementsByTarget<Elements>> => {
 	const resolved = await normalizeElementTargets<Elements>(workspacePackage, executorMap);
 	const targetedElementsByFile = resolved.targetedElements.reduce<
@@ -40,8 +40,8 @@ export const groupAndConsolidateElementsByTargetFile = async <
 				elements,
 				resolved.workspacePackage,
 				executorMap,
-				options
-			)
+				options,
+			),
 		),
 	};
 };

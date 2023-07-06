@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import type {
 	AppliedElement,
@@ -54,8 +53,7 @@ describe('autotoolElementJsonExecutor', () => {
 		},
 	};
 
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { mockLogger, logger } = createMockLogger(vi);
 
 	const defaultOptions: AutotoolElementApplyOptions = {
 		cwd: '/project',
@@ -103,7 +101,7 @@ describe('autotoolElementJsonExecutor', () => {
 			await autotoolElementJsonExecutor.apply(
 				fakePackageJsonElement,
 				fakeTargetPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(writeJsonMock).toHaveBeenCalledWith(
@@ -115,7 +113,7 @@ describe('autotoolElementJsonExecutor', () => {
 					name: 'targetPackageName',
 				},
 				fakeTargetPackage.targetPackage.packageJsonPath,
-				{ dry: defaultOptions.dry }
+				{ dry: defaultOptions.dry },
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();
@@ -210,7 +208,7 @@ describe('autotoolElementJsonExecutor', () => {
 						},
 					},
 					fakeTargetPackage,
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(writeJsonMock).toHaveBeenCalledWith(
@@ -225,7 +223,7 @@ describe('autotoolElementJsonExecutor', () => {
 						name: 'targetPackageName',
 					},
 					fakeTargetPackage.targetPackage.packageJsonPath,
-					{ dry: defaultOptions.dry }
+					{ dry: defaultOptions.dry },
 				);
 
 				expect(mockLogger.info).toHaveBeenCalled();
@@ -247,7 +245,7 @@ describe('autotoolElementJsonExecutor', () => {
 						},
 					},
 					{ ...fakeTargetPackage, targetPackage: fakeTargetPackage.rootPackage },
-					defaultOptions
+					defaultOptions,
 				);
 
 				expect(writeJsonMock).toHaveBeenCalledWith(
@@ -259,7 +257,7 @@ describe('autotoolElementJsonExecutor', () => {
 						name: fakeTargetPackage.rootPackage.packageJson.name,
 					},
 					fakeTargetPackage.rootPackage.packageJsonPath,
-					{ dry: defaultOptions.dry }
+					{ dry: defaultOptions.dry },
 				);
 
 				expect(mockLogger.info).toHaveBeenCalled();
@@ -284,7 +282,7 @@ describe('autotoolElementJsonExecutor', () => {
 						name: 'targetPackageName',
 					},
 					fakeTargetPackage.targetPackage.packageJsonPath,
-					{ dry: true }
+					{ dry: true },
 				);
 
 				expect(mockLogger.info).toHaveBeenCalled();
@@ -301,7 +299,7 @@ describe('autotoolElementJsonExecutor', () => {
 			await autotoolElementJsonExecutor.apply(
 				fakePackageJsonElement,
 				fakeTargetPackage,
-				defaultOptions
+				defaultOptions,
 			);
 
 			expect(writeJsonMock).toHaveBeenCalledWith(
@@ -313,7 +311,7 @@ describe('autotoolElementJsonExecutor', () => {
 					name: 'targetPackageName',
 				},
 				fakeTargetPackage.targetPackage.packageJsonPath,
-				{ dry: defaultOptions.dry }
+				{ dry: defaultOptions.dry },
 			);
 
 			expect(mockLogger.info).toHaveBeenCalled();

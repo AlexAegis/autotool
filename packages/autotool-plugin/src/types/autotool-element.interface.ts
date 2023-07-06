@@ -96,7 +96,7 @@ export type ElementForPackage<Element extends UntargetedAutotoolElement | unknow
 >;
 
 export interface PackageResolvedElement<
-	Element extends UntargetedAutotoolElement = UntargetedAutotoolElement
+	Element extends UntargetedAutotoolElement = UntargetedAutotoolElement,
 > {
 	element: ElementForPackage<Element>;
 	workspacePackage: WorkspacePackage;
@@ -104,5 +104,5 @@ export interface PackageResolvedElement<
 }
 
 export type AppliedElement<
-	Element extends UntargetedAutotoolElement | unknown = UntargetedAutotoolElement
+	Element extends UntargetedAutotoolElement | unknown = UntargetedAutotoolElement,
 > = Omit<ElementForPackage<Element>, 'targetFile' | 'targetFilePatterns' | 'type'>;

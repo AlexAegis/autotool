@@ -20,7 +20,7 @@ export type NormalizedAutotoolPluginOptions = NormalizedAdditionalAutotoolOption
 	NormalizedBaseAutotoolPluginOptions;
 
 export const normalizeAutotoolPluginOptions = (
-	options: AutotoolPluginOptions
+	options: AutotoolPluginOptions,
 ): NormalizedAutotoolPluginOptions => {
 	return {
 		...normalizeCwdOption(options),

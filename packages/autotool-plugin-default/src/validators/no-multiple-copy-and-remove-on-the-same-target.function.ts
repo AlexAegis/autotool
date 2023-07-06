@@ -11,15 +11,15 @@ export const validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget: Aut
 				const copyAndSymlinkElements = packageElements.filter(
 					(packageElement) =>
 						packageElement.element.executor === 'fileCopy' ||
-						packageElement.element.executor === 'fileSymlink'
+						packageElement.element.executor === 'fileSymlink',
 				);
 				const packageJsonElements = packageElements.filter(
-					(packageElement) => packageElement.element.executor === 'packageJson'
+					(packageElement) => packageElement.element.executor === 'packageJson',
 				);
 				const normalizedPackageJsonElementCount = Math.min(packageJsonElements.length, 1);
 
 				const fileRemoveElements = packageElements.filter(
-					(packageElement) => packageElement.element.executor === 'fileRemove'
+					(packageElement) => packageElement.element.executor === 'fileRemove',
 				);
 				const normalizedRemoveElementCount = Math.min(fileRemoveElements.length, 1);
 
@@ -34,7 +34,7 @@ export const validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget: Aut
 							message: `There are more than one elements trying to copy to or remove "${targetFile}"`,
 							targetFile,
 							sourceElements: copyAndSymlinkElements.map(
-								(packageElement) => packageElement.element
+								(packageElement) => packageElement.element,
 							),
 							sourcePlugins: copyAndSymlinkElements
 								.flatMap((packageElement) => packageElement.sourcePlugin)

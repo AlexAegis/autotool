@@ -7,7 +7,7 @@ import type { AutotoolElement } from 'autotool-plugin';
 export type AutotoolElementFileRemove = AutotoolElement<'fileRemove'>;
 
 export const isAutotoolElementFileRemove = (
-	element: AutotoolElement
+	element: AutotoolElement,
 ): element is AutotoolElementFileRemove => {
 	return element.executor === 'fileRemove';
 };

@@ -2,7 +2,7 @@ import { type NormalizedAutotoolOptions } from 'autotool-plugin';
 
 export const autotoolPluginFilterPredicate = (
 	pluginName: string,
-	options: Pick<NormalizedAutotoolOptions, 'enabledPlugins' | 'disabledPlugins'>
+	options: Pick<NormalizedAutotoolOptions, 'enabledPlugins' | 'disabledPlugins'>,
 ) => {
 	let isEnabled = true;
 	if (options.enabledPlugins.length > 0) {
@@ -12,7 +12,7 @@ export const autotoolPluginFilterPredicate = (
 	let isDisabled = false;
 	if (options.disabledPlugins.length > 0) {
 		isDisabled = options.disabledPlugins.some((disabledPlugin) =>
-			disabledPlugin.test(pluginName)
+			disabledPlugin.test(pluginName),
 		);
 	}
 

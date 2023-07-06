@@ -14,7 +14,7 @@ export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<Autotoo
 		apply: async (element, target, options): Promise<void> => {
 			const sourcePackagePath = getAssumedFinalInstallLocationOfPackage(
 				target.rootPackage,
-				element.sourcePluginPackageName
+				element.sourcePluginPackageName,
 			);
 			const sourceFilePath = join(sourcePackagePath, element.sourceFile);
 			options.logger.trace('Symlink file from', sourceFilePath);
@@ -24,8 +24,8 @@ export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<Autotoo
 				options.logger.warn(
 					`File ${relative(
 						target.rootPackage.packagePath,
-						sourceFilePath
-					)} is not managed, it won't be overwritten on the next run unless forced!`
+						sourceFilePath,
+					)} is not managed, it won't be overwritten on the next run unless forced!`,
 				);
 			}
 
@@ -40,17 +40,17 @@ export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<Autotoo
 
 			const relativeFromTargetBackToFile = relative(
 				targetDir,
-				toAbsolute(sourceFilePath, options)
+				toAbsolute(sourceFilePath, options),
 			);
 
 			if (options.dry) {
 				options.logger.info(
-					`(Dry) Pretending to create symlink at ${target.targetFilePath} to link to ${relativeFromTargetBackToFile} from the target!`
+					`(Dry) Pretending to create symlink at ${target.targetFilePath} to link to ${relativeFromTargetBackToFile} from the target!`,
 				);
 			} else {
 				await symlink(relativeFromTargetBackToFile, target.targetFilePathAbsolute);
 				options.logger.info(
-					`Created symlink at ${target.targetFilePath} to link to ${relativeFromTargetBackToFile} from the target!`
+					`Created symlink at ${target.targetFilePath} to link to ${relativeFromTargetBackToFile} from the target!`,
 				);
 			}
 		},

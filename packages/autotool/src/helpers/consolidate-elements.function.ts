@@ -26,16 +26,16 @@ const combinedDescriptions = (elements: AppliedElement[]): string | undefined =>
  * in an earlier step anyway, which would result in an error.
  */
 export const consolidateElementsAndFilterOutNonExecutables = <
-	Elements extends AutotoolElement = AutotoolElement
+	Elements extends AutotoolElement = AutotoolElement,
 >(
 	elements: PackageResolvedElement<Elements>[],
 	workspacePackage: WorkspacePackage,
 	executorMap: ExecutorMap<Elements>,
-	options: NormalizedLoggerOption
+	options: NormalizedLoggerOption,
 ): PackageResolvedElement<Elements>[] => {
 	return [...executorMap.values()].flatMap((executor) => {
 		const elementsOfExecutor = elements.filter(
-			(packageElement) => packageElement.element.executor === executor.type
+			(packageElement) => packageElement.element.executor === executor.type,
 		);
 		if (executor.consolidate) {
 			const allElements = elementsOfExecutor.map((e) => e.element);

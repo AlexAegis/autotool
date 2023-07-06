@@ -29,7 +29,7 @@
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
 		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
-		"lint:format_": "prettier --no-plugin-search --cache-location .cache/prettier --check .",
+		"lint:format_": "prettier --cache-location .cache/prettier --check .",
 		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
@@ -38,7 +38,7 @@
 		"publint_": "publint dist",
 		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
-		"format_": "prettier --no-plugin-search --cache-location .cache/prettier --write .",
+		"format_": "prettier --cache-location .cache/prettier --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
@@ -53,25 +53,25 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.3.2",
-		"@alexaegis/fs": "^0.3.2",
-		"@alexaegis/logging": "^0.3.2",
-		"@alexaegis/workspace-tools": "^0.3.2",
+		"@alexaegis/common": "^0.4.2",
+		"@alexaegis/fs": "^0.4.2",
+		"@alexaegis/logging": "^0.4.2",
+		"@alexaegis/workspace-tools": "^0.4.2",
 		"autotool-plugin": "^0.1.1",
-		"minimatch": "^9.0.2",
+		"minimatch": "^9.0.3",
 		"semver": "^7.5.3"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.3.4",
-		"@alexaegis/ts": "^0.3.4",
-		"@alexaegis/vite": "^0.3.4",
-		"@alexaegis/vitest": "^0.3.4",
+		"@alexaegis/eslint-config-vitest": "^0.4.0",
+		"@alexaegis/ts": "^0.4.0",
+		"@alexaegis/vite": "^0.4.0",
+		"@alexaegis/vitest": "^0.4.0",
 		"@schemastore/package": "^0.0.9",
-		"@types/node": "^20.3.3",
+		"@types/node": "^20.4.0",
 		"@types/semver": "^7.5.0",
-		"publint": "^0.1.13",
+		"publint": "^0.1.16",
 		"typescript": "^5.1.6",
-		"vite": "^4.3.9",
-		"vitest": "^0.32.2"
+		"vite": "^4.4.1",
+		"vitest": "^0.33.0"
 	}
 }

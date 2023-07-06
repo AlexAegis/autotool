@@ -1,5 +1,4 @@
-import type { Logger } from '@alexaegis/logging';
-import { MockLogger } from '@alexaegis/logging/mocks';
+import { createMockLogger } from '@alexaegis/logging/mocks';
 import type { AppliedElement, AutotoolElementFileRemove, ElementTarget } from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementFileRemoveExecutor } from './file-remove-element-executor.js';
@@ -17,8 +16,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 		executor: 'fileRemove',
 	};
 
-	const mockLogger = new MockLogger();
-	const logger = mockLogger as unknown as Logger<unknown>;
+	const { mockLogger, logger } = createMockLogger(vi);
 
 	const fakeTarget: ElementTarget = {
 		targetFilePackageRelative: 'foo.txt',
