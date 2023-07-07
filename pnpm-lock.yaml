@@ -150,7 +150,7 @@ importers:
   libs/autotool-plugin-example:
     dependencies:
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../../packages/autotool-plugin
       ts-node:
         specifier: ^10.9.1
@@ -184,7 +184,7 @@ importers:
   libs/autotool-plugin-example-2:
     dependencies:
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../../packages/autotool-plugin
       ts-node:
         specifier: ^10.9.1
@@ -218,7 +218,7 @@ importers:
   libs/autotool-plugin-recursive-1:
     dependencies:
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../../packages/autotool-plugin
     devDependencies:
       '@alexaegis/autotool-plugin-recursive-2':
@@ -255,7 +255,7 @@ importers:
   libs/autotool-plugin-recursive-2:
     dependencies:
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../../packages/autotool-plugin
     devDependencies:
       '@alexaegis/eslint-config-vitest':
@@ -307,10 +307,10 @@ importers:
         specifier: ^0.4.2
         version: 0.4.2
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../autotool-plugin
       autotool-plugin-default:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../autotool-plugin-default
       globby:
         specifier: ^13.2.2
@@ -411,7 +411,7 @@ importers:
         specifier: ^0.4.2
         version: 0.4.2
       autotool-plugin:
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../autotool-plugin
       minimatch:
         specifier: ^9.0.3
