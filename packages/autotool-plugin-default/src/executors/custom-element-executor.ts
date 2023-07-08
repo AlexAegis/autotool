@@ -2,7 +2,7 @@ import type { AutotoolElementCustom, AutotoolElementExecutor } from 'autotool-pl
 
 export const autotoolElementCustomExecutor: AutotoolElementExecutor<AutotoolElementCustom> = {
 	type: 'custom',
-	apply: async (element, target, options): Promise<void> => {
+	execute: async (element, target, options): Promise<void> => {
 		await element.apply(element, target, options);
 	},
 };

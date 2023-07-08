@@ -65,7 +65,7 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 	 */
 	defaultTarget?: string | undefined;
 
-	apply: (
+	execute: (
 		element: Element,
 		target: ElementTarget,
 		options: AutotoolElementApplyOptions,

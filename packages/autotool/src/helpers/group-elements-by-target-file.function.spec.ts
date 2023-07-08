@@ -36,7 +36,7 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 
 	const executorMap: ExecutorMap = new Map();
 	executorMap.set('testExecutorName', {
-		apply: vi.fn(),
+		execute: vi.fn(),
 		type: testExecutorName,
 		sourcePlugin: fakeSourcePlugin,
 	});

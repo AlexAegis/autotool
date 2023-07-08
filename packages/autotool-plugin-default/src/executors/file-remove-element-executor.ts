@@ -7,7 +7,7 @@ export const autotoolElementFileRemoveExecutor: AutotoolElementExecutor<Autotool
 	{
 		type: 'fileRemove',
 		conflictsOnTargetLevel: [autotoolElementFileCopyExecutor.type],
-		apply: async (_element, target, options): Promise<void> => {
+		execute: async (_element, target, options): Promise<void> => {
 			try {
 				if (options.dry) {
 					options.logger.info(`(DRY) Removing ${target.targetFilePackageRelative}`);

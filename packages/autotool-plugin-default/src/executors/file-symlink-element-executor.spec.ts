@@ -92,7 +92,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 
 	describe('valid cases', () => {
 		it('should symlink the target file', async () => {
-			await autotoolElementFileSymlinkExecutor.apply(
+			await autotoolElementFileSymlinkExecutor.execute(
 				fakeSymlinkElement,
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,
@@ -120,7 +120,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 				targetPackage: fakeTargetDirectlyOnPackage.targetPackage,
 				rootPackage: fakeTargetDirectlyOnPackage.rootPackage,
 			};
-			await autotoolElementFileSymlinkExecutor.apply(
+			await autotoolElementFileSymlinkExecutor.execute(
 				fakeSymlinkElement,
 				deeperTarget,
 				defaultOptions,
@@ -143,7 +143,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 		it('should read from a nested node_modules folder when the source package has an org', async () => {
 			const content = 'content';
 			readFileMock.mockImplementationOnce(() => content);
-			await autotoolElementFileSymlinkExecutor.apply(
+			await autotoolElementFileSymlinkExecutor.execute(
 				fakeSymlinkElementFromOrgPackage,
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,
@@ -163,7 +163,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 
 		describe('dry mode', () => {
 			it('should not actually execute symlink in dry(ish) mode', async () => {
-				await autotoolElementFileSymlinkExecutor.apply(
+				await autotoolElementFileSymlinkExecutor.execute(
 					fakeSymlinkElement,
 					fakeTargetDirectlyOnPackage,
 					{ ...defaultOptions, dry: true },
@@ -181,7 +181,7 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 	describe('invalid cases', () => {
 		it('should warn the user if the file being copied is not managed', async () => {
 			isManagedFileMock.mockImplementationOnce(() => false);
-			await autotoolElementFileSymlinkExecutor.apply(
+			await autotoolElementFileSymlinkExecutor.execute(
 				fakeSymlinkElement,
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,

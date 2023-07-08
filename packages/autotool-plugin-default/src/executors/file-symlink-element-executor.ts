@@ -11,7 +11,7 @@ import { dirname, join, relative } from 'node:path';
 export const autotoolElementFileSymlinkExecutor: AutotoolElementExecutor<AutotoolElementFileSymlink> =
 	{
 		type: 'fileSymlink',
-		apply: async (element, target, options): Promise<void> => {
+		execute: async (element, target, options): Promise<void> => {
 			const sourcePackagePath = getAssumedFinalInstallLocationOfPackage(
 				target.rootPackage,
 				element.sourcePluginPackageName,

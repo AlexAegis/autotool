@@ -25,7 +25,7 @@ describe('isElementUntargeted', () => {
 	const executorWithDefaultTarget = 'withDefaultTarget';
 	executorMap.set(executorWithDefaultTarget, {
 		type: executorWithDefaultTarget,
-		apply: vi.fn(),
+		execute: vi.fn(),
 		defaultTarget: 'defaultTarget',
 		sourcePlugin: fakeSourcePlugin,
 	});

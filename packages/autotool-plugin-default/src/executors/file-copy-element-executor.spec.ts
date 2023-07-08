@@ -95,7 +95,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		it('should copy the target file, not using cp but readFile and writeFile', async () => {
 			const content = 'content';
 			readFileMock.mockImplementationOnce(() => content);
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				fakeCopyElement,
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,
@@ -126,7 +126,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				targetPackage: fakeTargetDirectlyOnPackage.targetPackage,
 				rootPackage: fakeTargetDirectlyOnPackage.rootPackage,
 			};
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				fakeCopyElement,
 				deeperTarget,
 				defaultOptions,
@@ -152,7 +152,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		it('should read from a nested node_modules folder when the source package has an org', async () => {
 			const content = 'content';
 			readFileMock.mockImplementationOnce(() => content);
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				fakeCopyElementFromOrgPackage,
 				fakeTargetDirectlyOnPackage,
 				{
@@ -178,7 +178,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		});
 
 		it('should mark the result of the copy as executable if requested', async () => {
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				{ ...fakeCopyElement, markAsExecutable: true },
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,
@@ -209,7 +209,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			it('should substitute default template variables', async () => {
 				const content = '${relativePathFromPackageToRoot}${packageName}';
 				readFileMock.mockImplementationOnce(() => content);
-				await autotoolElementFileCopyExecutor.apply(
+				await autotoolElementFileCopyExecutor.execute(
 					fakeCopyElement,
 					fakeTargetDirectlyOnPackage,
 					defaultOptions,
@@ -235,7 +235,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			it('should substitute . for relativePathFromPackageToRoot in the case of the root package', async () => {
 				const content = '${relativePathFromPackageToRoot}';
 				readFileMock.mockImplementationOnce(() => content);
-				await autotoolElementFileCopyExecutor.apply(
+				await autotoolElementFileCopyExecutor.execute(
 					fakeCopyElement,
 					{
 						...fakeTargetDirectlyOnPackage,
@@ -264,7 +264,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			it('should apply transformers and substitute variables after so transformers can add variables', async () => {
 				const content = '';
 				readFileMock.mockImplementationOnce(() => content);
-				await autotoolElementFileCopyExecutor.apply(
+				await autotoolElementFileCopyExecutor.execute(
 					{
 						...fakeCopyElement,
 						transformers: [(_content) => '${relativePathFromPackageToRoot}'],
@@ -297,7 +297,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 				const customTemplateVariable = 'amogus';
 				const content = '${relativePathFromPackageToRoot}${packageName}${custom}';
 				readFileMock.mockImplementationOnce(() => content);
-				await autotoolElementFileCopyExecutor.apply(
+				await autotoolElementFileCopyExecutor.execute(
 					{ ...fakeCopyElement, templateVariables: { custom: customTemplateVariable } },
 					fakeTargetDirectlyOnPackage,
 					defaultOptions,
@@ -327,7 +327,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 			it('should not actually execute copy in dry(ish) mode', async () => {
 				const content = 'content';
 				readFileMock.mockImplementationOnce(() => content);
-				await autotoolElementFileCopyExecutor.apply(
+				await autotoolElementFileCopyExecutor.execute(
 					{ ...fakeCopyElement, markAsExecutable: true },
 					fakeTargetDirectlyOnPackage,
 					{ ...defaultOptions, dry: true },
@@ -353,7 +353,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		});
 		it('should warn the user if the file being copied is not managed', async () => {
 			isManagedFileMock.mockImplementationOnce(() => false);
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				fakeCopyElement,
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,
@@ -378,7 +378,7 @@ describe('autotoolElementFileCopyExecutor', () => {
 		it('should report an error when write fails and not try to mark it as executable even if it should', async () => {
 			const error = 'Something went wrong!';
 			writeFileMock.mockRejectedValueOnce(error);
-			await autotoolElementFileCopyExecutor.apply(
+			await autotoolElementFileCopyExecutor.execute(
 				{ ...fakeCopyElement, markAsExecutable: true },
 				fakeTargetDirectlyOnPackage,
 				defaultOptions,

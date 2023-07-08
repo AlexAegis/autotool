@@ -98,7 +98,7 @@ describe('autotoolElementJsonExecutor', () => {
 
 	describe('valid cases', () => {
 		it('should fill the delivered packageJsonElements', async () => {
-			await autotoolElementJsonExecutor.apply(
+			await autotoolElementJsonExecutor.execute(
 				fakePackageJsonElement,
 				fakeTargetPackage,
 				defaultOptions,
@@ -197,7 +197,7 @@ describe('autotoolElementJsonExecutor', () => {
 
 		describe('templates', () => {
 			it('should substitute default template variables', async () => {
-				await autotoolElementJsonExecutor.apply(
+				await autotoolElementJsonExecutor.execute(
 					{
 						...fakePackageJsonElement,
 						data: {
@@ -234,7 +234,7 @@ describe('autotoolElementJsonExecutor', () => {
 			it('should substitute even custom template variables and use . when targeting the root package as relativePathFromPackageToRoot', async () => {
 				readJsonMock.mockResolvedValueOnce(fakeTargetPackage.rootPackage.packageJson);
 
-				await autotoolElementJsonExecutor.apply(
+				await autotoolElementJsonExecutor.execute(
 					{
 						...fakePackageJsonElement,
 						data: {
@@ -268,10 +268,14 @@ describe('autotoolElementJsonExecutor', () => {
 
 		describe('dry mode', () => {
 			it('should pass dry to writeJson in dry(ish) mode', async () => {
-				await autotoolElementJsonExecutor.apply(fakePackageJsonElement, fakeTargetPackage, {
-					...defaultOptions,
-					dry: true,
-				});
+				await autotoolElementJsonExecutor.execute(
+					fakePackageJsonElement,
+					fakeTargetPackage,
+					{
+						...defaultOptions,
+						dry: true,
+					},
+				);
 
 				expect(writeJsonMock).toHaveBeenCalledWith(
 					{
@@ -296,7 +300,7 @@ describe('autotoolElementJsonExecutor', () => {
 		it('should report an error when write fails', async () => {
 			const error = 'error';
 			writeJsonMock.mockRejectedValueOnce(error);
-			await autotoolElementJsonExecutor.apply(
+			await autotoolElementJsonExecutor.execute(
 				fakePackageJsonElement,
 				fakeTargetPackage,
 				defaultOptions,

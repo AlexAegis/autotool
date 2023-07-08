@@ -7,21 +7,22 @@ import {
 } from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
 import {
-	DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
 	PACKAGE_JSON_DEPENDENCY_FIELDS,
 	getPackageJsonTemplateVariables,
 	type PackageJson,
 	type PackageJsonTemplateVariableNames,
 } from '@alexaegis/workspace-tools';
+import { createJsonSortingPreferenceNormalizer } from '@alexaegis/workspace-tools/sort';
 import type { Dependency } from '@schemastore/package';
 import type { AutotoolElementExecutor, AutotoolElementPackageJson } from 'autotool-plugin';
+import { basename } from 'node:path';
 import { relative } from 'node:path/posix';
 import { mergeDependencies } from '../helpers/index.js';
 
 export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElementPackageJson> = {
 	type: 'packageJson',
 	defaultTarget: 'package.json',
-	apply: async (element, target, options): Promise<void> => {
+	execute: async (element, target, options): Promise<void> => {
 		const workspaceRoot = target.rootPackage.packagePath;
 
 		const templateVariables = getPackageJsonTemplateVariables(target.targetPackage.packageJson);
@@ -61,7 +62,10 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			freshyMerged,
 		);
 
-		options.logger.warn('resulting pjson, devDependencies', targetPackageJson.devDependencies);
+		const sortingPreferenceNormalizer = await createJsonSortingPreferenceNormalizer(
+			basename(target.targetFilePath),
+			{ cwd: workspaceRoot },
+		);
 
 		try {
 			if (options.dry) {
@@ -73,7 +77,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			await writeJson(
 				sortObject(
 					dropKeys(targetPackageJson),
-					element.sortingPreference ?? DEFAULT_PACKAGE_JSON_SORTING_PREFERENCE,
+					sortingPreferenceNormalizer(element.sortingPreference),
 				),
 				target.targetPackage.packageJsonPath,
 				{

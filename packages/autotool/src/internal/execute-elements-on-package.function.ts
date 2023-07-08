@@ -121,7 +121,7 @@ export const executeElementsOnPackage = async (
 						} else {
 							elementLogger.info('Executing ' + logMessage);
 						}
-						await executor.apply(resolvedElement.element, target, {
+						await executor.execute(resolvedElement.element, target, {
 							...elementOptions,
 							logger: elementLogger,
 						});
@@ -157,7 +157,7 @@ export const executeElementsOnPackage = async (
 				} else {
 					elementLogger.info('Executing ' + logMessage);
 				}
-				await executor.apply(resolvedElement.element, untarget, {
+				await executor.execute(resolvedElement.element, untarget, {
 					...elementOptions,
 					logger: elementLogger,
 				});

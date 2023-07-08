@@ -56,16 +56,15 @@
 		"./readme": "./readme.md"
 	},
 	"bin": {
-		"autotool": "./shims/autotool.js",
-		"autotool-postinstall": "./shims/postinstall.js"
+		"autotool": "./shims/autotool.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.4.2",
-		"@alexaegis/common": "^0.4.2",
-		"@alexaegis/fs": "^0.4.2",
-		"@alexaegis/logging": "^0.4.2",
-		"@alexaegis/match": "^0.4.2",
-		"@alexaegis/workspace-tools": "^0.4.2",
+		"@alexaegis/cli-tools": "^0.4.4",
+		"@alexaegis/common": "^0.4.4",
+		"@alexaegis/fs": "^0.4.4",
+		"@alexaegis/logging": "^0.4.4",
+		"@alexaegis/match": "^0.4.4",
+		"@alexaegis/workspace-tools": "^0.4.4",
 		"autotool-plugin": "^0.2.1",
 		"autotool-plugin-default": "^0.2.1",
 		"globby": "^13.2.2",

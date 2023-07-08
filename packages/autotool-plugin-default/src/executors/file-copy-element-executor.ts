@@ -41,7 +41,7 @@ const guessPrettierParser = (path: string): BuiltInParserName => {
  */
 export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolElementFileCopy> = {
 	type: 'fileCopy',
-	apply: async (element, target, options): Promise<void> => {
+	execute: async (element, target, options): Promise<void> => {
 		const templateVariables = getPackageJsonTemplateVariables(target.targetPackage.packageJson);
 		templateVariables['relativePathFromPackageToRoot'] =
 			relative(target.targetPackage.packagePath, target.rootPackage.packagePath) || '.';

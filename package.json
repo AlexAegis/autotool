@@ -102,7 +102,7 @@
 		"@alexaegis/autotool-plugin-vitest": "^0.4.1",
 		"@alexaegis/autotool-plugin-vscode": "^0.4.1",
 		"@alexaegis/autotool-plugin-workspace": "^0.4.1",
-		"@alexaegis/coverage-tools": "^0.4.2",
+		"@alexaegis/coverage-tools": "^0.4.4",
 		"@alexaegis/eslint-config-core": "^0.4.1",
 		"@alexaegis/nuke": "^0.4.1",
 		"@alexaegis/stylelint-config": "^0.4.1",

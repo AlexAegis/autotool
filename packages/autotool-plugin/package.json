@@ -52,11 +52,11 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.4.2",
-		"@alexaegis/fs": "^0.4.2",
-		"@alexaegis/logging": "^0.4.2",
-		"@alexaegis/match": "^0.4.2",
-		"@alexaegis/workspace-tools": "^0.4.2"
+		"@alexaegis/common": "^0.4.4",
+		"@alexaegis/fs": "^0.4.4",
+		"@alexaegis/logging": "^0.4.4",
+		"@alexaegis/match": "^0.4.4",
+		"@alexaegis/workspace-tools": "^0.4.4"
 	},
 	"devDependencies": {
 		"@alexaegis/eslint-config-vitest": "^0.4.1",

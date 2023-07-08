@@ -44,7 +44,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 	});
 
 	it('should remove the target file', async () => {
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
+		await autotoolElementFileRemoveExecutor.execute(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,
@@ -58,7 +58,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 	});
 
 	it("should not remove the target file if it's a dry run", async () => {
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
+		await autotoolElementFileRemoveExecutor.execute(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: true,
 			logger,
@@ -77,7 +77,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			throw { code: 'ENOENT' };
 		});
 
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
+		await autotoolElementFileRemoveExecutor.execute(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,
@@ -96,7 +96,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 			throw { code: 'SOMETHINGELSE' };
 		});
 
-		await autotoolElementFileRemoveExecutor.apply(fakeResolvedElement, fakeTarget, {
+		await autotoolElementFileRemoveExecutor.execute(fakeResolvedElement, fakeTarget, {
 			cwd: 'root',
 			dry: false,
 			logger,

@@ -53,10 +53,10 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.4.2",
-		"@alexaegis/fs": "^0.4.2",
-		"@alexaegis/logging": "^0.4.2",
-		"@alexaegis/workspace-tools": "^0.4.2",
+		"@alexaegis/common": "^0.4.4",
+		"@alexaegis/fs": "^0.4.4",
+		"@alexaegis/logging": "^0.4.4",
+		"@alexaegis/workspace-tools": "^0.4.4",
 		"autotool-plugin": "^0.2.1",
 		"minimatch": "^9.0.3",
 		"semver": "^7.5.4"

@@ -51,7 +51,7 @@ describe('autotoolElementCustomExecutor', () => {
 	});
 
 	it('should just call the customFunction with the same arguments as the executors apply function', async () => {
-		await autotoolElementCustomExecutor.apply(fakeCustomElement, fakeTarget, defaultOptions);
+		await autotoolElementCustomExecutor.execute(fakeCustomElement, fakeTarget, defaultOptions);
 
 		expect(fakeCustomElement.apply).toHaveBeenCalledWith(
 			fakeCustomElement,

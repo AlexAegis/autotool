@@ -5,7 +5,7 @@ import type {
 } from '../types/autotool-element.interface.js';
 
 export interface AutotoolElementCustom extends UntargetedAutotoolElement<'custom'> {
-	apply: AutotoolElementExecutor<this>['apply'];
+	apply: AutotoolElementExecutor<this>['execute'];
 }
 
 export const isAutotoolElementCustom = (

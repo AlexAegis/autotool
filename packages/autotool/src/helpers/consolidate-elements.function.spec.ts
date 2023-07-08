@@ -23,7 +23,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 
 	executorMap.set(testElementTypeConsolidable, {
 		type: testElementTypeConsolidable,
-		apply: vi.fn(),
+		execute: vi.fn(),
 		consolidate: (e) => {
 			const first = e[0];
 			return first ? [first] : [];
@@ -33,7 +33,7 @@ describe('consolidateElementsAndFilterOutNonExecutable', () => {
 
 	executorMap.set(testElementTypeNonConsolidable, {
 		type: testElementTypeNonConsolidable,
-		apply: vi.fn(),
+		execute: vi.fn(),
 		sourcePlugin,
 	});
 
