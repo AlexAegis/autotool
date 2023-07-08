@@ -1,7 +1,7 @@
 {
 	"name": "@alexaegis/autotool-plugin-recursive-2",
 	"description": "To test the recursive behavior of autotool",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"license": "MIT",
 	"private": true,
 	"archetype": {

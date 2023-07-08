@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-default",
 	"description": "Default executors and validators for autotool",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"license": "MIT",
 	"private": false,
 	"archetype": {

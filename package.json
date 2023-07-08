@@ -1,7 +1,7 @@
 {
 	"name": "@autotool/workspace",
 	"description": "Autotool workspace",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"license": "mit",
 	"private": true,
 	"keywords": [

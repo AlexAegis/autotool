@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-example",
 	"description": "Exports custom updaters for standard-version",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"license": "MIT",
 	"private": true,
 	"keywords": [
