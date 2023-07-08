@@ -45,8 +45,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			throw new Error("Can't read packageJson!");
 		}
 
-		const freshyMerged = deepMerge([packageJson, packageJsonUpdates], { dropKeys: false });
-		options.logger.warn('freshyMerged pjson, devDependencies', freshyMerged.devDependencies);
+		const naivelyMerged = deepMerge([packageJson, packageJsonUpdates], { dropKeys: false });
 
 		const targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce(
 			(acc, dependencyFieldKey) => {
@@ -59,7 +58,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 				return acc;
 			},
-			freshyMerged,
+			naivelyMerged,
 		);
 
 		const sortingPreferenceNormalizer = await createJsonSortingPreferenceNormalizer(
