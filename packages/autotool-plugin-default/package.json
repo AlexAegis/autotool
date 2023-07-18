@@ -34,9 +34,9 @@
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"lint:tsc_": "tsc --noEmit",
-		"publint": "turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
+		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"publint_": "publint dist",
-		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
+		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"format_": "prettier --cache-location .cache/prettier --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
@@ -53,25 +53,25 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.4.5",
-		"@alexaegis/fs": "^0.4.5",
-		"@alexaegis/logging": "^0.4.5",
-		"@alexaegis/workspace-tools": "^0.4.5",
+		"@alexaegis/common": "^0.5.2",
+		"@alexaegis/fs": "^0.5.2",
+		"@alexaegis/logging": "^0.5.2",
+		"@alexaegis/workspace-tools": "^0.5.2",
 		"autotool-plugin": "^0.2.3",
 		"minimatch": "^9.0.3",
 		"semver": "^7.5.4"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.5.1",
-		"@alexaegis/ts": "^0.5.1",
-		"@alexaegis/vite": "^0.5.1",
-		"@alexaegis/vitest": "^0.5.1",
-		"@schemastore/package": "^0.0.9",
-		"@types/node": "^20.4.2",
+		"@alexaegis/eslint-config-vitest": "^0.6.2",
+		"@alexaegis/ts": "^0.6.2",
+		"@alexaegis/vite": "^0.6.2",
+		"@alexaegis/vitest": "^0.6.2",
+		"@schemastore/package": "^0.0.10",
+		"@types/node": "^20.4.5",
 		"@types/semver": "^7.5.0",
-		"publint": "^0.1.16",
+		"publint": "^0.2.0",
 		"typescript": "^5.1.6",
-		"vite": "^4.4.4",
-		"vitest": "^0.33.0"
+		"vite": "^4.4.8",
+		"vitest": "^0.34.1"
 	}
 }

@@ -30,7 +30,7 @@
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"lint:tsc_": "tsc --noEmit",
-		"all": "turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"format_": "prettier --cache-location .cache/prettier --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
@@ -56,12 +56,12 @@
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.5.1",
-		"@alexaegis/ts": "^0.5.1",
-		"@alexaegis/vite": "^0.5.1",
-		"@alexaegis/vitest": "^0.5.1",
-		"@types/node": "^20.4.2",
-		"vite": "^4.4.4",
-		"vitest": "^0.33.0"
+		"@alexaegis/eslint-config-vitest": "^0.6.2",
+		"@alexaegis/ts": "^0.6.2",
+		"@alexaegis/vite": "^0.6.2",
+		"@alexaegis/vitest": "^0.6.2",
+		"@types/node": "^20.4.5",
+		"vite": "^4.4.8",
+		"vitest": "^0.34.1"
 	}
 }
