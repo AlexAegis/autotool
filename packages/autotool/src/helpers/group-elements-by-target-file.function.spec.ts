@@ -1,4 +1,4 @@
-import { NormalizedLoggerOption, noopLogger } from '@alexaegis/logging';
+import { noopLogger, type NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	AutotoolPluginObject,

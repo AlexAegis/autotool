@@ -90,7 +90,7 @@ export interface TargetedElementAdditionalMetadata {
 	workspacePackage: WorkspacePackage;
 }
 
-export type ElementForPackage<Element extends UntargetedAutotoolElement | unknown> = Omit<
+export type ElementForPackage<Element extends UntargetedAutotoolElement> = Omit<
 	Element,
 	'packageKind' | 'packageJsonFilter'
 >;
@@ -103,6 +103,5 @@ export interface PackageResolvedElement<
 	sourcePlugin: AutotoolPluginObject<Element> | undefined;
 }
 
-export type AppliedElement<
-	Element extends UntargetedAutotoolElement | unknown = UntargetedAutotoolElement,
-> = Omit<ElementForPackage<Element>, 'targetFile' | 'targetFilePatterns' | 'type'>;
+export type AppliedElement<Element extends UntargetedAutotoolElement = UntargetedAutotoolElement> =
+	Omit<ElementForPackage<Element>, 'targetFile' | 'targetFilePatterns' | 'type'>;

@@ -43,7 +43,7 @@ export interface AutotoolElementFileCopy extends AutotoolElement<'fileCopy'> {
 	 *
 	 * @defaultValue undefined
 	 */
-	formatWithPrettier?: true | BuiltInParserName | string | undefined;
+	formatWithPrettier?: true | BuiltInParserName | undefined;
 }
 
 export const isAutotoolElementFileCopy = (

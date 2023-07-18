@@ -1,8 +1,8 @@
 import {
-	Defined,
 	normalizeDryOption,
 	normalizeForceOption,
 	normalizeRegExpLikeToRegExp,
+	type Defined,
 	type DryOption,
 	type ForceOption,
 	type NormalizedDryOption,
@@ -15,9 +15,9 @@ import {
 	type NormalizedLoggerOption,
 } from '@alexaegis/logging';
 import {
-	CollectWorkspacePackagesOptions,
-	NormalizedCollectWorkspacePackagesOptions,
 	normalizeCollectWorkspacePackagesOptions,
+	type CollectWorkspacePackagesOptions,
+	type NormalizedCollectWorkspacePackagesOptions,
 } from '@alexaegis/workspace-tools';
 
 export interface BaseAutotoolOptions {

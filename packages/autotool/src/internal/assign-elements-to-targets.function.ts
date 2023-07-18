@@ -1,6 +1,6 @@
 import { asyncMap } from '@alexaegis/common';
-import { NormalizedLoggerOption } from '@alexaegis/logging';
-import { type WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { NormalizedLoggerOption } from '@alexaegis/logging';
+import type { WorkspacePackage } from '@alexaegis/workspace-tools';
 import { isManagedContent, type WorkspacePackageElementsByTarget } from 'autotool-plugin';
 import { filterElementsForPackage } from '../helpers/filter-elements-for-package.function.js';
 import { groupAndConsolidateElementsByTargetFile } from '../helpers/group-elements-by-target-file.function.js';

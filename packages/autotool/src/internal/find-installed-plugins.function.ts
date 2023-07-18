@@ -59,9 +59,7 @@ export const loadPlugin = async <Elements extends AutotoolElement>(
 			logger: options.logger.getSubLogger({ name: packageName }),
 		});
 
-		return Array.isArray(factoryResult)
-			? factoryResult.map((factoryResultPlugin) => factoryResultPlugin)
-			: [factoryResult];
+		return Array.isArray(factoryResult) ? factoryResult : [factoryResult];
 	} else if (isAutotoolPluginObject(plugin)) {
 		return [plugin];
 	} else {

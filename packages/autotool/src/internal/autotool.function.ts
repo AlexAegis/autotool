@@ -114,10 +114,11 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 
 				await sleep(1000);
 
-				return await autotool({
+				await autotool({
 					...options,
 					maxAllowedRecursion: options.maxAllowedRecursion - 1,
 				});
+				return;
 			}
 		}
 	} else {

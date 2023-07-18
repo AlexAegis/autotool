@@ -47,7 +47,7 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 	/**
 	 * Halts execution if these elements are also present on the package
 	 */
-	conflictsOnPackageLevel?: string[] | unknown;
+	conflictsOnPackageLevel?: string[];
 
 	/**
 	 * Halts execution if these elements are also present on a specific file

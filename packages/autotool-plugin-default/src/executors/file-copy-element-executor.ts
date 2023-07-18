@@ -84,7 +84,7 @@ export const autotoolElementFileCopyExecutor: AutotoolElementExecutor<AutotoolEl
 				parser:
 					prettierParser === true
 						? guessPrettierParser(target.targetFilePathAbsolute)
-						: (prettierParser as BuiltInParserName), // TODO: remove type coerce after update
+						: prettierParser,
 			});
 		}
 

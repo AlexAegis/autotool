@@ -1,4 +1,4 @@
-import { NormalizedLoggerOption } from '@alexaegis/logging';
+import type { NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	ExecutorMap,

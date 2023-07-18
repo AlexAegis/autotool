@@ -1,8 +1,8 @@
-import { Defined, normalizeDryOption, normalizeForceOption } from '@alexaegis/common';
+import { normalizeDryOption, normalizeForceOption, type Defined } from '@alexaegis/common';
 import { normalizeCwdOption } from '@alexaegis/fs';
 import { normalizeLoggerOption } from '@alexaegis/logging';
-import { type RootWorkspacePackage } from '@alexaegis/workspace-tools';
-import {
+import type { RootWorkspacePackage } from '@alexaegis/workspace-tools';
+import type {
 	AdditionalAutotoolOptions,
 	NormalizedAdditionalAutotoolOptions,
 } from './autotool.function.options.js';

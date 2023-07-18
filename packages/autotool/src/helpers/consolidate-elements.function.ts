@@ -1,5 +1,5 @@
 import { isNullish } from '@alexaegis/common';
-import { NormalizedLoggerOption } from '@alexaegis/logging';
+import type { NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AppliedElement,
 	AutotoolElement,
