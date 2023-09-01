@@ -62,12 +62,12 @@
 		"semver": "^7.5.4"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.8.0",
-		"@alexaegis/ts": "^0.8.0",
-		"@alexaegis/vite": "^0.8.0",
-		"@alexaegis/vitest": "^0.8.0",
+		"@alexaegis/eslint-config-vitest": "^0.8.1",
+		"@alexaegis/ts": "^0.8.1",
+		"@alexaegis/vite": "^0.8.1",
+		"@alexaegis/vitest": "^0.8.1",
 		"@schemastore/package": "^0.0.10",
-		"@types/node": "^20.5.7",
+		"@types/node": "^20.5.8",
 		"@types/semver": "^7.5.1",
 		"publint": "^0.2.2",
 		"typescript": "^5.2.2",
