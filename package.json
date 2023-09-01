@@ -68,7 +68,7 @@
 		"merge-coverage": "merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
 		"ncu": "ncu --configFilePath ./.config/ && pnpm up",
 		"nuke": "nuke",
-		"postinstall": "husky install && turbo run build-lib_ --filter autotool && autotool",
+		"postinstall": "husky install && turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool && pnpm i --ignore-scripts && autotool",
 		"posttest": "turbo run build-lib_ --filter @alexaegis/coverage-tools && merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
 		"precommit": "pnpm install",
 		"release": "commit-and-tag-version --sign --commit-all",
