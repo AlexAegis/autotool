@@ -1,7 +1,7 @@
 {
 	"name": "@alexaegis/autotool-plugin-recursive-1",
 	"description": "To test the recursive behavior of autotool",
-	"version": "0.2.3",
+	"version": "0.3.0",
 	"license": "MIT",
 	"private": true,
 	"archetype": {
@@ -51,7 +51,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "^0.2.3"
+		"autotool-plugin": "^0.3.0"
 	},
 	"devDependencies": {
 		"@alexaegis/autotool-plugin-recursive-2": "workspace:^",
