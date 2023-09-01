@@ -29,7 +29,7 @@
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
 		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
-		"lint:format_": "prettier --cache-location .cache/prettier --check .",
+		"lint:format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check .",
 		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
@@ -38,7 +38,7 @@
 		"publint_": "publint dist",
 		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
-		"format_": "prettier --cache-location .cache/prettier --write .",
+		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-default",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage"
@@ -53,25 +53,25 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.5.2",
-		"@alexaegis/fs": "^0.5.2",
-		"@alexaegis/logging": "^0.5.2",
-		"@alexaegis/workspace-tools": "^0.5.2",
+		"@alexaegis/common": "^0.7.0",
+		"@alexaegis/fs": "^0.7.0",
+		"@alexaegis/logging": "^0.7.0",
+		"@alexaegis/workspace-tools": "^0.7.0",
 		"autotool-plugin": "^0.2.3",
 		"minimatch": "^9.0.3",
 		"semver": "^7.5.4"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.6.2",
-		"@alexaegis/ts": "^0.6.2",
-		"@alexaegis/vite": "^0.6.2",
-		"@alexaegis/vitest": "^0.6.2",
+		"@alexaegis/eslint-config-vitest": "^0.8.0",
+		"@alexaegis/ts": "^0.8.0",
+		"@alexaegis/vite": "^0.8.0",
+		"@alexaegis/vitest": "^0.8.0",
 		"@schemastore/package": "^0.0.10",
-		"@types/node": "^20.4.5",
-		"@types/semver": "^7.5.0",
-		"publint": "^0.2.0",
-		"typescript": "^5.1.6",
-		"vite": "^4.4.8",
-		"vitest": "^0.34.1"
+		"@types/node": "^20.5.7",
+		"@types/semver": "^7.5.1",
+		"publint": "^0.2.2",
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9",
+		"vitest": "^0.34.3"
 	}
 }
