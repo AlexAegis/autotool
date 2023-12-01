@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.0](https://github.com/AlexAegis/autotool/compare/v0.3.0...v0.4.0) (2023-12-01)
+
+
+### Bug Fixes
+
+* missing turbo cache location specifier on the postinstall script ([bf1a7a2](https://github.com/AlexAegis/autotool/commit/bf1a7a2a978773935011a317640dfead892a8be8))
+
 ## [0.3.0](https://github.com/AlexAegis/autotool/compare/v0.2.3...v0.3.0) (2023-09-01)
 
 ## [0.2.3](https://github.com/AlexAegis/autotool/compare/v0.2.2...v0.2.3) (2023-07-18)
