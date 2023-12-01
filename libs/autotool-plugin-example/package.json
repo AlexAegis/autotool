@@ -18,8 +18,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "turbo run build-lib_ --concurrency 6 --cache-dir .cache/turbo --filter autotool-plugin-example",
-		"build-lib_": "vite build",
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
@@ -30,12 +28,14 @@
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"lint:tsc_": "tsc --noEmit",
-		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
-		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
-		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write .",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"test_": "vitest --passWithNoTests --coverage --run",
-		"test:watch": "vitest --passWithNoTests --coverage"
+		"test:watch": "vitest --passWithNoTests --coverage",
+		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"build": "turbo run build-lib_ --concurrency 6 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"build-lib_": "vite build",
+		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write ."
 	},
 	"exports": {
 		".": {
@@ -50,18 +50,18 @@
 	},
 	"dependencies": {
 		"autotool-plugin": "^0.3.0",
-		"typescript": "^5.2.2"
+		"typescript": "^5.3.2"
 	},
 	"peerDependencies": {
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.8.3",
-		"@alexaegis/ts": "^0.8.3",
-		"@alexaegis/vite": "^0.8.3",
-		"@alexaegis/vitest": "^0.8.3",
-		"@types/node": "^20.8.4",
-		"vite": "^4.4.11",
+		"@alexaegis/eslint-config-vitest": "^0.9.1",
+		"@alexaegis/ts": "^0.9.1",
+		"@alexaegis/vite": "^0.9.1",
+		"@alexaegis/vitest": "^0.9.1",
+		"@types/node": "^20.10.1",
+		"vite": "^5.0.4",
 		"vitest": "^0.34.6"
 	}
 }
