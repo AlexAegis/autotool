@@ -117,7 +117,7 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 			? {
 					...baseElement,
 					data: mergedData,
-			  }
+				}
 			: undefined;
 	},
 };

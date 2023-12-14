@@ -50,7 +50,7 @@
 	},
 	"dependencies": {
 		"autotool-plugin": "^0.4.0",
-		"typescript": "^5.3.2"
+		"typescript": "^5.3.3"
 	},
 	"peerDependencies": {
 		"ts-node": "^10.9.1"
@@ -60,8 +60,8 @@
 		"@alexaegis/ts": "^0.9.1",
 		"@alexaegis/vite": "^0.9.1",
 		"@alexaegis/vitest": "^0.9.1",
-		"@types/node": "^20.10.1",
-		"vite": "^5.0.4",
-		"vitest": "^0.34.6"
+		"@types/node": "^20.10.4",
+		"vite": "^5.0.9",
+		"vitest": "^1.0.4"
 	}
 }

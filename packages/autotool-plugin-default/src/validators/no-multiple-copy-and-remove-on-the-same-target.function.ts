@@ -39,7 +39,7 @@ export const validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget: Aut
 							sourcePlugins: copyAndSymlinkElements
 								.flatMap((packageElement) => packageElement.sourcePlugin)
 								.filter(isNotNullish),
-					  } as ElementError)
+						} as ElementError)
 					: undefined;
 			})
 			.filter(isNotNullish);

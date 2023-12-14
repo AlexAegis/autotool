@@ -86,7 +86,7 @@ export const loadInstalledPlugins = async (
 			? asyncFilterMap(
 					modulePrefDefault.map((m) => loadPlugin(m, name, options)),
 					async (m) => await m,
-			  )
+				)
 			: loadPlugin(modulePrefDefault, name, options));
 
 		return loadedPlugins
