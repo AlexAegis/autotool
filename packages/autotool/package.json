@@ -1,7 +1,7 @@
 {
 	"name": "autotool",
 	"description": "Workspace transformation orchestrator",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"license": "MIT",
 	"private": false,
 	"archetype": {
@@ -64,8 +64,8 @@
 		"@alexaegis/logging": "^0.9.0",
 		"@alexaegis/match": "^0.9.0",
 		"@alexaegis/workspace-tools": "^0.9.0",
-		"autotool-plugin": "^0.4.1",
-		"autotool-plugin-default": "^0.4.1",
+		"autotool-plugin": "^0.5.0",
+		"autotool-plugin-default": "^0.5.0",
 		"globby": "^14.0.1",
 		"microdiff": "^1.4.0"
 	},

@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.0](https://github.com/AlexAegis/autotool/compare/v0.4.1...v0.5.0) (2024-03-23)
+
 ## [0.4.1](https://github.com/AlexAegis/autotool/compare/v0.4.0...v0.4.1) (2023-12-14)
 
 ## [0.4.0](https://github.com/AlexAegis/autotool/compare/v0.3.0...v0.4.0) (2023-12-01)
