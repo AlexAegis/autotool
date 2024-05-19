@@ -1,6 +1,7 @@
 import { noopLogger } from '@alexaegis/logging';
 import type { RootWorkspacePackage } from '@alexaegis/workspace-tools';
 import { describe, expect, it } from 'vitest';
+import type { PackageManager } from '../helpers/discover-package-manager.function.js';
 import {
 	normalizeAutotoolPluginOptions,
 	type AutotoolPluginOptions,
@@ -17,13 +18,26 @@ describe('normalizeAutotoolPluginOptions', () => {
 		packagePathFromRootPackage: '.',
 	};
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
 	it('should have a default when not defined', () => {
-		expect(normalizeAutotoolPluginOptions({ rootWorkspacePackage })).toEqual({
+		expect(
+			normalizeAutotoolPluginOptions({
+				rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
+			}),
+		).toEqual({
 			cwd: process.cwd(),
 			dry: false,
 			force: false,
 			logger: noopLogger,
 			rootWorkspacePackage,
+			allWorkspacePackages: [rootWorkspacePackage],
+			packageManager,
 		} as NormalizedAutotoolPluginOptions);
 	});
 
@@ -34,6 +48,8 @@ describe('normalizeAutotoolPluginOptions', () => {
 			dry: true,
 			logger: noopLogger,
 			rootWorkspacePackage,
+			allWorkspacePackages: [rootWorkspacePackage],
+			packageManager,
 		};
 		expect(normalizeAutotoolPluginOptions(manualOptions)).toEqual(manualOptions);
 	});

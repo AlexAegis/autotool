@@ -2,12 +2,12 @@ import { asyncMap, sleep } from '@alexaegis/common';
 import { collectWorkspacePackages } from '@alexaegis/workspace-tools';
 import {
 	normalizeAutotoolOptions,
+	normalizeAutotoolPluginOptions,
 	type AutotoolOptions,
 	type NormalizedAutotoolPluginOptions,
 } from 'autotool-plugin';
 import { execSync } from 'node:child_process';
 import { checkIfTheresAnElementWithoutValidExecutor } from '../helpers/check-if-theres-an-element-without-valid-executor.function.js';
-import { isRootWorkspacePackage } from '../helpers/is-root-workspace-package.function.js';
 import { assignElementsToTargets } from './assign-elements-to-targets.function.js';
 import { autotoolPluginFilterPredicate } from './autotool-plugin-filter-predicate.function.js';
 import { executeElementsOnPackage } from './execute-elements-on-package.function.js';
@@ -23,14 +23,8 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	}
 
 	const workspacePackages = await collectWorkspacePackages(rawOptions);
-	const rootWorkspacePackage = workspacePackages.find(isRootWorkspacePackage);
 
-	if (!rootWorkspacePackage) {
-		options.logger.warn('cannot do setup, not in a workspace!');
-		return;
-	}
-
-	const context = await loadContext(rootWorkspacePackage, options);
+	const context = await loadContext(workspacePackages, options);
 
 	if (checkIfTheresAnElementWithoutValidExecutor(context, options)) {
 		return;
@@ -43,13 +37,15 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 	);
 
 	options.logger.trace(workspacePackagesWithElementsByTarget);
-	const elementOptions: NormalizedAutotoolPluginOptions = {
+	const elementOptions: NormalizedAutotoolPluginOptions = normalizeAutotoolPluginOptions({
 		logger: options.logger,
 		cwd: options.cwd,
 		dry: options.dryish,
 		force: options.force,
-		rootWorkspacePackage,
-	};
+		rootWorkspacePackage: context.rootWorkspacePackage,
+		packageManager: context.packageManager,
+		allWorkspacePackages: workspacePackages,
+	});
 
 	const isValid = await validate(
 		workspacePackagesWithElementsByTarget,
@@ -70,7 +66,7 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 				});
 				return await executeElementsOnPackage(
 					workspacePackageElementsByTarget,
-					rootWorkspacePackage,
+					context.rootWorkspacePackage,
 					context.executorMap,
 					{ ...elementOptions, logger: targetPackageLogger },
 					{

@@ -35,17 +35,19 @@ describe('validateRootElementNotModifyingPackages', () => {
 	const executorMap: ExecutorMap = new Map();
 	const { logger } = createMockLogger(vi);
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
 	const options: NormalizedAutotoolPluginOptions = {
 		cwd: '/projects',
 		dry: false,
 		force: false,
 		rootWorkspacePackage,
 		logger,
-	};
-
-	const packageManager: PackageManager = {
-		name: 'pnpm',
-		installCommand: 'pnpm i',
+		allWorkspacePackages: [rootWorkspacePackage],
+		packageManager,
 	};
 
 	it('should not have a problem with paths pointing inwards', async () => {

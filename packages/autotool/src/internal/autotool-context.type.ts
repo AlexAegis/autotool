@@ -1,3 +1,4 @@
+import type { RootWorkspacePackage, WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
 	AutotoolElement,
 	AutotoolElementValidator,
@@ -11,4 +12,6 @@ export interface AutotoolContext<Elements extends AutotoolElement = AutotoolElem
 	executorMap: ExecutorMap<Elements>;
 	validators: AutotoolElementValidator<Elements>[];
 	packageManager: PackageManager;
+	rootWorkspacePackage: RootWorkspacePackage;
+	allWorkspacePackages: WorkspacePackage[];
 }
