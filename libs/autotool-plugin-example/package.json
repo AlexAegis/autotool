@@ -4,6 +4,9 @@
 	"version": "0.6.0",
 	"license": "MIT",
 	"private": true,
+	"archetype": {
+		"language": "ts"
+	},
 	"keywords": [
 		"autotool-plugin-example-node",
 		"managed-by-autotool",
@@ -46,6 +49,7 @@
 		},
 		"./example": "./static/example.txt",
 		"./js-example": "./static/js-example.txt",
+		"./package.json": "./package.json",
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
@@ -56,10 +60,10 @@
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.4",
-		"@alexaegis/ts": "^0.10.4",
-		"@alexaegis/vite": "^0.10.4",
-		"@alexaegis/vitest": "^0.10.4",
+		"@alexaegis/eslint-config-vitest": "^0.11.2",
+		"@alexaegis/ts": "^0.11.2",
+		"@alexaegis/vite": "^0.11.2",
+		"@alexaegis/vitest": "^0.11.2",
 		"@types/node": "^20.12.12",
 		"vite": "^5.2.11",
 		"vitest": "^1.6.0"

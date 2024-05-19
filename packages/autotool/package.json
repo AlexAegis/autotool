@@ -52,28 +52,29 @@
 			"require": "./dist/index.cjs",
 			"default": "./dist/index.js"
 		},
+		"./package.json": "./package.json",
 		"./readme": "./readme.md"
 	},
 	"bin": {
 		"autotool": "./shims/autotool.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.9.1",
-		"@alexaegis/common": "^0.9.1",
-		"@alexaegis/fs": "^0.9.1",
-		"@alexaegis/logging": "^0.9.1",
-		"@alexaegis/match": "^0.9.1",
-		"@alexaegis/workspace-tools": "^0.9.1",
+		"@alexaegis/cli-tools": "^0.10.0",
+		"@alexaegis/common": "^0.10.0",
+		"@alexaegis/fs": "^0.10.0",
+		"@alexaegis/logging": "^0.10.0",
+		"@alexaegis/match": "^0.10.0",
+		"@alexaegis/workspace-tools": "^0.10.0",
 		"autotool-plugin": "workspace:^0.6.0",
 		"autotool-plugin-default": "workspace:^0.6.0",
 		"globby": "^14.0.1",
 		"microdiff": "^1.4.0"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.4",
-		"@alexaegis/ts": "^0.10.4",
-		"@alexaegis/vite": "^0.10.4",
-		"@alexaegis/vitest": "^0.10.4",
+		"@alexaegis/eslint-config-vitest": "^0.11.2",
+		"@alexaegis/ts": "^0.11.2",
+		"@alexaegis/vite": "^0.11.2",
+		"@alexaegis/vitest": "^0.11.2",
 		"@types/node": "^20.12.12",
 		"@types/yargs": "17.0.32",
 		"publint": "^0.2.8",
