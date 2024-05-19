@@ -73,7 +73,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 
 	it('should not throw if the target file does not exist, but log a warning', async () => {
 		rmMock.mockImplementationOnce(() => {
-			// eslint-disable-next-line @typescript-eslint/no-throw-literal
+			// eslint-disable-next-line @typescript-eslint/no-throw-literal,@typescript-eslint/only-throw-error
 			throw { code: 'ENOENT' };
 		});
 
@@ -92,7 +92,7 @@ describe('autotoolElementFileRemoveExecutor', () => {
 
 	it('should not throw but log an error if removal failed for some other reason than the file not existing', async () => {
 		rmMock.mockImplementationOnce(() => {
-			// eslint-disable-next-line @typescript-eslint/no-throw-literal
+			// eslint-disable-next-line @typescript-eslint/no-throw-literal,@typescript-eslint/only-throw-error
 			throw { code: 'SOMETHINGELSE' };
 		});
 

@@ -49,18 +49,18 @@
 	},
 	"dependencies": {
 		"autotool-plugin": "^0.5.0",
-		"typescript": "^5.4.3"
+		"typescript": "^5.4.5"
 	},
 	"peerDependencies": {
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.10.2",
-		"@alexaegis/ts": "^0.10.2",
-		"@alexaegis/vite": "^0.10.2",
-		"@alexaegis/vitest": "^0.10.2",
-		"@types/node": "^20.11.30",
-		"vite": "^5.2.3",
-		"vitest": "^1.4.0"
+		"@alexaegis/eslint-config-vitest": "^0.10.4",
+		"@alexaegis/ts": "^0.10.4",
+		"@alexaegis/vite": "^0.10.4",
+		"@alexaegis/vitest": "^0.10.4",
+		"@types/node": "^20.12.12",
+		"vite": "^5.2.11",
+		"vitest": "^1.6.0"
 	}
 }
