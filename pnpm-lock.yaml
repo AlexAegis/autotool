@@ -233,7 +233,7 @@ importers:
   libs/autotool-plugin-recursive-1:
     dependencies:
       autotool-plugin:
-        specifier: ^0.5.0
+        specifier: workspace:^0.5.0
         version: link:../../packages/autotool-plugin
     devDependencies:
       '@alexaegis/autotool-plugin-recursive-2':
@@ -270,7 +270,7 @@ importers:
   libs/autotool-plugin-recursive-2:
     dependencies:
       autotool-plugin:
-        specifier: ^0.5.0
+        specifier: workspace:^0.5.0
         version: link:../../packages/autotool-plugin
     devDependencies:
       '@alexaegis/eslint-config-vitest':

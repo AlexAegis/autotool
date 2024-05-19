@@ -20,6 +20,9 @@ const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolE
 				},
 				data: {
 					bar: 'lol',
+					dependencies: {
+						'autotool-plugin': packageJson.dependencies['autotool-plugin'],
+					},
 				},
 			},
 			{

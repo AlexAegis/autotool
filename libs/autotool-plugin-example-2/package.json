@@ -4,6 +4,9 @@
 	"version": "0.5.0",
 	"license": "MIT",
 	"private": true,
+	"archetype": {
+		"language": "ts"
+	},
 	"keywords": [
 		"autotool-plugin-example-node",
 		"managed-by-autotool",
@@ -18,7 +21,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"lint:depcheck_": "depcheck",
 		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
@@ -26,7 +29,7 @@
 		"lint:format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check .",
 		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
-		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example-2",
 		"lint:tsc_": "tsc --noEmit",
 		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin-example",
 		"test_": "vitest --passWithNoTests --coverage --run",

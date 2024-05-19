@@ -67,16 +67,17 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 				const dependencies = pkg[dependencyFieldKey];
 
 				if (dependencies) {
-					pkg[dependencyFieldKey] = mapObject(dependencies, (value, key) =>
-						value &&
-						target.allWorkspacePackages.some((pkg) => pkg.packageJson.name === key) &&
-						!value.startsWith('workspace:')
+					pkg[dependencyFieldKey] = mapObject(dependencies, (value, key) => {
+						const localPackage = target.allWorkspacePackages.find(
+							(pkg) => pkg.packageJson.name === key,
+						);
+						return value &&
+							localPackage?.packageJson.version &&
+							value.includes(localPackage.packageJson.version) && // Only when the version is matching in case you do want to use one from a registry
+							!value.startsWith('workspace:')
 							? `workspace:${value}`
-							: value,
-					);
-					pkg[dependencyFieldKey] = Object.fromEntries(
-						Object.entries(dependencies).map(([key, value]) => [key, value]),
-					);
+							: value;
+					});
 				}
 
 				return pkg;

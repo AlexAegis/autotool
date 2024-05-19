@@ -51,7 +51,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "^0.5.0"
+		"autotool-plugin": "workspace:^0.5.0"
 	},
 	"devDependencies": {
 		"@alexaegis/autotool-plugin-recursive-2": "workspace:^",
