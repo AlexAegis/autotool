@@ -54,7 +54,7 @@
 		"autotool-plugin": "workspace:^"
 	},
 	"devDependencies": {
-		"@alexaegis/autotool-plugin-recursive-2": "workspace:^",
+		"@alexaegis/autotool-plugin-recursive-2": "workspace:^0.6.0",
 		"@alexaegis/eslint-config-vitest": "^0.10.4",
 		"@alexaegis/logging": "^0.9.1",
 		"@alexaegis/ts": "^0.10.4",

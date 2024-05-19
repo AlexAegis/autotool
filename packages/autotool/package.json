@@ -64,8 +64,8 @@
 		"@alexaegis/logging": "^0.9.1",
 		"@alexaegis/match": "^0.9.1",
 		"@alexaegis/workspace-tools": "^0.9.1",
-		"autotool-plugin": "workspace:^",
-		"autotool-plugin-default": "workspace:^",
+		"autotool-plugin": "workspace:^0.6.0",
+		"autotool-plugin-default": "workspace:^0.6.0",
 		"globby": "^14.0.1",
 		"microdiff": "^1.4.0"
 	},
