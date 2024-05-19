@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-example-2",
 	"description": "Example plugin",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"license": "MIT",
 	"private": true,
 	"archetype": {
@@ -51,7 +51,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "workspace:^0.5.0",
+		"autotool-plugin": "workspace:^",
 		"typescript": "^5.4.5"
 	},
 	"peerDependencies": {

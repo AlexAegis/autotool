@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.0](https://github.com/AlexAegis/autotool/compare/v0.5.0...v0.6.0) (2024-05-19)
+
+
+### Features
+
+* only add the workspace version specifier if the target version matches the local version ([c4bf8ea](https://github.com/AlexAegis/autotool/commit/c4bf8eac66a16b2300767fa68e7484b330cc1e5d))
+* workspace version specifier now will be added in pnpm and yarn workspaces for local packages ([90612e6](https://github.com/AlexAegis/autotool/commit/90612e6d7d8e5c737d35a6c4f2f47cc839ad8374))
+
 ## [0.5.0](https://github.com/AlexAegis/autotool/compare/v0.4.1...v0.5.0) (2024-03-23)
 
 ## [0.4.1](https://github.com/AlexAegis/autotool/compare/v0.4.0...v0.4.1) (2023-12-14)
