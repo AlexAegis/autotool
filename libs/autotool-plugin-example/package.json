@@ -1,7 +1,7 @@
 {
 	"name": "autotool-plugin-example",
 	"description": "Exports custom updaters for standard-version",
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"license": "MIT",
 	"private": true,
 	"archetype": {
@@ -53,7 +53,7 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"autotool-plugin": "workspace:^0.6.0",
+		"autotool-plugin": "workspace:^",
 		"typescript": "^5.4.5"
 	},
 	"peerDependencies": {

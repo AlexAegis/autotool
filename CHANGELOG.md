@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.1](https://github.com/AlexAegis/autotool/compare/v0.6.0...v0.6.1) (2024-05-19)
+
+
+### Features
+
+* forward package manager and all discovered packages to plugins too ([b6b7932](https://github.com/AlexAegis/autotool/commit/b6b7932949d39f6a20faa1075c63070a2af14827))
+
 ## [0.6.0](https://github.com/AlexAegis/autotool/compare/v0.5.0...v0.6.0) (2024-05-19)
 
 
