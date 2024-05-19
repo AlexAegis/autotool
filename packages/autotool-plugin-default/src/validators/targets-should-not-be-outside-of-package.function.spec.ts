@@ -3,6 +3,7 @@ import type {
 	AutotoolElementFileRemove,
 	ExecutorMap,
 	NormalizedAutotoolPluginOptions,
+	PackageManager,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
@@ -28,6 +29,11 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 	const executorMap: ExecutorMap = new Map();
 	const { logger } = createMockLogger(vi);
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
 	const options: NormalizedAutotoolPluginOptions = {
 		cwd: '/projects',
 		dry: false,
@@ -44,6 +50,8 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -60,6 +68,8 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -76,6 +86,8 @@ describe('validateTargetsAreNotOutsideOfPackage', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,

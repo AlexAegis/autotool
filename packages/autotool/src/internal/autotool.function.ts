@@ -7,7 +7,6 @@ import {
 } from 'autotool-plugin';
 import { execSync } from 'node:child_process';
 import { checkIfTheresAnElementWithoutValidExecutor } from '../helpers/check-if-theres-an-element-without-valid-executor.function.js';
-import { discoverPackageManager } from '../helpers/discover-package-manager.function.js';
 import { isRootWorkspacePackage } from '../helpers/is-root-workspace-package.function.js';
 import { assignElementsToTargets } from './assign-elements-to-targets.function.js';
 import { autotoolPluginFilterPredicate } from './autotool-plugin-filter-predicate.function.js';
@@ -30,11 +29,6 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		options.logger.warn('cannot do setup, not in a workspace!');
 		return;
 	}
-
-	const packageManager = await discoverPackageManager(rootWorkspacePackage, {
-		...options,
-		logger: options.logger.getSubLogger({ name: 'discoverPackageManager' }),
-	});
 
 	const context = await loadContext(rootWorkspacePackage, options);
 
@@ -94,9 +88,9 @@ export const autotool = async (rawOptions: AutotoolOptions): Promise<void> => {
 		if (results.some((result) => result.someDependencyChanged)) {
 			options.logger.info(
 				'Some dependencies have changed! Installing packages using',
-				packageManager.name,
+				context.packageManager.name,
 			);
-			execSync(packageManager.installCommand, {
+			execSync(context.packageManager.installCommand, {
 				stdio: 'inherit',
 			});
 

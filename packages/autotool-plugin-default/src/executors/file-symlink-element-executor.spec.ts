@@ -4,6 +4,8 @@ import type {
 	AutotoolElementApplyOptions,
 	AutotoolElementFileSymlink,
 	ElementTarget,
+	PackageManager,
+	WorkspacePackage,
 } from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementFileSymlinkExecutor } from './file-symlink-element-executor.js';
@@ -63,27 +65,38 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 		force: false,
 	};
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
+	const rootPackage: WorkspacePackage = {
+		workspacePackagePatterns: [],
+		packageJson: {},
+		packageJsonPath: '/project/package.json',
+		packageKind: 'root',
+		packagePath: '/project',
+		packagePathFromRootPackage: '.',
+	};
+
+	const targetPackage: WorkspacePackage = {
+		packageJson: {
+			name: 'targetPackageName',
+		},
+		packageJsonPath: '/project/projects/foo/package.json',
+		packageKind: 'regular',
+		packagePath: '/project/projects/foo',
+		packagePathFromRootPackage: 'projects/foo',
+	};
+
 	const fakeTargetDirectlyOnPackage: ElementTarget = {
 		targetFilePackageRelative: 'foo.txt',
 		targetFilePath: 'projects/foo/foo.txt',
 		targetFilePathAbsolute: '/project/projects/foo/foo.txt',
-		targetPackage: {
-			packageJson: {
-				name: 'targetPackageName',
-			},
-			packageJsonPath: '/project/projects/foo/package.json',
-			packageKind: 'regular',
-			packagePath: '/project/projects/foo',
-			packagePathFromRootPackage: 'projects/foo',
-		},
-		rootPackage: {
-			workspacePackagePatterns: [],
-			packageJson: {},
-			packageJsonPath: '/project/package.json',
-			packageKind: 'root',
-			packagePath: '/project',
-			packagePathFromRootPackage: '.',
-		},
+		rootPackage,
+		targetPackage,
+		allWorkspacePackages: [rootPackage, targetPackage],
+		packageManager,
 	};
 
 	afterEach(() => {
@@ -113,12 +126,17 @@ describe('autotoolElementFileSymlinkCopyExecutor', () => {
 		it('should copy the target file into a deeper directory and call mkdir to make sure it exists', async () => {
 			const content = 'content';
 			readFileMock.mockImplementationOnce(() => content);
-			const deeperTarget = {
+			const deeperTarget: ElementTarget = {
 				targetFilePackageRelative: 'nested/foo.txt',
 				targetFilePath: 'projects/foo/nested/foo.txt',
 				targetFilePathAbsolute: '/project/projects/foo/nested/foo.txt',
 				targetPackage: fakeTargetDirectlyOnPackage.targetPackage,
 				rootPackage: fakeTargetDirectlyOnPackage.rootPackage,
+				allWorkspacePackages: [
+					fakeTargetDirectlyOnPackage.rootPackage,
+					fakeTargetDirectlyOnPackage.targetPackage,
+				],
+				packageManager,
 			};
 			await autotoolElementFileSymlinkExecutor.execute(
 				fakeSymlinkElement,

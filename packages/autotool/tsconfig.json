@@ -14,7 +14,8 @@
 		".*",
 		"*.json",
 		".*.json",
-		"**/*.json"
+		"**/*.json",
+		"../autotool-plugin/src/helpers/discover-package-manager.function.ts"
 	],
 	"exclude": [
 		"node_modules",

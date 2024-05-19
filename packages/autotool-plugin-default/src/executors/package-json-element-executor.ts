@@ -3,6 +3,7 @@ import {
 	dropKeys,
 	fillObjectWithTemplateVariables,
 	groupBy,
+	mapObject,
 	sortObject,
 } from '@alexaegis/common';
 import { readJson, writeJson } from '@alexaegis/fs';
@@ -47,19 +48,42 @@ export const autotoolElementJsonExecutor: AutotoolElementExecutor<AutotoolElemen
 
 		const naivelyMerged = deepMerge([packageJson, packageJsonUpdates], { dropKeys: false });
 
-		const targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce(
-			(acc, dependencyFieldKey) => {
-				if (packageJsonUpdates[dependencyFieldKey]) {
-					acc[dependencyFieldKey] = mergeDependencies(
-						packageJson[dependencyFieldKey],
-						packageJsonUpdates[dependencyFieldKey] as Dependency,
+		let targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce((acc, dependencyFieldKey) => {
+			if (packageJsonUpdates[dependencyFieldKey]) {
+				acc[dependencyFieldKey] = mergeDependencies(
+					packageJson[dependencyFieldKey],
+					packageJsonUpdates[dependencyFieldKey] as Dependency,
+				);
+			}
+
+			return acc;
+		}, naivelyMerged);
+
+		if (target.packageManager.name === 'pnpm' || target.packageManager.name === 'yarn') {
+			options.logger.debug(
+				'Using pnpm or yarn. prepending added local workspace dependencies with workspace:',
+			);
+			targetPackageJson = PACKAGE_JSON_DEPENDENCY_FIELDS.reduce((pkg, dependencyFieldKey) => {
+				const dependencies = pkg[dependencyFieldKey];
+
+				if (dependencies) {
+					pkg[dependencyFieldKey] = mapObject(dependencies, (value, key) =>
+						value &&
+						target.allWorkspacePackages.some((pkg) => pkg.packageJson.name === key) &&
+						!value.startsWith('workspace:')
+							? `workspace:${value}`
+							: value,
+					);
+					pkg[dependencyFieldKey] = Object.fromEntries(
+						Object.entries(dependencies).map(([key, value]) => [key, value]),
 					);
 				}
 
-				return acc;
-			},
-			naivelyMerged,
-		);
+				return pkg;
+			}, targetPackageJson);
+		}
+
+		target.allWorkspacePackages.find(Boolean);
 
 		const sortingPreferenceNormalizer = await createJsonSortingPreferenceNormalizer(
 			basename(target.targetFilePath),

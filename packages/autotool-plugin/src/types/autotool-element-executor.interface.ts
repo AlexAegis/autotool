@@ -1,5 +1,6 @@
 import type { Awaitable } from '@alexaegis/common';
 import type { RootWorkspacePackage, WorkspacePackage } from '@alexaegis/workspace-tools';
+import type { PackageManager } from '../helpers/discover-package-manager.function.js';
 import type { AutotoolElementApplyOptions } from '../plugin/index.js';
 import type { AppliedElement, UntargetedAutotoolElement } from './autotool-element.interface.js';
 import type { AutotoolPluginObject } from './autotool-plugin.interface.js';
@@ -29,6 +30,16 @@ export interface ElementTarget {
 	 * For reference the root package is also included
 	 */
 	rootPackage: RootWorkspacePackage;
+
+	/**
+	 * Every workspace package discovered including the target and root to be used as a context
+	 */
+	allWorkspacePackages: WorkspacePackage[];
+
+	/**
+	 * The discovered package-manager used in this workspace
+	 */
+	packageManager: PackageManager;
 }
 
 /**

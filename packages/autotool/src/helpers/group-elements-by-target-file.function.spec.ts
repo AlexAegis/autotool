@@ -3,6 +3,7 @@ import type {
 	AutotoolElement,
 	AutotoolPluginObject,
 	ExecutorMap,
+	PackageManager,
 	WorkspacePackage,
 } from 'autotool-plugin';
 import { describe, expect, it, vi } from 'vitest';
@@ -21,6 +22,11 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		packageKind: 'regular',
 		packagePath: '',
 		packagePathFromRootPackage: '',
+	};
+
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
 	};
 
 	const mockOptions: NormalizedLoggerOption = {
@@ -68,6 +74,8 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		const grouped = await groupAndConsolidateElementsByTargetFile(
 			packageElements,
 			executorMap,
+			[workspacePackage],
+			packageManager,
 			mockOptions,
 		);
 
@@ -101,6 +109,8 @@ describe('groupAndConsolidateElementsByTargetFile', () => {
 		const grouped = await groupAndConsolidateElementsByTargetFile(
 			packageElements,
 			executorMap,
+			[workspacePackage],
+			packageManager,
 			mockOptions,
 		);
 

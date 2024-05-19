@@ -1,5 +1,11 @@
 import { createMockLogger } from '@alexaegis/logging/mocks';
-import type { AppliedElement, AutotoolElementFileRemove, ElementTarget } from 'autotool-plugin';
+import type {
+	AppliedElement,
+	AutotoolElementFileRemove,
+	ElementTarget,
+	PackageManager,
+	WorkspacePackage,
+} from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementFileRemoveExecutor } from './file-remove-element-executor.js';
 
@@ -18,25 +24,36 @@ describe('autotoolElementFileRemoveExecutor', () => {
 
 	const { mockLogger, logger } = createMockLogger(vi);
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
+	const rootPackage: WorkspacePackage = {
+		workspacePackagePatterns: [],
+		packageJson: {},
+		packageJsonPath: '/project/projects/foo/package.json',
+		packageKind: 'root',
+		packagePath: '/project/projects/foo',
+		packagePathFromRootPackage: '.',
+	};
+
+	const targetPackage: WorkspacePackage = {
+		packageJson: {},
+		packageJsonPath: '/project/projects/foo/package.json',
+		packageKind: 'regular',
+		packagePath: '/project/projects/foo',
+		packagePathFromRootPackage: 'projects/foo',
+	};
+
 	const fakeTarget: ElementTarget = {
 		targetFilePackageRelative: 'foo.txt',
 		targetFilePath: 'projects/foo/foo.txt',
 		targetFilePathAbsolute: '/project/projects/foo/foo.txt',
-		targetPackage: {
-			packageJson: {},
-			packageJsonPath: '/project/projects/foo/package.json',
-			packageKind: 'regular',
-			packagePath: '/project/projects/foo',
-			packagePathFromRootPackage: 'projects/foo',
-		},
-		rootPackage: {
-			workspacePackagePatterns: [],
-			packageJson: {},
-			packageJsonPath: '/project/projects/foo/package.json',
-			packageKind: 'root',
-			packagePath: '/project/projects/foo',
-			packagePathFromRootPackage: '.',
-		},
+		targetPackage,
+		rootPackage,
+		packageManager,
+		allWorkspacePackages: [rootPackage, targetPackage],
 	};
 
 	afterEach(() => {

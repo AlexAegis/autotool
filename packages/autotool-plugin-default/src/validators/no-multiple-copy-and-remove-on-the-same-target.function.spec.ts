@@ -6,6 +6,7 @@ import type {
 	AutotoolElementPackageJson,
 	ExecutorMap,
 	NormalizedAutotoolPluginOptions,
+	PackageManager,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
@@ -61,6 +62,11 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 		logger,
 	};
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
 	it('should pass if theres only one copy element', async () => {
 		const result = await validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget(
 			{
@@ -69,6 +75,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -85,6 +93,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -101,6 +111,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -117,6 +129,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -133,6 +147,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -149,6 +165,8 @@ describe('validateThereAreNoMultipleCopyAndRemoveElementsOnTheSameTarget', () =>
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,

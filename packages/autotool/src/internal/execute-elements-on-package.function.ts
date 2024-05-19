@@ -65,6 +65,8 @@ export const executeElementsOnPackage = async (
 		targetFilePathAbsolute: '',
 		targetPackage: packageElements.workspacePackage,
 		rootPackage: rootWorkspacePackage,
+		allWorkspacePackages: packageElements.allWorkspacePackages,
+		packageManager: packageElements.packageManager,
 	};
 
 	// Execute all targeted elements

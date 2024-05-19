@@ -3,6 +3,7 @@ import type {
 	AutotoolElementFileRemove,
 	ExecutorMap,
 	NormalizedAutotoolPluginOptions,
+	PackageManager,
 	PackageResolvedElement,
 	WorkspacePackage,
 } from 'autotool-plugin';
@@ -42,6 +43,11 @@ describe('validateRootElementNotModifyingPackages', () => {
 		logger,
 	};
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
 	it('should not have a problem with paths pointing inwards', async () => {
 		const result = await validateRootElementNotModifyingPackages(
 			{
@@ -50,6 +56,8 @@ describe('validateRootElementNotModifyingPackages', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -66,6 +74,8 @@ describe('validateRootElementNotModifyingPackages', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,
@@ -82,6 +92,8 @@ describe('validateRootElementNotModifyingPackages', () => {
 				},
 				untargetedElements: [],
 				workspacePackage: rootWorkspacePackage,
+				allWorkspacePackages: [rootWorkspacePackage],
+				packageManager,
 			},
 			executorMap,
 			options,

@@ -4,6 +4,8 @@ import type {
 	AutotoolElementApplyOptions,
 	AutotoolElementCustom,
 	ElementTarget,
+	PackageManager,
+	WorkspacePackage,
 } from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementCustomExecutor } from './custom-element-executor.js';
@@ -12,6 +14,11 @@ describe('autotoolElementCustomExecutor', () => {
 	const fakeCustomElement: AppliedElement<AutotoolElementCustom> = {
 		executor: 'custom',
 		apply: vi.fn(),
+	};
+
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
 	};
 
 	const { mockLogger, logger } = createMockLogger(vi);
@@ -23,27 +30,33 @@ describe('autotoolElementCustomExecutor', () => {
 		force: false,
 	};
 
+	const rootPackage: WorkspacePackage = {
+		workspacePackagePatterns: [],
+		packageJson: {},
+		packageJsonPath: '/project/package.json',
+		packageKind: 'root',
+		packagePath: '/project',
+		packagePathFromRootPackage: '.',
+	};
+
+	const targetPackage: WorkspacePackage = {
+		packageJson: {
+			name: 'targetPackageName',
+		},
+		packageJsonPath: '/project/projects/foo/package.json',
+		packageKind: 'regular',
+		packagePath: '/project/projects/foo',
+		packagePathFromRootPackage: 'projects/foo',
+	};
+
 	const fakeTarget: ElementTarget = {
 		targetFilePackageRelative: 'foo.txt',
 		targetFilePath: 'projects/foo/foo.txt',
 		targetFilePathAbsolute: '/project/projects/foo/foo.txt',
-		targetPackage: {
-			packageJson: {
-				name: 'targetPackageName',
-			},
-			packageJsonPath: '/project/projects/foo/package.json',
-			packageKind: 'regular',
-			packagePath: '/project/projects/foo',
-			packagePathFromRootPackage: 'projects/foo',
-		},
-		rootPackage: {
-			workspacePackagePatterns: [],
-			packageJson: {},
-			packageJsonPath: '/project/package.json',
-			packageKind: 'root',
-			packagePath: '/project',
-			packagePathFromRootPackage: '.',
-		},
+		rootPackage,
+		targetPackage,
+		allWorkspacePackages: [rootPackage, targetPackage],
+		packageManager,
 	};
 
 	afterEach(() => {

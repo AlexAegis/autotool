@@ -23,6 +23,8 @@ export const assignElementsToTargets = async (
 		groupAndConsolidateElementsByTargetFile(
 			workspacePackageWithElements,
 			context.executorMap,
+			workspacePackages,
+			context.packageManager,
 			options,
 		),
 	);

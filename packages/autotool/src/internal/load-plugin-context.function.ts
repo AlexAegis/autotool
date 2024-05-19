@@ -4,6 +4,7 @@ import {
 	type AutotoolPluginObject,
 	type NormalizedAutotoolOptions,
 } from 'autotool-plugin';
+import { discoverPackageManager } from '../../../autotool-plugin/src/helpers/discover-package-manager.function.js';
 import { createExecutorMap } from '../helpers/create-executor-map.function.js';
 import type { AutotoolContext } from './autotool-context.type.js';
 import { autotoolPluginFilterPredicate } from './autotool-plugin-filter-predicate.function.js';
@@ -22,6 +23,11 @@ export const loadContext = async (
 		},
 	);
 
+	const packageManager = await discoverPackageManager(rootWorkspacePackage, {
+		...options,
+		logger: options.logger.getSubLogger({ name: 'discoverPackageManager' }),
+	});
+
 	const executorMap = createExecutorMap(plugins, options);
 	const validators = plugins.flatMap((plugin) => plugin.validators ?? []);
 	options.logger.trace('executors loaded:', [...executorMap.keys()]);
@@ -37,5 +43,6 @@ export const loadContext = async (
 		plugins,
 		validators,
 		executorMap,
+		packageManager,
 	};
 };

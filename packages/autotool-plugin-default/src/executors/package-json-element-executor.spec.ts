@@ -1,10 +1,11 @@
 import { createMockLogger } from '@alexaegis/logging/mocks';
-import type { PackageJson } from '@alexaegis/workspace-tools';
+import type { PackageJson, WorkspacePackage } from '@alexaegis/workspace-tools';
 import type {
 	AppliedElement,
 	AutotoolElementApplyOptions,
 	AutotoolElementPackageJson,
 	ElementTarget,
+	PackageManager,
 } from 'autotool-plugin';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { autotoolElementJsonExecutor } from './package-json-element-executor.js';
@@ -62,32 +63,43 @@ describe('autotoolElementJsonExecutor', () => {
 		force: false,
 	};
 
+	const packageManager: PackageManager = {
+		name: 'pnpm',
+		installCommand: 'pnpm i',
+	};
+
+	const rootPackage: WorkspacePackage = {
+		workspacePackagePatterns: [],
+		packageJson: {
+			name: 'workspace',
+		},
+		packageJsonPath: '/project/package.json',
+		packageKind: 'root',
+		packagePath: '/project',
+		packagePathFromRootPackage: '.',
+	};
+
+	const targetPackage: WorkspacePackage = {
+		packageJson: {
+			name: 'targetPackageName',
+			dependencies: {
+				existing: '^0.1.0',
+			},
+		},
+		packageJsonPath: '/project/projects/foo/package.json',
+		packageKind: 'regular',
+		packagePath: '/project/projects/foo',
+		packagePathFromRootPackage: 'projects/foo',
+	};
+
 	const fakeTargetPackage: ElementTarget = {
 		targetFilePackageRelative: 'package.json',
 		targetFilePath: 'projects/foo/package.json',
 		targetFilePathAbsolute: '/project/projects/foo/package.json',
-		targetPackage: {
-			packageJson: {
-				name: 'targetPackageName',
-				dependencies: {
-					existing: '^0.1.0',
-				},
-			},
-			packageJsonPath: '/project/projects/foo/package.json',
-			packageKind: 'regular',
-			packagePath: '/project/projects/foo',
-			packagePathFromRootPackage: 'projects/foo',
-		},
-		rootPackage: {
-			workspacePackagePatterns: [],
-			packageJson: {
-				name: 'workspace',
-			},
-			packageJsonPath: '/project/package.json',
-			packageKind: 'root',
-			packagePath: '/project',
-			packagePathFromRootPackage: '.',
-		},
+		targetPackage,
+		rootPackage,
+		allWorkspacePackages: [rootPackage, targetPackage],
+		packageManager,
 	};
 
 	readJsonMock.mockResolvedValue(fakeTargetPackage.targetPackage.packageJson);
