@@ -59,10 +59,10 @@
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.11.2",
-		"@alexaegis/ts": "^0.11.2",
-		"@alexaegis/vite": "^0.11.2",
-		"@alexaegis/vitest": "^0.11.2",
+		"@alexaegis/eslint-config-vitest": "^0.11.3",
+		"@alexaegis/ts": "^0.11.3",
+		"@alexaegis/vite": "^0.11.3",
+		"@alexaegis/vitest": "^0.11.3",
 		"@types/node": "^20.12.12",
 		"vite": "^5.2.11",
 		"vitest": "^1.6.0"

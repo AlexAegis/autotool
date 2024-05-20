@@ -63,10 +63,10 @@
 		"semver": "^7.6.2"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.11.2",
-		"@alexaegis/ts": "^0.11.2",
-		"@alexaegis/vite": "^0.11.2",
-		"@alexaegis/vitest": "^0.11.2",
+		"@alexaegis/eslint-config-vitest": "^0.11.3",
+		"@alexaegis/ts": "^0.11.3",
+		"@alexaegis/vite": "^0.11.3",
+		"@alexaegis/vitest": "^0.11.3",
 		"@schemastore/package": "^0.0.10",
 		"@types/node": "^20.12.12",
 		"@types/semver": "^7.5.8",
