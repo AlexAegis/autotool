@@ -25,7 +25,7 @@ vi.mock('fs/promises', () => {
 });
 
 const writeJsonMock = vi.hoisted(() => vi.fn());
-const readJsonMock = vi.hoisted(() => vi.fn<[string], PackageJson>(() => ({ name: 'mock' })));
+const readJsonMock = vi.hoisted(() => vi.fn<(_: string) => PackageJson>(() => ({ name: 'mock' })));
 
 vi.mock('@alexaegis/fs', () => {
 	return {

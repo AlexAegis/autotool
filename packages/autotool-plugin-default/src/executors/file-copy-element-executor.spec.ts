@@ -25,7 +25,7 @@ vi.mock('fs/promises', () => {
 });
 
 const turnIntoExecutableMock = vi.hoisted(() => vi.fn());
-const tryPrettifyMock = vi.hoisted(() => vi.fn<[string], string>((s) => s));
+const tryPrettifyMock = vi.hoisted(() => vi.fn<(_: string) => string>((s) => s));
 
 vi.mock('@alexaegis/fs', () => {
 	return {

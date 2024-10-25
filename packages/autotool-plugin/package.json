@@ -21,25 +21,25 @@
 		"access": "public"
 	},
 	"scripts": {
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --filter autotool-plugin",
 		"lint:depcheck_": "depcheck",
-		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"lint:es": "turbo run lint:es_ --concurrency 16 --filter autotool-plugin",
 		"lint:es_": "eslint --max-warnings=0 --fix --no-error-on-unmatched-pattern .",
-		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"lint:format": "turbo run lint:format_ --concurrency 16 --filter autotool-plugin",
 		"lint:format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check .",
-		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"lint:md": "turbo run lint:md_ --concurrency 16 --filter autotool-plugin",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore .",
-		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --filter autotool-plugin",
 		"lint:tsc_": "tsc --noEmit",
-		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --filter autotool-plugin",
 		"publint_": "publint dist",
-		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"test": "turbo run test_ --concurrency 16 --filter autotool-plugin",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage",
-		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
-		"build": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --filter autotool-plugin",
+		"build": "turbo run build-lib_ --concurrency 16 --filter autotool-plugin",
 		"build-lib_": "vite build",
-		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo --filter autotool-plugin",
+		"format": "turbo run format_ --concurrency 16 --filter autotool-plugin",
 		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --write ."
 	},
 	"exports": {
@@ -53,21 +53,21 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.10.0",
-		"@alexaegis/fs": "^0.10.0",
-		"@alexaegis/logging": "^0.10.0",
-		"@alexaegis/match": "^0.10.0",
-		"@alexaegis/workspace-tools": "^0.10.0"
+		"@alexaegis/common": "^0.10.1",
+		"@alexaegis/fs": "^0.10.1",
+		"@alexaegis/logging": "^0.10.1",
+		"@alexaegis/match": "^0.10.1",
+		"@alexaegis/workspace-tools": "^0.10.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.11.3",
-		"@alexaegis/ts": "^0.11.3",
-		"@alexaegis/vite": "^0.11.3",
-		"@alexaegis/vitest": "^0.11.3",
-		"@types/node": "^20.12.12",
-		"publint": "^0.2.8",
-		"typescript": "^5.4.5",
-		"vite": "^5.2.11",
-		"vitest": "^1.6.0"
+		"@alexaegis/eslint-config-vitest": "^0.11.6",
+		"@alexaegis/ts": "^0.11.6",
+		"@alexaegis/vite": "^0.11.6",
+		"@alexaegis/vitest": "^0.11.6",
+		"@types/node": "^22.8.1",
+		"publint": "^0.2.12",
+		"typescript": "^5.6.3",
+		"vite": "^5.4.10",
+		"vitest": "^2.1.3"
 	}
 }
