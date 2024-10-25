@@ -1,7 +1,7 @@
 {
 	"name": "@autotool/workspace",
 	"description": "Autotool workspace",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"license": "mit",
 	"private": true,
 	"keywords": [
@@ -32,8 +32,8 @@
 		"engine-strict": true
 	},
 	"engines": {
-		"node": ">=20.12.0",
-		"pnpm": ">=9.1.1"
+		"node": ">=20",
+		"pnpm": ">=9"
 	},
 	"packageManager": "pnpm@9.12.2",
 	"workspaces": [
@@ -44,32 +44,32 @@
 		"packages/*"
 	],
 	"scripts": {
-		"lint": "turbo run lint_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint": "turbo run lint_ --concurrency 16",
 		"lint:css": "turbo run lint:css_ --concurrency 32",
-		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16",
 		"lint:depcheck_": "depcheck",
-		"lint:es": "turbo run lint:es_ --concurrency 16 --cache-dir .cache/turbo",
-		"lint:format": "turbo run lint:format_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint:es": "turbo run lint:es_ --concurrency 16",
+		"lint:format": "turbo run lint:format_ --concurrency 16",
 		"lint:format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --ignore-path .config/workspace-only.prettierignore --check .",
-		"lint:md": "turbo run lint:md_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint:md": "turbo run lint:md_ --concurrency 16",
 		"lint:md_": "remark --frail --no-stdout --silently-ignore --ignore-pattern packages --ignore-pattern libs --ignore-pattern apps .",
-		"lint:style": "turbo run lint:style_ --concurrency 16 --cache-dir .cache/turbo",
-		"lint:style:css": "turbo run lint:style:css_ --concurrency 16 --cache-dir .cache/turbo",
-		"lint:style:html": "turbo run lint:style:html_ --concurrency 16 --cache-dir .cache/turbo",
-		"lint:style:scss": "turbo run lint:style:scss_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint:style": "turbo run lint:style_ --concurrency 16",
+		"lint:style:css": "turbo run lint:style:css_ --concurrency 16",
+		"lint:style:html": "turbo run lint:style:html_ --concurrency 16",
+		"lint:style:scss": "turbo run lint:style:scss_ --concurrency 16",
 		"lint:svelte": "turbo run lint:svelte_ --concurrency 16 --cache-dir .cache/turbo",
-		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --cache-dir .cache/turbo",
-		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --cache-dir .cache/turbo",
+		"lint:tsc": "turbo run lint:tsc_ --concurrency 16",
+		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16",
 		"posttest": "turbo run build-lib_ --filter @alexaegis/coverage-tools && merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
-		"test": "turbo run test_ --concurrency 16 --cache-dir .cache/turbo && merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
-		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16 --cache-dir .cache/turbo",
-		"build": "turbo run build-lib_ build-app_ --concurrency 16 --cache-dir .cache/turbo",
-		"build-app": "turbo run build-app_ --concurrency 16 --cache-dir .cache/turbo",
-		"build-lib": "turbo run build-lib_ --concurrency 16 --cache-dir .cache/turbo",
+		"test": "turbo run test_ --concurrency 16 && merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
+		"all": "BUILD_REASON='publish' turbo run all_ --concurrency 16",
+		"build": "turbo run build-lib_ build-app_ --concurrency 16",
+		"build-app": "turbo run build-app_ --concurrency 16",
+		"build-lib": "turbo run build-lib_ --concurrency 16",
 		"docs": "vitepress dev ./docs/",
 		"docs:build": "vitepress build ./docs/",
 		"docs:preview": "vitepress preview ./docs/",
-		"format": "turbo run format_ --concurrency 16 --cache-dir .cache/turbo",
+		"format": "turbo run format_ --concurrency 16",
 		"format_": "prettier --cache-location .cache/prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --ignore-path .config/workspace-only.prettierignore --write .",
 		"merge-coverage": "merge-workspace-lcov-reports && lcov-viewer lcov -o ./coverage ./coverage/lcov.info",
 		"ncu": "ncu --configFilePath ./.config/ && pnpm up",
@@ -81,7 +81,7 @@
 		"release:minor": "commit-and-tag-version --sign --commit-all --release-as minor",
 		"release:patch": "commit-and-tag-version --sign --commit-all --release-as patch",
 		"start": "turbo run start --parallel",
-		"typedoc": "turbo run typedoc_ --concurrency 16 --cache-dir .cache/turbo",
+		"typedoc": "turbo run typedoc_ --concurrency 16",
 		"typedoc_": "typedoc"
 	},
 	"devDependencies": {
