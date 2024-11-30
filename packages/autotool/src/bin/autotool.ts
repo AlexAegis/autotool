@@ -2,7 +2,7 @@ import { YargsBuilder } from '@alexaegis/cli-tools';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import type { AutotoolOptions } from 'autotool-plugin';
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' assert { type: 'json' };
 import { autotool, findInstalledPlugins } from '../index.js';
 import { yargsForAutotool } from '../internal/autotool.function.yargs.js';
 
@@ -23,7 +23,7 @@ void (async () => {
 
 	if (options.listPlugins) {
 		const installedPlugins = await findInstalledPlugins(options);
-		console.info(installedPlugins.join('\n'));
+		options.logger?.info(installedPlugins.join('\n'));
 	} else {
 		await autotool(options);
 	}

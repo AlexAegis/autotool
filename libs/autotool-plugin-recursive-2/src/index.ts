@@ -1,5 +1,5 @@
 import { type AutotoolPlugin, type AutotoolPluginObject } from 'autotool-plugin';
-import packageJson from '../package.json';
+import packageJson from '../package.json' assert { type: 'json' };
 
 export const plugin: AutotoolPlugin = (_options): AutotoolPluginObject => {
 	return {

@@ -51,7 +51,7 @@ Example:
   description: 'Create root prettierrc',
   targetFile: '.prettierrc.cjs',
   packageKind: 'root',
-  sourcePluginPackageName: packageJson.name, // import packageJson from '../package.json';
+  sourcePluginPackageName: packageJson.name, // import packageJson from '../package.json' assert { type: 'json' };
   sourceFile: join('static', 'prettierrc.cjs'), // import { join } from 'node:path';
 },
 ```

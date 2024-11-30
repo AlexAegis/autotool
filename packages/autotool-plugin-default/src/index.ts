@@ -1,5 +1,5 @@
 import type { AutotoolPluginObject, DefaultAutotoolElements } from 'autotool-plugin';
-import packageJson from '../package.json';
+import packageJson from '../package.json' assert { type: 'json' };
 import {
 	autotoolElementCustomExecutor,
 	autotoolElementFileCopyExecutor,
