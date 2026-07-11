@@ -1,8 +1,9 @@
+#!/usr/bin/env node
 import { YargsBuilder } from '@alexaegis/cli-tools';
 import { createLogger } from '@alexaegis/logging';
 import type { PackageJson } from '@alexaegis/workspace-tools';
 import type { AutotoolOptions } from 'autotool-plugin';
-import packageJson from '../../package.json' assert { type: 'json' };
+import packageJson from '../../package.json' with { type: 'json' };
 import { autotool, findInstalledPlugins } from '../index.js';
 import { yargsForAutotool } from '../internal/autotool.function.yargs.js';
 

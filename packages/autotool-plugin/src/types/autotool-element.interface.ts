@@ -63,8 +63,9 @@ export interface UntargetedAutotoolElement<Executor extends string = string> {
 	deprecated?: boolean | undefined;
 }
 
-export interface AutotoolElement<Executor extends string = string>
-	extends UntargetedAutotoolElement<Executor> {
+export interface AutotoolElement<
+	Executor extends string = string,
+> extends UntargetedAutotoolElement<Executor> {
 	/**
 	 * You can define file(s) for an element to operate on.
 	 *

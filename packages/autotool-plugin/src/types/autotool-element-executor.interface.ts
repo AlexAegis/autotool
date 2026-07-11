@@ -107,7 +107,8 @@ export interface AutotoolElementExecutor<Element extends UntargetedAutotoolEleme
 		| undefined;
 }
 
-export interface InternalAutotoolElementExecutor<Element extends UntargetedAutotoolElement>
-	extends AutotoolElementExecutor<Element> {
+export interface InternalAutotoolElementExecutor<
+	Element extends UntargetedAutotoolElement,
+> extends AutotoolElementExecutor<Element> {
 	sourcePlugin: AutotoolPluginObject<Element>;
 }

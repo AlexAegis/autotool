@@ -1,5 +1,5 @@
+import type { Awaitable } from '@alexaegis/common';
 import type { WorkspacePackage } from '@alexaegis/workspace-tools';
-import type { Awaitable } from 'vitest';
 import type { DefaultAutotoolElements } from '../default/index.js';
 import type { NormalizedAutotoolPluginOptions } from '../plugin/index.js';
 import type { AutotoolElementValidator } from '../validator/element-validator.interface.js';
@@ -31,13 +31,14 @@ export interface AutotoolPluginFilter {
 	packageKind?: AutotoolPluginElementPackageTargetKind | undefined;
 }
 
-type ExecutorsOf<Elements extends UntargetedAutotoolElement> =
+export type ExecutorsOf<Elements extends UntargetedAutotoolElement> =
 	Elements extends UntargetedAutotoolElement<infer U>
 		? Record<U, AutotoolElementExecutor<Elements>>
 		: never;
 
-export interface AutotoolPluginObject<Elements extends UntargetedAutotoolElement = never>
-	extends AutotoolPluginFilter {
+export interface AutotoolPluginObject<
+	Elements extends UntargetedAutotoolElement = never,
+> extends AutotoolPluginFilter {
 	/**
 	 * Used to scope logging, it's best to use the name of the package
 	 *

@@ -3,7 +3,7 @@ import {
 	type AutotoolPluginObject,
 	type DefaultAutotoolElements,
 } from 'autotool-plugin';
-import packageJson from '../package.json' assert { type: 'json' };
+import packageJson from '../package.json' with { type: 'json' };
 
 const plugin: AutotoolPlugin = (_options): AutotoolPluginObject<DefaultAutotoolElements> => {
 	return {

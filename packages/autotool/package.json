@@ -16,12 +16,22 @@
 		"autotool",
 		"managed-by-autotool"
 	],
+	"repository": {
+		"url": "git+https://github.com/AlexAegis/autotool.git",
+		"type": "git"
+	},
 	"type": "module",
 	"config": {
 		"engine-strict": false
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"bin": {
+			"autotool": "./dist/bin/autotool.js"
+		}
+	},
+	"engines": {
+		"node": ">=22.6.0"
 	},
 	"scripts": {
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --filter autotool",
@@ -35,7 +45,7 @@
 		"lint:tsc": "turbo run lint:tsc_ --concurrency 16 --filter autotool",
 		"lint:tsc_": "tsc --noEmit",
 		"publint": "BUILD_REASON='publish' turbo run publint_ --concurrency 16 --filter autotool",
-		"publint_": "publint dist",
+		"publint_": "publint",
 		"test": "turbo run test_ --concurrency 16 --filter autotool",
 		"test_": "vitest --passWithNoTests --coverage --run",
 		"test:watch": "vitest --passWithNoTests --coverage",
@@ -59,27 +69,28 @@
 		"autotool": "./shims/autotool.js"
 	},
 	"dependencies": {
-		"@alexaegis/cli-tools": "^0.11.0",
-		"@alexaegis/common": "^0.11.0",
-		"@alexaegis/fs": "^0.11.0",
-		"@alexaegis/logging": "^0.11.0",
-		"@alexaegis/match": "^0.11.0",
-		"@alexaegis/workspace-tools": "^0.11.0",
+		"@alexaegis/cli-tools": "^0.15.4",
+		"@alexaegis/common": "^0.15.4",
+		"@alexaegis/fs": "^0.15.4",
+		"@alexaegis/logging": "^0.15.4",
+		"@alexaegis/match": "^0.15.4",
+		"@alexaegis/workspace-tools": "^0.15.4",
 		"autotool-plugin": "workspace:^",
 		"autotool-plugin-default": "workspace:^",
-		"globby": "^14.0.2",
-		"microdiff": "^1.4.0"
+		"globby": "^16.2.1",
+		"microdiff": "^1.5.0"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.12.0",
-		"@alexaegis/ts": "^0.12.0",
-		"@alexaegis/vite": "^0.12.0",
-		"@alexaegis/vitest": "^0.12.0",
-		"@types/node": "^22.10.1",
-		"@types/yargs": "17.0.33",
-		"publint": "^0.2.12",
-		"typescript": "^5.7.2",
-		"vite": "^6.0.1",
-		"vitest": "^2.1.6"
+		"@alexaegis/eslint-config-vitest": "^0.15.4",
+		"@alexaegis/ts": "^0.15.4",
+		"@alexaegis/vite": "^0.15.4",
+		"@alexaegis/vitest": "^0.15.4",
+		"@types/node": "^26.1.1",
+		"@types/yargs": "17.0.35",
+		"publint": "^0.3.21",
+		"typescript": "^6.0.2",
+		"vite": "^8.1.4",
+		"vite-plugin-dts": "^5.0.3",
+		"vitest": "^4.1.10"
 	}
 }

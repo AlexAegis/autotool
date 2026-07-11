@@ -1,9 +1,9 @@
+import type { Awaitable } from '@alexaegis/common';
 import { asyncMap } from '@alexaegis/common';
 import type { RootWorkspacePackage } from '@alexaegis/workspace-tools';
 import type { NormalizedAutotoolOptions } from 'autotool-plugin';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import type { Awaitable } from 'vitest';
 
 export type PackageManagerName = 'npm' | 'pnpm' | 'yarn';
 

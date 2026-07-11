@@ -13,12 +13,19 @@
 		"tsconfig",
 		"typescript"
 	],
+	"repository": {
+		"url": "git+https://github.com/AlexAegis/autotool.git",
+		"type": "git"
+	},
 	"type": "module",
 	"config": {
 		"engine-strict": false
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"engines": {
+		"node": ">=22.6.0"
 	},
 	"scripts": {
 		"lint:depcheck": "turbo run lint:depcheck_ --concurrency 16 --filter autotool-plugin-example-2",
@@ -53,18 +60,18 @@
 	},
 	"dependencies": {
 		"autotool-plugin": "workspace:^",
-		"typescript": "^5.7.2"
+		"typescript": "^6.0.2"
 	},
 	"peerDependencies": {
 		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.12.0",
-		"@alexaegis/ts": "^0.12.0",
-		"@alexaegis/vite": "^0.12.0",
-		"@alexaegis/vitest": "^0.12.0",
-		"@types/node": "^22.10.1",
-		"vite": "^6.0.1",
-		"vitest": "^2.1.6"
+		"@alexaegis/eslint-config-vitest": "^0.15.4",
+		"@alexaegis/ts": "^0.15.4",
+		"@alexaegis/vite": "^0.15.4",
+		"@alexaegis/vitest": "^0.15.4",
+		"@types/node": "^26.1.1",
+		"vite": "^8.1.4",
+		"vitest": "^4.1.10"
 	}
 }
