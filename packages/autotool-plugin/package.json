@@ -22,8 +22,21 @@
 		"engine-strict": false
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"import": "./dist/index.js",
+				"require": "./dist/index.cjs",
+				"default": "./dist/index.js"
+			},
+			"./package.json": "./package.json",
+			"./readme": "./readme.md"
+		}
 	},
+	"files": [
+		"dist"
+	],
 	"engines": {
 		"node": ">=22.6.0"
 	},
