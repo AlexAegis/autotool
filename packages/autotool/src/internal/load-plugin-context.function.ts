@@ -1,10 +1,10 @@
 import { type WorkspacePackage } from '@alexaegis/workspace-tools';
 import {
+	discoverPackageManager,
 	type AutotoolElement,
 	type AutotoolPluginObject,
 	type NormalizedAutotoolOptions,
 } from 'autotool-plugin';
-import { discoverPackageManager } from '../../../autotool-plugin/src/helpers/discover-package-manager.function.js';
 import { createExecutorMap } from '../helpers/create-executor-map.function.js';
 import { isRootWorkspacePackage } from '../helpers/is-root-workspace-package.function.js';
 import type { AutotoolContext } from './autotool-context.type.js';

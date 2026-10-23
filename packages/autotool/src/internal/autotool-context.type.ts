@@ -4,8 +4,8 @@ import type {
 	AutotoolElementValidator,
 	AutotoolPluginObject,
 	ExecutorMap,
+	PackageManager,
 } from 'autotool-plugin';
-import type { PackageManager } from '../../../autotool-plugin/src/helpers/discover-package-manager.function.js';
 
 export interface AutotoolContext<Elements extends AutotoolElement = AutotoolElement> {
 	plugins: AutotoolPluginObject<Elements>[];

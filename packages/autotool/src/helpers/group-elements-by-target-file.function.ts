@@ -2,11 +2,11 @@ import type { NormalizedLoggerOption } from '@alexaegis/logging';
 import type {
 	AutotoolElement,
 	ExecutorMap,
+	PackageManager,
 	PackageResolvedElement,
 	WorkspacePackage,
 	WorkspacePackageElementsByTarget,
 } from 'autotool-plugin';
-import type { PackageManager } from '../../../autotool-plugin/src/helpers/discover-package-manager.function.js';
 import type { WorkspacePackageWithElements } from '../internal/types.js';
 import { consolidateElementsAndFilterOutNonExecutables } from './consolidate-elements.function.js';
 import { mapRecord } from './map-record.function.js';
