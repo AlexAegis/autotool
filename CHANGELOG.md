@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.8.1](https://github.com/AlexAegis/autotool/compare/v0.8.0...v0.8.1) (2026-10-24)
+
+### Bug Fixes
+
+* **autotool:** import the package manager helpers from autotool-plugin ([219787b](https://github.com/AlexAegis/autotool/commit/219787b0d3864c2388db240dc13c275d191abf2f))
+* publish only dist and point types to its declarations ([ac7d6a0](https://github.com/AlexAegis/autotool/commit/ac7d6a00b892570554ca78215ba5e9711c026b93))
+
 ## [0.8.0](https://github.com/AlexAegis/autotool/compare/v0.7.0...v0.8.0) (2026-07-11)
 
 ## [0.7.0](https://github.com/AlexAegis/autotool/compare/v0.6.2...v0.7.0) (2024-11-30)
