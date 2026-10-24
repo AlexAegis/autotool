@@ -74,19 +74,19 @@
 		"./readme": "./readme.md"
 	},
 	"dependencies": {
-		"@alexaegis/common": "^0.16.0",
-		"@alexaegis/fs": "^0.16.0",
-		"@alexaegis/logging": "^0.16.0",
-		"@alexaegis/workspace-tools": "^0.16.0",
+		"@alexaegis/common": "^0.16.1",
+		"@alexaegis/fs": "^0.16.1",
+		"@alexaegis/logging": "^0.16.1",
+		"@alexaegis/workspace-tools": "^0.16.1",
 		"autotool-plugin": "workspace:^",
 		"minimatch": "^10.2.6",
 		"semver": "^7.8.5"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.16.0",
-		"@alexaegis/ts": "^0.16.0",
-		"@alexaegis/vite": "^0.16.0",
-		"@alexaegis/vitest": "^0.16.0",
+		"@alexaegis/eslint-config-vitest": "^0.16.1",
+		"@alexaegis/ts": "^0.16.1",
+		"@alexaegis/vite": "^0.16.1",
+		"@alexaegis/vitest": "^0.16.1",
 		"@schemastore/package": "^1.0.5",
 		"@types/node": "^26.6.5",
 		"@types/semver": "^7.8.0",

@@ -62,11 +62,11 @@
 		"autotool-plugin": "workspace:^"
 	},
 	"devDependencies": {
-		"@alexaegis/eslint-config-vitest": "^0.16.0",
-		"@alexaegis/logging": "^0.16.0",
-		"@alexaegis/ts": "^0.16.0",
-		"@alexaegis/vite": "^0.16.0",
-		"@alexaegis/vitest": "^0.16.0",
+		"@alexaegis/eslint-config-vitest": "^0.16.1",
+		"@alexaegis/logging": "^0.16.1",
+		"@alexaegis/ts": "^0.16.1",
+		"@alexaegis/vite": "^0.16.1",
+		"@alexaegis/vitest": "^0.16.1",
 		"@types/node": "^26.6.5",
 		"typescript": "^6.0.2",
 		"vite": "^8.3.5",
