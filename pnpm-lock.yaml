@@ -204,8 +204,8 @@ importers:
         specifier: ^0.16.1
         version: 0.16.1
       '@alexaegis/autotool-plugin-git':
-        specifier: ^0.16.1
-        version: 0.16.1
+        specifier: ^0.18.0
+        version: 0.18.0
       '@alexaegis/autotool-plugin-github':
         specifier: ^0.16.1
         version: 0.16.1
@@ -691,9 +691,9 @@ packages:
     resolution: {integrity: sha512-ItrGmQMA3WffrrPcBMpKCImEY+NiX33zOgtK5bexRNU1dUwzhz5l0aI/QS3TSkYqJYKFTtYeuZC8DvMV9o4+Lw==}
     engines: {node: '>=22.6.0'}
 
-  '@alexaegis/autotool-plugin-git@0.16.1':
-    resolution: {integrity: sha512-V3n70M1lXtBd7NJ61Tw3F++QkhQCHXY8NCb2TMKrGzkkoy829rBwd9rc73KZmsB7bl7NrTUFGucW4pLA0oIVOg==}
-    engines: {node: '>=22.6.0'}
+  '@alexaegis/autotool-plugin-git@0.18.0':
+    resolution: {integrity: sha512-q1kWdqtkbp4GvZdc06BQKL1i+7JaIWOc97V3cKquqor740UY2OEE402T3HcX35W1eUHhrLKDvhY6juZ52Psu4g==}
+    engines: {node: '>=24.0.0'}
 
   '@alexaegis/autotool-plugin-github@0.16.1':
     resolution: {integrity: sha512-fx0mYOQijLY1THy4e+/6NX44WKSysnBTV1a6sWOEqcQTV6v4RUQwUqPsPBXb7pIMHjMpW/8z9v19bYSoz7v57A==}
@@ -779,6 +779,10 @@ packages:
     resolution: {integrity: sha512-Crq8RqEnSba0vVmQMMT1BDzOX6ASOLzG7eHC+Ns1hc8DUeOgWOtEmAGX8R/2miqCb3X0nerJ/yAq40G9F7zCKw==}
     engines: {node: '>=22.6.0'}
 
+  '@alexaegis/common@0.18.0':
+    resolution: {integrity: sha512-ft2wL264B8okf0FG/zLG0b6lA0DYuwsaio/kBIU6pHUjY+PbEGyfVrasixnz/d24iyCsKaEN0z69DcUbp7KMow==}
+    engines: {node: '>=24.0.0'}
+
   '@alexaegis/coverage-tools@0.16.1':
     resolution: {integrity: sha512-WiIp0UfNlfbjOorfg7Q73v2jjBcefziJ07eA9pV4PoSNebEzRKQN2zv+royvFNFaeAUzM3HunOFzvGkBOjtZEQ==}
     engines: {node: '>=22.6.0'}
@@ -811,6 +815,10 @@ packages:
   '@alexaegis/logging@0.16.1':
     resolution: {integrity: sha512-TdtOWwf5dvQzVm4i90bBA5adXJNfo0uGWN/r7HIeH2h7fAzQmqGvD+ofeh+8FW+FmFo08b1/ht6n+Bmo0KjAVA==}
     engines: {node: '>=22.6.0'}
+
+  '@alexaegis/logging@0.18.0':
+    resolution: {integrity: sha512-s6hZjbCzwImGl5/ZKMAI4Unpe6lkbk33q58Mu+YeIAM+AOYk7yGB2864ECL2ZGm6zopdmQ2lPtM2GcejdPkMeg==}
+    engines: {node: '>=24.0.0'}
 
   '@alexaegis/match@0.15.6':
     resolution: {integrity: sha512-Al3N147J9oHMKNYBvVWQKAMmFTjYNSWP+MvEDdcnfjcozc5RWTx7IQbmEW2VQzIwVmGbtIpiz5wm837f7aFXdg==}
@@ -5066,9 +5074,9 @@ snapshots:
       '@alexaegis/predicate': 0.16.1
       autotool-plugin: 0.8.0
 
-  '@alexaegis/autotool-plugin-git@0.16.1':
+  '@alexaegis/autotool-plugin-git@0.18.0':
     dependencies:
-      '@alexaegis/logging': 0.16.1
+      '@alexaegis/logging': 0.18.0
       autotool-plugin: 0.8.0
 
   '@alexaegis/autotool-plugin-github@0.16.1':
@@ -5237,6 +5245,8 @@ snapshots:
 
   '@alexaegis/common@0.16.1': {}
 
+  '@alexaegis/common@0.18.0': {}
+
   '@alexaegis/coverage-tools@0.16.1':
     dependencies:
       '@alexaegis/common': 0.16.1
@@ -5306,6 +5316,11 @@ snapshots:
   '@alexaegis/logging@0.16.1':
     dependencies:
       '@alexaegis/common': 0.16.1
+      tslog: 5.4.0
+
+  '@alexaegis/logging@0.18.0':
+    dependencies:
+      '@alexaegis/common': 0.18.0
       tslog: 5.4.0
 
   '@alexaegis/match@0.15.6': {}
